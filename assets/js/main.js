@@ -1,0 +1,920 @@
+jQuery(document).ready(function($){
+	//variables
+	var hijacking= $('body').data('hijacking'),
+		animationType = $('body').data('animation'),
+		delta = 0,
+        scrollThreshold = 5,
+        actual = 1,
+        animating = false;
+    
+    //DOM elements
+    var sectionsAvailable = $('.cd-section'),
+    	verticalNav = $('.cd-vertical-nav'),
+    	prevArrow = verticalNav.find('a.cd-prev'),
+    	nextArrow = verticalNav.find('a.cd-next');
+
+	
+	//check the media query and bind corresponding events
+	var MQ = deviceType(),
+		bindToggle = false;
+	
+	bindEvents(MQ, true);
+	
+	$(window).on('resize', function(){
+		MQ = deviceType();
+		bindEvents(MQ, bindToggle);
+		if( MQ == 'mobile' ) bindToggle = true;
+		if( MQ == 'desktop' ) bindToggle = false;
+	});
+
+    function bindEvents(MQ, bool) {
+    	
+    	if( MQ == 'desktop' && bool) {   		
+    		//bind the animation to the window scroll event, arrows click and keyboard
+			if( hijacking == 'on' ) {
+				initHijacking();
+				$(window).on('DOMMouseScroll mousewheel', scrollHijacking);
+			} else {
+				scrollAnimation();
+				$(window).on('scroll', scrollAnimation);
+			}
+			prevArrow.on('click', prevSection);
+    		nextArrow.on('click', nextSection);
+    		
+    		$(document).on('keydown', function(event){
+				if( event.which=='40' && !nextArrow.hasClass('inactive') ) {
+					event.preventDefault();
+					nextSection();
+				} else if( event.which=='38' && (!prevArrow.hasClass('inactive') || (prevArrow.hasClass('inactive') && $(window).scrollTop() != sectionsAvailable.eq(0).offset().top) ) ) {
+					event.preventDefault();
+					prevSection();
+				}
+			});
+			//set navigation arrows visibility
+			checkNavigation();
+		} else if( MQ == 'mobile' ) {
+			//reset and unbind
+			resetSectionStyle();
+			$(window).off('DOMMouseScroll mousewheel', scrollHijacking);
+			$(window).off('scroll', scrollAnimation);
+			prevArrow.off('click', prevSection);
+    		nextArrow.off('click', nextSection);
+    		$(document).off('keydown');
+		}
+    }
+
+	function scrollAnimation(){
+		//normal scroll - use requestAnimationFrame (if defined) to optimize performance
+		(!window.requestAnimationFrame) ? animateSection() : window.requestAnimationFrame(animateSection);
+	}
+
+	function animateSection() {
+		var scrollTop = $(window).scrollTop(),
+			windowHeight = $(window).height(),
+			windowWidth = $(window).width();
+		
+		sectionsAvailable.each(function(){
+			var actualBlock = $(this),
+				offset = scrollTop - actualBlock.offset().top;
+
+			//according to animation type and window scroll, define animation parameters
+			var animationValues = setSectionAnimation(offset, windowHeight, animationType);
+			
+			transformSection(actualBlock.children('div'), animationValues[0], animationValues[1], animationValues[2], animationValues[3], animationValues[4]);
+			( offset >= 0 && offset < windowHeight ) ? actualBlock.addClass('visible') : actualBlock.removeClass('visible');		
+		});
+		
+		checkNavigation();
+	}
+
+	function transformSection(element, translateY, scaleValue, rotateXValue, opacityValue, boxShadow) {
+		//transform sections - normal scroll
+		element.velocity({
+			translateY: translateY+'vh',
+			scale: scaleValue,
+			rotateX: rotateXValue,
+			opacity: opacityValue,
+			boxShadowBlur: boxShadow+'px',
+			translateZ: 0,
+		}, 0);
+	}
+
+	function initHijacking() {
+		// initialize section style - scrollhijacking
+		var visibleSection = sectionsAvailable.filter('.visible'),
+			topSection = visibleSection.prevAll('.cd-section'),
+			bottomSection = visibleSection.nextAll('.cd-section'),
+			animationParams = selectAnimation(animationType, false),
+			animationVisible = animationParams[0],
+			animationTop = animationParams[1],
+			animationBottom = animationParams[2];
+
+		visibleSection.children('div').velocity(animationVisible, 1, function(){
+			visibleSection.css('opacity', 1);
+	    	topSection.css('opacity', 1);
+	    	bottomSection.css('opacity', 1);
+		});
+        topSection.children('div').velocity(animationTop, 0);
+        bottomSection.children('div').velocity(animationBottom, 0);
+	}
+
+	function scrollHijacking (event) {
+		// on mouse scroll - check if animate section
+        if (event.originalEvent.detail < 0 || event.originalEvent.wheelDelta > 0) { 
+            delta--;
+            ( Math.abs(delta) >= scrollThreshold) && prevSection();
+        } else {
+            delta++;
+            (delta >= scrollThreshold) && nextSection();
+        }
+        return false;
+    }
+
+    function prevSection(event) {
+    	//go to previous section
+    	typeof event !== 'undefined' && event.preventDefault();
+    	
+    	var visibleSection = sectionsAvailable.filter('.visible'),
+    		middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
+    	visibleSection = middleScroll ? visibleSection.next('.cd-section') : visibleSection;
+
+    	var animationParams = selectAnimation(animationType, middleScroll, 'prev');
+    	unbindScroll(visibleSection.prev('.cd-section'), animationParams[3]);
+
+        if( !animating && !visibleSection.is(":first-child") ) {
+        	animating = true;
+            visibleSection.removeClass('visible').children('div').velocity(animationParams[2], animationParams[3], animationParams[4])
+            .end().prev('.cd-section').addClass('visible').children('div').velocity(animationParams[0] , animationParams[3], animationParams[4], function(){
+            	animating = false;
+            	if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
+            });
+            
+            actual = actual - 1;
+        }
+
+        resetScroll();
+    }
+
+    function nextSection(event) {
+    	//go to next section
+    	typeof event !== 'undefined' && event.preventDefault();
+
+        var visibleSection = sectionsAvailable.filter('.visible'),
+    		middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
+
+    	var animationParams = selectAnimation(animationType, middleScroll, 'next');
+    	unbindScroll(visibleSection.next('.cd-section'), animationParams[3]);
+
+        if(!animating && !visibleSection.is(":last-of-type") ) {
+            animating = true;
+            visibleSection.removeClass('visible').children('div').velocity(animationParams[1], animationParams[3], animationParams[4] )
+            .end().next('.cd-section').addClass('visible').children('div').velocity(animationParams[0], animationParams[3], animationParams[4], function(){
+            	animating = false;
+            	if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
+            });
+
+            actual = actual +1;
+        }
+        resetScroll();
+    }
+
+    function unbindScroll(section, time) {
+    	//if clicking on navigation - unbind scroll and animate using custom velocity animation
+    	if( hijacking == 'off') {
+    		$(window).off('scroll', scrollAnimation);
+    		( animationType == 'catch') ? $('body, html').scrollTop(section.offset().top) : section.velocity("scroll", { duration: time });
+    	}
+    }
+
+    function resetScroll() {
+        delta = 0;
+        checkNavigation();
+    }
+
+    function checkNavigation() {
+    	//update navigation arrows visibility
+		( sectionsAvailable.filter('.visible').is(':first-of-type') ) ? prevArrow.addClass('inactive') : prevArrow.removeClass('inactive');
+		( sectionsAvailable.filter('.visible').is(':last-of-type')  ) ? nextArrow.addClass('inactive') : nextArrow.removeClass('inactive');
+	}
+
+	function resetSectionStyle() {
+		//on mobile - remove style applied with jQuery
+		sectionsAvailable.children('div').each(function(){
+			$(this).attr('style', '');
+		});
+	}
+
+	function deviceType() {
+		//detect if desktop/mobile
+		return window.getComputedStyle(document.querySelector('body'), '::before').getPropertyValue('content').replace(/"/g, "").replace(/'/g, "");
+	}
+
+	function selectAnimation(animationName, middleScroll, direction) {
+		// select section animation - scrollhijacking
+		var animationVisible = 'translateNone',
+			animationTop = 'translateUp',
+			animationBottom = 'translateDown',
+			easing = 'ease',
+			animDuration = 800;
+
+		switch(animationName) {
+		    case 'scaleDown':
+		    	animationTop = 'scaleDown';
+		    	easing = 'easeInCubic';
+		        break;
+		    case 'rotate':
+		    	if( hijacking == 'off') {
+		    		animationTop = 'rotation.scroll';
+		    		animationBottom = 'translateNone';
+		    	} else {
+		    		animationTop = 'rotation';
+		    		easing = 'easeInCubic';
+		    	}
+		        break;
+		    case 'gallery':
+		    	animDuration = 1500;
+		    	if( middleScroll ) {
+		    		animationTop = 'scaleDown.moveUp.scroll';
+		    		animationVisible = 'scaleUp.moveUp.scroll';
+		    		animationBottom = 'scaleDown.moveDown.scroll';
+		    	} else {
+		    		animationVisible = (direction == 'next') ? 'scaleUp.moveUp' : 'scaleUp.moveDown';
+					animationTop = 'scaleDown.moveUp';
+					animationBottom = 'scaleDown.moveDown';
+		    	}
+		        break;
+		    case 'catch':
+		    	animationVisible = 'translateUp.delay';
+		        break;
+		    case 'opacity':
+		    	animDuration = 700;
+				animationTop = 'hide.scaleUp';
+				animationBottom = 'hide.scaleDown';
+		        break;
+		    case 'fixed':
+		    	animationTop = 'translateNone';
+		    	easing = 'easeInCubic';
+		        break;
+		    case 'parallax':
+		    	animationTop = 'translateUp.half';
+		    	easing = 'easeInCubic';
+		        break;
+		}
+
+		return [animationVisible, animationTop, animationBottom, animDuration, easing];
+	}
+
+	function setSectionAnimation(sectionOffset, windowHeight, animationName ) {
+		// select section animation - normal scroll
+		var scale = 1,
+			translateY = 100,
+			rotateX = '0deg',
+			opacity = 1,
+			boxShadowBlur = 0;
+		
+		if( sectionOffset >= -windowHeight && sectionOffset <= 0 ) {
+			// section entering the viewport
+			translateY = (-sectionOffset)*100/windowHeight;
+			
+			switch(animationName) {
+			    case 'scaleDown':
+			        scale = 1;
+					opacity = 1;
+					break;
+				case 'rotate':
+					translateY = 0;
+					break;
+				case 'gallery':
+			        if( sectionOffset>= -windowHeight &&  sectionOffset< -0.9*windowHeight ) {
+			        	scale = -sectionOffset/windowHeight;
+			        	translateY = (-sectionOffset)*100/windowHeight;
+			        	boxShadowBlur = 400*(1+sectionOffset/windowHeight);
+			        } else if( sectionOffset>= -0.9*windowHeight &&  sectionOffset< -0.1*windowHeight) {
+			        	scale = 0.9;
+			        	translateY = -(9/8)*(sectionOffset+0.1*windowHeight)*100/windowHeight;
+			        	boxShadowBlur = 40;
+			        } else {
+			        	scale = 1 + sectionOffset/windowHeight;
+			        	translateY = 0;
+			        	boxShadowBlur = -400*sectionOffset/windowHeight;
+			        }
+					break;
+				case 'catch':
+			        if( sectionOffset>= -windowHeight &&  sectionOffset< -0.75*windowHeight ) {
+			        	translateY = 100;
+			        	boxShadowBlur = (1 + sectionOffset/windowHeight)*160;
+			        } else {
+			        	translateY = -(10/7.5)*sectionOffset*100/windowHeight;
+			        	boxShadowBlur = -160*sectionOffset/(3*windowHeight);
+			        }
+					break;
+				case 'opacity':
+					translateY = 0;
+			        scale = (sectionOffset + 5*windowHeight)*0.2/windowHeight;
+			        opacity = (sectionOffset + windowHeight)/windowHeight;
+					break;
+			}
+
+		} else if( sectionOffset > 0 && sectionOffset <= windowHeight ) {
+			//section leaving the viewport - still has the '.visible' class
+			translateY = (-sectionOffset)*100/windowHeight;
+			
+			switch(animationName) {
+			    case 'scaleDown':
+			        scale = (1 - ( sectionOffset * 0.3/windowHeight)).toFixed(5);
+					opacity = ( 1 - ( sectionOffset/windowHeight) ).toFixed(5);
+					translateY = 0;
+					boxShadowBlur = 40*(sectionOffset/windowHeight);
+
+					break;
+				case 'rotate':
+					opacity = ( 1 - ( sectionOffset/windowHeight) ).toFixed(5);
+					rotateX = sectionOffset*90/windowHeight + 'deg';
+					translateY = 0;
+					break;
+				case 'gallery':
+			        if( sectionOffset >= 0 && sectionOffset < 0.1*windowHeight ) {
+			        	scale = (windowHeight - sectionOffset)/windowHeight;
+			        	translateY = - (sectionOffset/windowHeight)*100;
+			        	boxShadowBlur = 400*sectionOffset/windowHeight;
+			        } else if( sectionOffset >= 0.1*windowHeight && sectionOffset < 0.9*windowHeight ) {
+			        	scale = 0.9;
+			        	translateY = -(9/8)*(sectionOffset - 0.1*windowHeight/9)*100/windowHeight;
+			        	boxShadowBlur = 40;
+			        } else {
+			        	scale = sectionOffset/windowHeight;
+			        	translateY = -100;
+			        	boxShadowBlur = 400*(1-sectionOffset/windowHeight);
+			        }
+					break;
+				case 'catch':
+					if(sectionOffset>= 0 &&  sectionOffset< windowHeight/2) {
+						boxShadowBlur = sectionOffset*80/windowHeight;
+					} else {
+						boxShadowBlur = 80*(1 - sectionOffset/windowHeight);
+					} 
+					break;
+				case 'opacity':
+					translateY = 0;
+			        scale = (sectionOffset + 5*windowHeight)*0.2/windowHeight;
+			        opacity = ( windowHeight - sectionOffset )/windowHeight;
+					break;
+				case 'fixed':
+					translateY = 0;
+					break;
+				case 'parallax':
+					translateY = (-sectionOffset)*50/windowHeight;
+					break;
+
+			}
+
+		} else if( sectionOffset < -windowHeight ) {
+			//section not yet visible
+			translateY = 100;
+
+			switch(animationName) {
+			    case 'scaleDown':
+			        scale = 1;
+					opacity = 1;
+					break;
+				case 'gallery':
+			        scale = 1;
+					break;
+				case 'opacity':
+					translateY = 0;
+			        scale = 0.8;
+			        opacity = 0;
+					break;
+			}
+
+		} else {
+			//section not visible anymore
+			translateY = -100;
+
+			switch(animationName) {
+			    case 'scaleDown':
+			        scale = 0;
+					opacity = 0.7;
+					translateY = 0;
+					break;
+				case 'rotate':
+					translateY = 0;
+			        rotateX = '90deg';
+			        break;
+			    case 'gallery':
+			        scale = 1;
+					break;
+				case 'opacity':
+					translateY = 0;
+			        scale = 1.2;
+			        opacity = 0;
+					break;
+				case 'fixed':
+					translateY = 0;
+					break;
+				case 'parallax':
+					translateY = -50;
+					break;
+			}
+		}
+
+		return [translateY, scale, rotateX, opacity, boxShadowBlur]; 
+	}
+});
+
+/* Custom effects registration - feature available in the Velocity UI pack */
+//none
+$.Velocity
+    .RegisterEffect("translateUp", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { translateY: '-100%'}, 1]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("translateDown", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { translateY: '100%'}, 1]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("translateNone", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { translateY: '0', opacity: '1', scale: '1', rotateX: '0', boxShadowBlur: '0'}, 1]
+        ]
+    });
+
+//scale down
+$.Velocity
+    .RegisterEffect("scaleDown", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { opacity: '0', scale: '0.7', boxShadowBlur: '40px' }, 1]
+        ]
+    });
+//rotation
+$.Velocity
+    .RegisterEffect("rotation", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { opacity: '0', rotateX: '90', translateY: '-100%'}, 1]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("rotation.scroll", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { opacity: '0', rotateX: '90', translateY: '0'}, 1]
+        ]
+    });
+//gallery
+$.Velocity
+    .RegisterEffect("scaleDown.moveUp", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '-10%', scale: '0.9', boxShadowBlur: '40px'}, 0.20 ],
+        	[ { translateY: '-100%' }, 0.60 ],
+        	[ { translateY: '-100%', scale: '1', boxShadowBlur: '0' }, 0.20 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("scaleDown.moveUp.scroll", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '-100%', scale: '0.9', boxShadowBlur: '40px' }, 0.60 ],
+        	[ { translateY: '-100%', scale: '1', boxShadowBlur: '0' }, 0.40 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("scaleUp.moveUp", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '90%', scale: '0.9', boxShadowBlur: '40px' }, 0.20 ],
+        	[ { translateY: '0%' }, 0.60 ],
+        	[ { translateY: '0%', scale: '1', boxShadowBlur: '0'}, 0.20 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("scaleUp.moveUp.scroll", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '0%', scale: '0.9' , boxShadowBlur: '40px' }, 0.60 ],
+        	[ { translateY: '0%', scale: '1', boxShadowBlur: '0'}, 0.40 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("scaleDown.moveDown", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '10%', scale: '0.9', boxShadowBlur: '40px'}, 0.20 ],
+        	[ { translateY: '100%' }, 0.60 ],
+        	[ { translateY: '100%', scale: '1', boxShadowBlur: '0'}, 0.20 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("scaleDown.moveDown.scroll", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '100%', scale: '0.9', boxShadowBlur: '40px' }, 0.60 ],
+        	[ { translateY: '100%', scale: '1', boxShadowBlur: '0' }, 0.40 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("scaleUp.moveDown", {
+    	defaultDuration: 1,
+        calls: [ 
+        	[ { translateY: '-90%', scale: '0.9', boxShadowBlur: '40px' }, 0.20 ],
+        	[ { translateY: '0%' }, 0.60 ],
+        	[ { translateY: '0%', scale: '1', boxShadowBlur: '0'}, 0.20 ]
+        ]
+    });
+//catch up
+$.Velocity
+    .RegisterEffect("translateUp.delay", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { translateY: '0%'}, 0.8, { delay: 100 }],
+        ]
+    });
+//opacity
+$.Velocity
+    .RegisterEffect("hide.scaleUp", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { opacity: '0', scale: '1.2'}, 1 ]
+        ]
+    });
+$.Velocity
+    .RegisterEffect("hide.scaleDown", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { opacity: '0', scale: '0.8'}, 1 ]
+        ]
+    });
+//parallax
+$.Velocity
+    .RegisterEffect("translateUp.half", {
+    	defaultDuration: 1,
+        calls: [ 
+            [ { translateY: '-50%'}, 1]
+        ]
+    });
+
+
+	// CARROUSEL DE CARDS ------- //
+
+	const wrapper = document.querySelector(".wrapper");
+
+const boxes = gsap.utils.toArray(".box");
+
+let activeElement;
+const loop = horizontalLoop(boxes, {
+  paused: true, 
+  draggable: true, // make it draggable
+  center: true, // active element is the one in the center of the container rather than th left edge
+  onChange: (element, index) => { // when the active element changes, this function gets called.
+    activeElement && activeElement.classList.remove("active");
+    element.classList.add("active");
+    activeElement = element;
+  }
+});
+
+boxes.forEach((box, i) => box.addEventListener("click", () => loop.toIndex(i, {duration: 0.8, ease: "power1.inOut"})));
+
+document.querySelector(".toggle").addEventListener("click", () => wrapper.classList.toggle("show-overflow"));
+document.querySelector(".next").addEventListener("click", () => loop.next({duration: 0.4, ease: "power1.inOut"}));
+document.querySelector(".prev").addEventListener("click", () => loop.previous({duration: 0.4, ease: "power1.inOut"}));
+
+
+
+
+/*
+This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
+
+Features:
+ - Uses xPercent so that even if the widths change (like if the window gets resized), it should still work in most cases.
+ - When each item animates to the left or right enough, it will loop back to the other side
+ - Optionally pass in a config object with values like draggable: true, center: true, speed (default: 1, which travels at roughly 100 pixels per second), paused (boolean), repeat, reversed, and paddingRight.
+ - The returned timeline will have the following methods added to it:
+   - next() - animates to the next element using a timeline.tweenTo() which it returns. You can pass in a vars object to control duration, easing, etc.
+   - previous() - animates to the previous element using a timeline.tweenTo() which it returns. You can pass in a vars object to control duration, easing, etc.
+   - toIndex() - pass in a zero-based index value of the element that it should animate to, and optionally pass in a vars object to control duration, easing, etc. Always goes in the shortest direction
+   - current() - returns the current index (if an animation is in-progress, it reflects the final index)
+   - times - an Array of the times on the timeline where each element hits the "starting" spot.
+ */
+function horizontalLoop(items, config) {
+  let timeline;
+  items = gsap.utils.toArray(items);
+  config = config || {};
+  gsap.context(() => { // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
+    let onChange = config.onChange,
+      lastIndex = 0,
+      tl = gsap.timeline({repeat: config.repeat, onUpdate: onChange && function() {
+          let i = tl.closestIndex();
+          if (lastIndex !== i) {
+            lastIndex = i;
+            onChange(items[i], i);
+          }
+        }, paused: config.paused, defaults: {ease: "none"}, onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)}),
+      length = items.length,
+      startX = items[0].offsetLeft,
+      times = [],
+      widths = [],
+      spaceBefore = [],
+      xPercents = [],
+      curIndex = 0,
+      indexIsDirty = false,
+      center = config.center,
+      pixelsPerSecond = (config.speed || 1) * 100,
+      snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
+      timeOffset = 0,
+      container = center === true ? items[0].parentNode : gsap.utils.toArray(center)[0] || items[0].parentNode,
+      totalWidth,
+      getTotalWidth = () => items[length-1].offsetLeft + xPercents[length-1] / 100 * widths[length-1] - startX + spaceBefore[0] + items[length-1].offsetWidth * gsap.getProperty(items[length-1], "scaleX") + (parseFloat(config.paddingRight) || 0),
+      populateWidths = () => {
+        let b1 = container.getBoundingClientRect(), b2;
+        items.forEach((el, i) => {
+          widths[i] = parseFloat(gsap.getProperty(el, "width", "px"));
+          xPercents[i] = snap(parseFloat(gsap.getProperty(el, "x", "px")) / widths[i] * 100 + gsap.getProperty(el, "xPercent"));
+          b2 = el.getBoundingClientRect();
+          spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
+          b1 = b2;
+        });
+        gsap.set(items, { // convert "x" to "xPercent" to make things responsive, and populate the widths/xPercents Arrays to make lookups faster.
+          xPercent: i => xPercents[i]
+        });
+        totalWidth = getTotalWidth();
+      },
+      timeWrap,
+      populateOffsets = () => {
+        timeOffset = center ? tl.duration() * (container.offsetWidth / 2) / totalWidth : 0;
+        center && times.forEach((t, i) => {
+          times[i] = timeWrap(tl.labels["label" + i] + tl.duration() * widths[i] / 2 / totalWidth - timeOffset);
+        });
+      },
+      getClosest = (values, value, wrap) => {
+        let i = values.length,
+          closest = 1e10,
+          index = 0, d;
+        while (i--) {
+          d = Math.abs(values[i] - value);
+          if (d > wrap / 2) {
+            d = wrap - d;
+          }
+          if (d < closest) {
+            closest = d;
+            index = i;
+          }
+        }
+        return index;
+      },
+      populateTimeline = () => {
+        let i, item, curX, distanceToStart, distanceToLoop;
+        tl.clear();
+        for (i = 0; i < length; i++) {
+          item = items[i];
+          curX = xPercents[i] / 100 * widths[i];
+          distanceToStart = item.offsetLeft + curX - startX + spaceBefore[0];
+          distanceToLoop = distanceToStart + widths[i] * gsap.getProperty(item, "scaleX");
+          tl.to(item, {xPercent: snap((curX - distanceToLoop) / widths[i] * 100), duration: distanceToLoop / pixelsPerSecond}, 0)
+            .fromTo(item, {xPercent: snap((curX - distanceToLoop + totalWidth) / widths[i] * 100)}, {xPercent: xPercents[i], duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond, immediateRender: false}, distanceToLoop / pixelsPerSecond)
+            .add("label" + i, distanceToStart / pixelsPerSecond);
+          times[i] = distanceToStart / pixelsPerSecond;
+        }
+        timeWrap = gsap.utils.wrap(0, tl.duration());
+      },
+      refresh = (deep) => {
+        let progress = tl.progress();
+        tl.progress(0, true);
+        populateWidths();
+        deep && populateTimeline();
+        populateOffsets();
+        deep && tl.draggable && tl.paused() ? tl.time(times[curIndex], true) : tl.progress(progress, true);
+      },
+      onResize = () => refresh(true),
+      proxy;
+    gsap.set(items, {x: 0});
+    populateWidths();
+    populateTimeline();
+    populateOffsets();
+    window.addEventListener("resize", onResize);
+    function toIndex(index, vars) {
+      vars = vars || {};
+      (Math.abs(index - curIndex) > length / 2) && (index += index > curIndex ? -length : length); // always go in the shortest direction
+      let newIndex = gsap.utils.wrap(0, length, index),
+        time = times[newIndex];
+      if (time > tl.time() !== index > curIndex && index !== curIndex) { // if we're wrapping the timeline's playhead, make the proper adjustments
+        time += tl.duration() * (index > curIndex ? 1 : -1);
+      }
+      if (time < 0 || time > tl.duration()) {
+        vars.modifiers = {time: timeWrap};
+      }
+      curIndex = newIndex;
+      vars.overwrite = true;
+      gsap.killTweensOf(proxy);    
+      return vars.duration === 0 ? tl.time(timeWrap(time)) : tl.tweenTo(time, vars);
+    }
+    tl.toIndex = (index, vars) => toIndex(index, vars);
+    tl.closestIndex = setCurrent => {
+      let index = getClosest(times, tl.time(), tl.duration());
+      if (setCurrent) {
+        curIndex = index;
+        indexIsDirty = false;
+      }
+      return index;
+    };
+    tl.current = () => indexIsDirty ? tl.closestIndex(true) : curIndex;
+    tl.next = vars => toIndex(tl.current()+1, vars);
+    tl.previous = vars => toIndex(tl.current()-1, vars);
+    tl.times = times;
+    tl.progress(1, true).progress(0, true); // pre-render for performance
+    if (config.reversed) {
+      tl.vars.onReverseComplete();
+      tl.reverse();
+    }
+    if (config.draggable && typeof(Draggable) === "function") {
+      proxy = document.createElement("div")
+      let wrap = gsap.utils.wrap(0, 1),
+        ratio, startProgress, draggable, dragSnap, lastSnap, initChangeX, wasPlaying,
+        align = () => tl.progress(wrap(startProgress + (draggable.startX - draggable.x) * ratio)),
+        syncIndex = () => tl.closestIndex(true);
+      typeof(InertiaPlugin) === "undefined" && console.warn("InertiaPlugin required for momentum-based scrolling and snapping. https://greensock.com/club");
+      draggable = Draggable.create(proxy, {
+        trigger: items[0].parentNode,
+        type: "x",
+        onPressInit() {
+          let x = this.x;
+          gsap.killTweensOf(tl);
+          wasPlaying = !tl.paused();
+          tl.pause();
+          startProgress = tl.progress();
+          refresh();
+          ratio = 1 / totalWidth;
+          initChangeX = (startProgress / -ratio) - x;
+          gsap.set(proxy, {x: startProgress / -ratio});
+        },
+        onDrag: align,
+        onThrowUpdate: align,
+        overshootTolerance: 0,
+        inertia: true,
+        snap(value) {
+          //note: if the user presses and releases in the middle of a throw, due to the sudden correction of proxy.x in the onPressInit(), the velocity could be very large, throwing off the snap. So sense that condition and adjust for it. We also need to set overshootTolerance to 0 to prevent the inertia from causing it to shoot past and come back
+          if (Math.abs(startProgress / -ratio - this.x) < 10) {
+            return lastSnap + initChangeX
+          }
+          let time = -(value * ratio) * tl.duration(),
+            wrappedTime = timeWrap(time),
+            snapTime = times[getClosest(times, wrappedTime, tl.duration())],
+            dif = snapTime - wrappedTime;
+          Math.abs(dif) > tl.duration() / 2 && (dif += dif < 0 ? tl.duration() : -tl.duration());
+          lastSnap = (time + dif) / tl.duration() / -ratio;
+          return lastSnap;
+        },
+        onRelease() {
+          syncIndex();
+          draggable.isThrowing && (indexIsDirty = true);
+        },
+        onThrowComplete: () => {
+          syncIndex();
+          wasPlaying && tl.play();
+        }
+      })[0];
+      tl.draggable = draggable;
+    }
+    tl.closestIndex(true);
+    lastIndex = curIndex;
+    onChange && onChange(items[curIndex], curIndex);
+    timeline = tl;
+    return () => window.removeEventListener("resize", onResize); // cleanup
+  });
+  return timeline;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+// --- Carrusel horizontal de Section 3 ---
+document.addEventListener("DOMContentLoaded", function () {
+  const wrapper = document.querySelector(".cards-section .wrapper");
+  if (!wrapper) return; // por si no existe la sección
+
+  const boxes = gsap.utils.toArray(".cards-section .box");
+  if (!boxes.length) return;
+
+  const prevBtn = document.querySelector(".cards-section .prev");
+  const nextBtn = document.querySelector(".cards-section .next");
+  const toggleBtn = document.querySelector(".cards-section .toggle");
+
+  // Helper: ancho total de las cards
+  function getTotalWidth() {
+    return boxes.reduce((acc, box) => acc + box.offsetWidth, 0);
+  }
+
+  // Helper: máximo desplazamiento hacia la izquierda (en negativo)
+  function getMaxX() {
+    const visibleWidth = wrapper.parentElement.offsetWidth;
+    const totalWidth = getTotalWidth();
+    const max = totalWidth - visibleWidth;
+    return max > 0 ? -max : 0;
+  }
+
+  // Marca como "activa" la card más centrada en el viewport
+  function updateActive() {
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const centerX = wrapperRect.left + wrapperRect.width / 2;
+
+    let closestBox = null;
+    let closestDist = Infinity;
+
+    boxes.forEach((box) => {
+      const rect = box.getBoundingClientRect();
+      const boxCenter = rect.left + rect.width / 2;
+      const dist = Math.abs(centerX - boxCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestBox = box;
+      }
+    });
+
+    boxes.forEach((box) => box.classList.remove("active"));
+    if (closestBox) closestBox.classList.add("active");
+  }
+
+  // Creamos el Draggable sobre el wrapper
+  const draggable = Draggable.create(wrapper, {
+    type: "x",
+    inertia: true,
+    bounds: {
+      minX: () => getMaxX(),
+      maxX: 0
+    },
+    onDrag: updateActive,
+    onThrowUpdate: updateActive
+  })[0];
+
+  // Helpers para mover una "card" a la vez con prev/next
+  function getStep() {
+    if (!boxes.length) return 0;
+    // Usamos el ancho de la primera card como paso base
+    const firstRect = boxes[0].getBoundingClientRect();
+    return firstRect.width * 0.9; // 0.9 para dejar un poquito de solapamiento
+  }
+
+  function goNext() {
+    const step = getStep();
+    const maxX = getMaxX();
+    const targetX = Math.max(draggable.x - step, maxX);
+    gsap.to(wrapper, {
+      x: targetX,
+      duration: 0.4,
+      ease: "power1.inOut",
+      onUpdate: () => {
+        draggable.update();
+        updateActive();
+      }
+    });
+  }
+
+  function goPrev() {
+    const step = getStep();
+    const targetX = Math.min(draggable.x + step, 0);
+    gsap.to(wrapper, {
+      x: targetX,
+      duration: 0.4,
+      ease: "power1.inOut",
+      onUpdate: () => {
+        draggable.update();
+        updateActive();
+      }
+    });
+  }
+
+  // Eventos de los botones
+  if (nextBtn) {
+    nextBtn.addEventListener("click", goNext);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", goPrev);
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      wrapper.classList.toggle("show-overflow");
+    });
+  }
+
+  // Actualizar al cargar y al redimensionar
+  window.addEventListener("resize", () => {
+    // Ajusta bounds al cambiar el tamaño
+    draggable.applyBounds({
+      minX: getMaxX(),
+      maxX: 0
+    });
+    updateActive();
+  });
+
+  // Primera activación
+  updateActive();
+});
