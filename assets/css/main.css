@@ -1,3 +1,39 @@
-
+.contenedor-carrousel {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contenedor-carrousel .carrousel {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 2rem;
+  width: 80%;
+  max-width: 1100px;
+  background: #f06a59;
+  border-radius: 12px;
+}
+.contenedor-carrousel .carrousel .item {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  padding: 2rem;
+  flex: 0 0 260px;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  text-align: center;
+}
+.contenedor-carrousel .carrousel .item h3 {
+  margin-bottom: 0.5rem;
+}
+.contenedor-carrousel .carrousel .item .carrousel {
+  cursor: grab;
+}
+.contenedor-carrousel .carrousel .item .carrousel.is-dragging {
+  cursor: grabbing;
+}
 
 /*# sourceMappingURL=main.css.map */
