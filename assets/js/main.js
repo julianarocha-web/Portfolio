@@ -455,157 +455,15 @@ $.Velocity.RegisterEffect("hide.scaleDown", { defaultDuration: 1, calls: [ [ { o
 //parallax
 $.Velocity.RegisterEffect("translateUp.half", { defaultDuration: 1, calls: [ [ { translateY: '-50%'}, 1] ] });
 
-// =================================================
-// 1. ANIMACIÓN DE TEXTO (TEXT REVEAL) - ¡MOVIDO AQUÍ ARRIBA!
-// =================================================
-// Lo ponemos aquí para que cargue ANTES de que el carrusel pueda bloquear algo
-document.addEventListener("DOMContentLoaded", function() {
-    gsap.registerPlugin(SplitText);
-
-    let observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                let elemento = entry.target;
-                elemento.style.opacity = 1; // asegurar visible
-                
-                let split = new SplitText(elemento, { type: "chars" });
-                gsap.from(split.chars, {
-                    opacity: 0,
-                    yPercent: 100,
-                    stagger: 0.05,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    overwrite: true
-                });
-                observer.unobserve(elemento);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    let textos = document.querySelectorAll(".texto-reveal");
-    textos.forEach(texto => {
-        observer.observe(texto);
-    });
-
-    // =================================================
-    // EFECTO "MASKED REVEAL"
-    // =================================================
-    
-    const textosMask = document.querySelectorAll(".texto-mask");
-
-    if (textosMask.length > 0) {
-        textosMask.forEach(texto => {
-            // Aseguramos que sea visible antes de dividir
-            texto.style.opacity = 1;
-
-            // 1. Primera división: Crea los renglones contenedores (la máscara)
-            const splitOuter = new SplitText(texto, { 
-                type: "lines",
-                linesClass: "texto-mask-line" 
-            });
-
-            // 2. Segunda división: Envuelve el texto dentro de la máscara
-            const splitInner = new SplitText(splitOuter.lines, {
-                type: "lines",
-                linesClass: "texto-mask-inner" 
-            });
-
-            // 3. El Vigilante (Intersection Observer)
-            const observerMask = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        
-                        // Animamos solo la parte interna hacia arriba
-                        gsap.from(splitInner.lines, {
-                            yPercent: 100,      // Sube desde el 100% abajo
-                            duration: 1.2,
-                            ease: "power4.out", // Movimiento muy elegante
-                            stagger: 0.1,       // Tiempo entre líneas
-                            overwrite: true
-                        });
-
-                        observerMask.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            observerMask.observe(texto);
-        });
-    }
-    
-    // 2. NAVEGACIÓN DE SECCIONES (Botones Next/Prev de la derecha)
-    const sections = Array.from(document.querySelectorAll('.cd-section'));
-    if (sections.length > 0) {
-        let activeSection = 0;
-        const btnPrev = document.querySelector('.cd-prev');
-        const btnNext = document.querySelector('.cd-next');
-
-        function updateNavButtons() {
-            if (!btnPrev || !btnNext) return;
-            btnPrev.classList.toggle('inactive', activeSection === 0);
-            btnNext.classList.toggle('inactive', activeSection === sections.length - 1);
-        }
-        updateNavButtons();
-
-        function goToSection(index) {
-            if (index < 0 || index >= sections.length) return;
-            activeSection = index;
-            sections[index].scrollIntoView({ behavior: 'smooth' });
-            updateNavButtons();
-        }
-
-        if (btnPrev) btnPrev.addEventListener('click', () => goToSection(activeSection - 1));
-        if (btnNext) btnNext.addEventListener('click', () => goToSection(activeSection + 1));
-
-        window.addEventListener('scroll', () => {
-            const screenMid = window.innerHeight / 2;
-            sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= screenMid && rect.bottom > screenMid) {
-                    activeSection = index;
-                    updateNavButtons();
-                }
-            });
-        });
-    }
-});
-
 
 // =================================================
-// 2. CARROUSEL DE CARDS (INTACTO)
+// HELPER FUNCTION: Horizontal Loop (NO TOCAR)
 // =================================================
-
-const wrapper = document.querySelector(".wrapper");
-
-const boxes = gsap.utils.toArray(".box");
-
-let activeElement;
-const loop = horizontalLoop(boxes, {
-  paused: true, 
-  draggable: true, // make it draggable
-  center: true, // active element is the one in the center of the container rather than th left edge
-  onChange: (element, index) => { // when the active element changes, this function gets called.
-    activeElement && activeElement.classList.remove("active");
-    element.classList.add("active");
-    activeElement = element;
-  }
-});
-
-boxes.forEach((box, i) => box.addEventListener("click", () => loop.toIndex(i, {duration: 0.8, ease: "power1.inOut"})));
-
-document.querySelector(".toggle").addEventListener("click", () => wrapper.classList.toggle("show-overflow"));
-document.querySelector(".next").addEventListener("click", () => loop.next({duration: 0.4, ease: "power1.inOut"}));
-document.querySelector(".prev").addEventListener("click", () => loop.previous({duration: 0.4, ease: "power1.inOut"}));
-
-
-/*
-This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
-*/
 function horizontalLoop(items, config) {
   let timeline;
   items = gsap.utils.toArray(items);
   config = config || {};
-  gsap.context(() => { // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
+  gsap.context(() => { 
     let onChange = config.onChange,
       lastIndex = 0,
       tl = gsap.timeline({repeat: config.repeat, onUpdate: onChange && function() {
@@ -625,7 +483,7 @@ function horizontalLoop(items, config) {
       indexIsDirty = false,
       center = config.center,
       pixelsPerSecond = (config.speed || 1) * 100,
-      snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
+      snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1), 
       timeOffset = 0,
       container = center === true ? items[0].parentNode : gsap.utils.toArray(center)[0] || items[0].parentNode,
       totalWidth,
@@ -639,7 +497,7 @@ function horizontalLoop(items, config) {
           spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
           b1 = b2;
         });
-        gsap.set(items, { // convert "x" to "xPercent" to make things responsive, and populate the widths/xPercents Arrays to make lookups faster.
+        gsap.set(items, { 
           xPercent: i => xPercents[i]
         });
         totalWidth = getTotalWidth();
@@ -788,6 +646,158 @@ function horizontalLoop(items, config) {
   });
   return timeline;
 }
+
+// =================================================
+// INITIALIZATION (DOM READY)
+// =================================================
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Registramos los plugins
+    gsap.registerPlugin(SplitText, Draggable, InertiaPlugin);
+
+    // -----------------------------------------------------
+    // A. ANIMACIONES DE TEXTO (TU NUEVO CÓDIGO REEMPLAZADO)
+    // -----------------------------------------------------
+
+    // --- 1. Texto Reveal (Caracteres) ---
+    let observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                let elemento = entry.target;
+                elemento.style.opacity = 1; // asegurar visible
+                
+                let split = new SplitText(elemento, { type: "chars" });
+                gsap.from(split.chars, {
+                    opacity: 0,
+                    yPercent: 100,
+                    stagger: 0.05,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    overwrite: true
+                });
+                observer.unobserve(elemento);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    let textos = document.querySelectorAll(".texto-reveal");
+    textos.forEach(texto => {
+        observer.observe(texto);
+    });
+
+    // --- 2. Texto Mask (Estilo deiv.dev) ---
+    const textosMask = document.querySelectorAll(".texto-mask");
+
+    if (textosMask.length > 0) {
+        textosMask.forEach(texto => {
+            // Aseguramos que sea visible antes de dividir
+            texto.style.opacity = 1;
+
+            // Primera división: Crea los renglones contenedores (la máscara)
+            const splitOuter = new SplitText(texto, { 
+                type: "lines",
+                linesClass: "texto-mask-line" 
+            });
+
+            // Segunda división: Envuelve el texto dentro de la máscara
+            const splitInner = new SplitText(splitOuter.lines, {
+                type: "lines",
+                linesClass: "texto-mask-inner" 
+            });
+
+            // El Vigilante (Intersection Observer)
+            const observerMask = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        
+                        // Animamos solo la parte interna hacia arriba
+                        gsap.from(splitInner.lines, {
+                            yPercent: 100,      // Sube desde el 100% abajo
+                            duration: 1.2,
+                            ease: "power4.out", // Movimiento muy elegante
+                            stagger: 0.1,       // Tiempo entre líneas
+                            overwrite: true
+                        });
+
+                        observerMask.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observerMask.observe(texto);
+        });
+    }
+
+    // -----------------------------------------------------
+    // B. NAVEGACIÓN DE SECCIONES (Botones Next/Prev)
+    // -----------------------------------------------------
+    const sections = Array.from(document.querySelectorAll('.cd-section'));
+    if (sections.length > 0) {
+        let activeSection = 0;
+        const btnPrev = document.querySelector('.cd-prev');
+        const btnNext = document.querySelector('.cd-next');
+
+        function updateNavButtons() {
+            if (!btnPrev || !btnNext) return;
+            btnPrev.classList.toggle('inactive', activeSection === 0);
+            btnNext.classList.toggle('inactive', activeSection === sections.length - 1);
+        }
+        updateNavButtons();
+
+        function goToSection(index) {
+            if (index < 0 || index >= sections.length) return;
+            activeSection = index;
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+            updateNavButtons();
+        }
+
+        if (btnPrev) btnPrev.addEventListener('click', () => goToSection(activeSection - 1));
+        if (btnNext) btnNext.addEventListener('click', () => goToSection(activeSection + 1));
+
+        window.addEventListener('scroll', () => {
+            const screenMid = window.innerHeight / 2;
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= screenMid && rect.bottom > screenMid) {
+                    activeSection = index;
+                    updateNavButtons();
+                }
+            });
+        });
+    }
+
+    // -----------------------------------------------------
+    // C. CARROUSEL DE CARDS (INTACTO)
+    // -----------------------------------------------------
+    const wrapper = document.querySelector(".wrapper");
+    
+    // Solo ejecutamos si el carrusel existe en la página
+    if (wrapper) {
+        const boxes = gsap.utils.toArray(".box");
+        let activeElement;
+        
+        const loop = horizontalLoop(boxes, {
+            paused: true, 
+            draggable: true, 
+            center: true, 
+            onChange: (element, index) => { 
+                activeElement && activeElement.classList.remove("active");
+                element.classList.add("active");
+                activeElement = element;
+            }
+        });
+
+        boxes.forEach((box, i) => box.addEventListener("click", () => loop.toIndex(i, {duration: 0.8, ease: "power1.inOut"})));
+
+        const btnToggle = document.querySelector(".toggle");
+        const btnNext = document.querySelector(".next");
+        const btnPrev = document.querySelector(".prev");
+
+        if(btnToggle) btnToggle.addEventListener("click", () => wrapper.classList.toggle("show-overflow"));
+        if(btnNext) btnNext.addEventListener("click", () => loop.next({duration: 0.4, ease: "power1.inOut"}));
+        if(btnPrev) btnPrev.addEventListener("click", () => loop.previous({duration: 0.4, ease: "power1.inOut"}));
+    }
+});
 
 
 
