@@ -979,3 +979,25 @@ window.addEventListener('scroll', () => {
   });
 });
 
+// --- Animación tipo "Text Reveal" con GSAP + SplitText ---
+
+gsap.utils.toArray(".texto-reveal").forEach(titulo => {
+  
+  // Dividir texto en letras
+  const split = new SplitText(titulo, { type: "chars" });
+  const chars = split.chars;
+
+  gsap.from(chars, {
+    scrollTrigger: {
+      trigger: titulo,
+      start: "top 85%",
+      toggleActions: "play none none none"
+    },
+    opacity: 0,
+    yPercent: 100,
+    stagger: 0.04,
+    duration: 0.7,
+    ease: "power3.out"
+  });
+});
+
