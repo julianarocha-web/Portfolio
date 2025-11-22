@@ -79,6 +79,18 @@
   background-image: url("../img/img-5.jpg");
 }
 
+/* === EFECTO TEXTO MASK === */
+.texto-mask-line {
+  overflow: hidden !important; /* La máscara que oculta lo que está abajo */
+  display: block;
+  margin: 0;
+}
+
+.texto-mask-inner {
+  display: block;
+  will-change: transform; /* Optimiza el movimiento */
+}
+
 nav {
   background-color: transparent;
   height: 100px;
