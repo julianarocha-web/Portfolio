@@ -1,0 +1,126 @@
+@import "_variables";
+
+.servicios-section {
+  position: relative;
+  width: 100%;
+  height: 100vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4rem;
+  overflow: hidden; 
+  background: #0a0a0a; // mismo fondo que tu web
+}
+
+.servicios-bg {
+
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../img/servicios/fondo-violeta-2.jpeg);
+  background-size: cover;
+}
+
+
+.servicios-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+
+  .servicios-title {
+    font-family: $font-principal;
+    font-size: 54pxpx;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+  }
+}
+
+/* ========================
+   GRID + LÍNEAS DIVISORIAS
+======================== */
+
+.servicios-grid {
+  width: 100%;
+  height: 460px;
+  padding: 2.5rem;
+  border-radius: 20px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.01)
+  );
+
+  box-shadow: 0 25px 90px rgba(0,0,0,0.65);
+  backdrop-filter: blur(50px);
+
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+
+  position: relative; // necesario para las líneas
+
+  /* LÍNEAS ENTRE COLUMNAS (33% y 66% del contenedor) */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 18%;          // ajustá si querés más arriba/abajo
+    bottom: 18%;
+    width: 1px;
+    background: rgba(255,255,255,0.18);
+  }
+
+  &::before {
+    left: 33.333%;
+    transform: translateX(-50%);
+  }
+
+  &::after {
+    left: 66.666%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ========================
+   TARJETAS
+======================== */
+
+.servicio {
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;  
+  text-align: center;
+  color: white;
+
+  .servicio-icon img {
+    width: 60px;
+    margin-bottom: 1rem;
+  }
+
+  .servicio-heading {
+    color:rgb(197, 143, 247);
+    font-family: $font-principal;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: .5rem;
+  }
+
+  .servicio-text {
+    font-family: $font-principal;
+    color: #c8c3c3;
+    width: 300px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
+
+

@@ -3,74 +3,205 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/style.css"> <!-- resources -->
   <link rel="stylesheet" href="./assets/css/main.css">	
 	<script src="./assets/js/modernizr.js"></script> <!-- Modernizr --> 	
 	<title>Portfolio</title>
 </head>
-<body data-hijacking="off" data-animation="scaleDown">
+
+<body data-hijacking="on" data-animation="parallax">
+
+  <!-- =============== -->
+  <!--  SECTION 1 HERO -->
+  <!-- =============== -->
 	<section class="cd-section visible">
 		<div>
-			<h2>Page Scroll Effects</h2>
+      <!-- NAVBAR (queda igual que antes) -->
+      <header class="header">
+        <nav class="navbar navbar-expand-lg menu">
+          <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+              <img src="./assets/img/header/portfolio-logo.png" alt="Logo">
+            </a>
+
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+              <img src="./img/list-stars.svg" alt="Menú">
+            </button>
+
+            <!-- Menú colapsable -->
+            <div class="collapse navbar-collapse order-lg-1" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Servicios</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Proyectos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Skills</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#f">Sobre mi</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- PANEL GLASS SUPERPUESTO (NO modifica el layout base) -->
+      <div class="hero-glass">
+        <p class="hero-kicker">Hola! Soy Juliana Rocha</p>
+        <h1 class="hero-title">
+          Desarrolladora <span class="accent">FrontEnd</span><br>
+          <span class="accent">&amp;</span> Diseñadora <span class="accent">UX/UI</span>
+        </h1>
+      </div>
+
 		</div>
 	</section>
-    <section class="cd-section">
+
+
+<section class="cd-section">
+  <div class="servicios-section">
+
+    <!-- Fondo decorativo -->
+    <div class="servicios-bg"></div>
+
+    <!-- Contenido -->
+    <div class="servicios-inner">
+      <h2 class="servicios-title">Mis servicios</h2>
+
+      <div class="servicios-grid">
+
+        <article class="servicio">
+          <div class="servicio-icon">
+            <img src="./assets/img/servicios/icon-ux.svg" alt="">
+          </div>
+          <h3 class="servicio-heading">Diseño UX</h3>
+          <p class="servicio-text">
+            Creo flujos simples, decisiones claras y experiencias que se sienten naturales.
+            Investigo, organizo y doy forma a ideas para que todo tenga sentido desde el primer clic.
+          </p>
+        </article>
+
+        <article class="servicio">
+          <div class="servicio-icon">
+            <img src="./assets/img/servicios/icon-ui.svg" alt="">
+          </div>
+          <h3 class="servicio-heading">Diseño UI</h3>
+          <p class="servicio-text">
+            Transformo conceptos en interfaces limpias, visuales y coherentes.
+            Juego con color, ritmo y jerarquías para que el diseño se vea moderno pero sin perder accesibilidad.
+          </p>
+        </article>
+
+        <article class="servicio">
+          <div class="servicio-icon">
+            <img src="./assets/img/servicios/icon-dev.svg" alt="">
+          </div>
+          <h3 class="servicio-heading">Desarrollo Frontend</h3>
+          <p class="servicio-text">
+            Llevo diseños a la vida con HTML, CSS y JavaScript.
+            Me enfoco en que el sitio se sienta ágil, ordenado y agradable de usar.
+          </p>
+        </article>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+   <!-- ===================== -->
+  <!--  SECTION 2: CARRUSEL  -->
+  <!-- ===================== -->
+  <section class="cd-section">
     <div>
-        <div class="contenedor-carrousel">
-        <div class="carrousel">
-            <figure class="item">
+      <div class="fondo-proyectos">
+      <div class="contenedor-carrousel">
+        <!-- Controles opcionales del carrusel -->
+        <div class="carrousel-title">
+          <h2>Proyectos</h2>  
+        </div>
+
+        <!-- Wrapper del carrusel: acá GSAP hace la magia -->
+        <div class="carrousel wrapper">
+          <figure class="item box">
             <h3>Proyecto 1</h3>
             <p>Descripción corta del proyecto 1.</p>
-            </figure>
+          </figure>
 
-            <figure class="item">
-            <h3>Proyecto 2</h3>
-            <p>Descripción corta del proyecto 2.</p>
-            </figure>
+          <figure class="item box">
+            <figcaption>Menú a tu medida</figcaption>
+            <img src="./assets/img/proyectos/menuatumedida.png" alt="">
+          </figure>
 
-            <figure class="item">
+          <figure class="item box">
             <h3>Proyecto 3</h3>
             <p>Descripción corta del proyecto 3.</p>
-            </figure>
+          </figure>
 
-            <figure class="item">
+          <figure class="item box">
             <h3>Proyecto 4</h3>
             <p>Descripción corta del proyecto 4.</p>
-            </figure>
+          </figure>
 
-            <figure class="item">
+          <figure class="item box">
             <h3>Proyecto 5</h3>
             <p>Descripción corta del proyecto 5.</p>
-            </figure>
+          </figure>
         </div>
-        </div>
+      </div>
+      </div>
     </div>
-    </section>
-    <section class="cd-section">
-		<div>
-			<h2>Section 3</h2>
-		</div>
-	</section>
-    <section class="cd-section">
-	    <div>
-			<h2>Section 4</h2>
-        </div>
-    </section>
+  </section>
+
+  <section class="cd-section">
+    <div>
+      <h2>Section 4</h2>
+    </div>
+  </section>
 
 	<section class="cd-section">
 		<div>
 			<h2>Section 5</h2>
 		</div>
 	</section>
+	<aside>
+		<ul class="cd-vertical-nav">
+			<li><a href="#0" class="cd-prev inactive">Next</a></li>
+			<li><a href="#0" class="cd-next">Prev</a></li>
+		</ul>
+	</aside>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <!-- GSAP + plugins para el carrusel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+  <script src="https://assets.codepen.io/16327/InertiaPlugin.min.js"></script>
+
+  <!-- tu carrusel GSAP -->
+  <script src="./assets/js/carrousel-gsap.js"></script>
 
   <!-- scripts para secciones scroll -->
   <script src="./assets/js/jquery-2.1.4.js"></script>
   <script src="./assets/js/velocity.min.js"></script>
   <script src="./assets/js/velocity.ui.min.js"></script>
   <script src="./assets/js/main.js"></script>
-
-    <!-- carrusel draggeable -->
-  <script src="./assets/js/carrousel.js"></script>
 </body>
 </html>
+
+
 

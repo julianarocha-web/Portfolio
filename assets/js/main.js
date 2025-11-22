@@ -918,3 +918,64 @@ document.addEventListener("DOMContentLoaded", function () {
   // Primera activación
   updateActive();
 });
+
+/* ------------------------------------
+   BOTONES DE CONTROL DE SECCIONES
+------------------------------------- */
+
+const sections = Array.from(document.querySelectorAll('.cd-section'));
+let activeSection = 0;
+
+// Botones
+const btnPrev = document.querySelector('.cd-prev');
+const btnNext = document.querySelector('.cd-next');
+
+// Función para actualizar la UI
+function updateNavButtons() {
+  if (!btnPrev || !btnNext) return;
+
+  btnPrev.classList.toggle('inactive', activeSection === 0);
+  btnNext.classList.toggle('inactive', activeSection === sections.length - 1);
+}
+
+updateNavButtons();
+
+// Navegar hacia sección específica
+function goToSection(index) {
+  if (index < 0 || index >= sections.length) return;
+  activeSection = index;
+
+  // Scroll a la sección
+  sections[index].scrollIntoView({
+    behavior: 'smooth'
+  });
+
+  updateNavButtons();
+}
+
+// Eventos de los botones
+if (btnPrev) {
+  btnPrev.addEventListener('click', () => {
+    goToSection(activeSection - 1);
+  });
+}
+
+if (btnNext) {
+  btnNext.addEventListener('click', () => {
+    goToSection(activeSection + 1);
+  });
+}
+
+// Detectar cambio manual de scroll (sin romper GSAP)
+window.addEventListener('scroll', () => {
+  const screenMid = window.innerHeight / 2;
+
+  sections.forEach((section, index) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= screenMid && rect.bottom > screenMid) {
+      activeSection = index;
+      updateNavButtons();
+    }
+  });
+});
+

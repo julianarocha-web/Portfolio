@@ -7,9 +7,6 @@ Primary style
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
 
 body {
   font-size: 1.6rem;
@@ -50,13 +47,10 @@ Main Components
 .cd-section {
   height: 100vh;
 }
-.cd-section h2 {
-  line-height: 100vh;
-  text-align: center;
-  font-size: 2.4rem;
-}
+
 .cd-section:first-of-type > div {
-  background-color: #2b334f;
+  background-color: #0A0A09;
+  height: 100vh;
 }
 .cd-section:first-of-type > div::before {
   /* alert -> all scrolling effects are not visible on small devices */
@@ -72,16 +66,20 @@ Main Components
   color: #6a7083;
 }
 .cd-section:nth-of-type(2) > div {
-  background-color: #2e5367;
+  background-color: #0A0A09;
+  height: 100vh;
 }
 .cd-section:nth-of-type(3) > div {
-  background-color: #267481;
+  background-image: #267481;
+  height: 100vh;
 }
 .cd-section:nth-of-type(4) > div {
   background-color: #fcb052;
+  height: 100vh;
 }
 .cd-section:nth-of-type(5) > div {
   background-color: #f06a59;
+  height: 100vh;
 }
 
 @media only screen and (min-width: 1050px) {
@@ -155,17 +153,71 @@ Main Components
 }
 
 
-.contenedor-carrousel {
-  width: 100vh;
-  height: 100vh;
+/* PARALLAX REINSTALADO */
+[data-animation="parallax"] .cd-section > div {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.carrousel {
-  background-color: #f06a59;
-  display: flex;
-  width: 700px;
-  margin: 0 auto;
+
+.cd-vertical-nav {
+  /* lateral navigation */
+  position: fixed;
+  z-index: 1;
+  right: 3%;
+  top: 90%;
+  bottom: auto;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  display: none;
 }
+.cd-vertical-nav a {
+  display: block;
+  height: 40px;
+  width: 40px;
+  /* image replace */
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  background: url(../img/cd-icon-arrow.svg);
+}
+.cd-vertical-nav a.cd-prev {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+  margin-bottom: 10px;
+}
+.cd-vertical-nav a.inactive {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s 0s, visibility 0s 0.2s;
+  -moz-transition: opacity 0.2s 0s, visibility 0s 0.2s;
+  transition: opacity 0.2s 0s, visibility 0s 0.2s;
+}
+@media only screen and (min-width: 1050px) {
+  .cd-vertical-nav {
+    display: block;
+  }
+}
+
+.cd-vertical-nav,
+.cd-vertical-nav ul,
+.cd-vertical-nav li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cd-vertical-nav li::marker {
+  content: "";
+}
+
 
 
 

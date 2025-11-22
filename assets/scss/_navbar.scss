@@ -1,0 +1,81 @@
+@import "_variables";
+
+nav {
+  background-color: transparent;
+  height: 100px;
+}
+
+
+.container-fluid {
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-top: 55px;
+}
+
+.menu {
+  position: relative;
+  z-index: 5; // por encima del hero-glass
+
+  img {
+    width: 145px;
+    margin-right: 10px;
+  }
+}
+
+.nav-link {
+  font-family: $font-principal;  
+  font-size: 20px;
+  font-weight: 600;
+  color: $color-white;
+  position: relative;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-white; // ← ESTA LÍNEA ES LA QUE FALTABA
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #e7704a;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover::after {
+    visibility: visible;
+    width: 100%;
+  }
+}
+
+.nav-item {
+  a {
+    margin-right: 20px;
+  }
+}
+
+.botones {
+  display: flex;
+  gap: 10px;
+}
+
+.search-btn,
+.cart-btn {
+  padding: 0px;
+
+  img {
+    width: 30px;
+  }
+}
+
+
+.navbar-collapse {
+  display: flex;
+  align-items: center;
+}
+
+
+
