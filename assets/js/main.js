@@ -800,4 +800,23 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+// -----------------------------------------------------
+    // D. SKILLS MARQUEE (Horizontal Loop)
+    // -----------------------------------------------------
+    
+    // Esperamos a que carguen las imágenes para calcular bien el ancho
+    window.addEventListener("load", () => {
+        const skillItems = document.querySelectorAll(".skill-item");
+        
+        if (skillItems.length > 0) {
+            const skillsLoop = horizontalLoop(skillItems, {
+                repeat: -1, 
+                speed: 1,      
+                paused: false, 
+                paddingRight: 80 // Debe coincidir con el gap de CSS
+            });
+        }
+    });
+
+
 

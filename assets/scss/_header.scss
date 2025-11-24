@@ -1,7 +1,7 @@
 @import "_variables";
 
 /* ======================
-   HEADER CON DONUT DE FONDO
+   HEADER 
 ====================== */
 
 .header {
@@ -9,54 +9,114 @@
   height: 100vh;
   background-image: url("../img/header/donut.png");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover; 
   background-position: center;
-  position: relative; // para posicionar el glass dentro
+  position: relative; 
+  
+  @media (min-width: 992px) {
+     background-size: contain; 
+  }
 }
 
 /* ======================
-   HERO + GLASS PANEL (50vw x 100vh)
+   HERO + GLASS PANEL 
 ====================== */
 
 .hero-glass {
   position: absolute;
   left: 0;
-  top: 0;
-  width: 50vw;   
-  height: 100vh; 
-  padding-left: 80px;
+  
+  /* ---  MÓVIL (< 992px) --- */
+  top: 0;           
+  bottom: auto;     
+  width: 100%;      
+  height: 100vh;    
+  padding: 120px 20px 40px 20px; 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  /* efecto glass/overlay oscuro */
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+  z-index: 1; 
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: none; 
   color: $color-white;
-  background-image:
-  radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
   background-size: 4px 4px;
-  background-color: rgba(255,255,255,0.04);
-  backdrop-filter: blur(24px);
 
   .hero-kicker {
     font-family: $font-principal;
-    font-size: 40px;
+    font-size: clamp(18px, 5vw, 24px); 
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .hero-title {
     font-family: $font-principal;
-    font-size: 60px;
+    font-size: clamp(32px, 10vw, 48px); 
     font-weight: 700;
+    line-height: 1.1;
     margin: 0;
+    overflow-wrap: break-word; 
+    hyphens: manual;
 
     .accent {
-      color: $color-principal; // naranja
+      color: $color-principal; 
+      display: inline-block; 
     }
   }
-}
 
+  /* =============================================
+     ESCRITORIO
+  ============================================= */
+
+  /* NIVEL 1: (992px - 1399px) */
+
+  @media (min-width: 992px) {
+    top: 0;
+    bottom: auto;
+    width: 50vw;   
+    height: 100vh; 
+    padding: 0 0 0 3rem; 
+    justify-content: center; 
+    align-items: flex-start; 
+    text-align: left;
+    z-index: 2; 
+    
+    backdrop-filter: blur(24px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+
+    .hero-kicker {
+      font-size: 36px; 
+    }
+
+    .hero-title {
+      font-size: 50px; 
+      line-height: 1.05;
+      white-space: normal; 
+    }
+  }
+
+  /* NIVEL 2: (1400px - 1599px) */
+  @media (min-width: 1400px) {
+      padding-left: 3rem; 
+  }
+
+  
+  /* NIVEL 3: (1600px+) */
+  @media (min-width: 1600px) {
+      padding-left: 50px; 
+
+      .hero-kicker {
+        font-size: 40px; 
+      }
+
+      .hero-title {
+        font-size: 65px; 
+        line-height: 1; 
+      }
+  }
+}

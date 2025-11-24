@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* ======================
-   HEADER CON DONUT DE FONDO
+   HEADER 
 ====================== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .header {
@@ -8,49 +8,113 @@
   height: 100vh;
   background-image: url("../img/header/donut.png");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   position: relative;
 }
+@media (min-width: 992px) {
+  .header {
+    background-size: contain;
+  }
+}
 
 /* ======================
-   HERO + GLASS PANEL (50vw x 100vh)
+   HERO + GLASS PANEL 
 ====================== */
 .hero-glass {
   position: absolute;
   left: 0;
+  /* ---  MÓVIL (< 992px) --- */
   top: 0;
-  width: 50vw;
+  bottom: auto;
+  width: 100%;
   height: 100vh;
-  padding-left: 80px;
+  padding: 120px 20px 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* efecto glass/overlay oscuro */
+  align-items: center;
+  text-align: center;
+  z-index: 1;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: none;
   color: #FAEFEF;
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
   background-size: 4px 4px;
-  background-color: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(24px);
 }
 .hero-glass .hero-kicker {
   font-family: "Poppins", sans-serif;
-  font-size: 40px;
+  font-size: clamp(18px, 5vw, 24px);
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.9);
 }
 .hero-glass .hero-title {
   font-family: "Poppins", sans-serif;
-  font-size: 60px;
+  font-size: clamp(32px, 10vw, 48px);
   font-weight: 700;
+  line-height: 1.1;
   margin: 0;
+  overflow-wrap: break-word;
+  hyphens: manual;
 }
 .hero-glass .hero-title .accent {
   color: #F85E04;
+  display: inline-block;
+}
+.hero-glass {
+  /* =============================================
+     ESCRITORIO
+  ============================================= */
+  /* NIVEL 1: (992px - 1399px) */
+}
+@media (min-width: 992px) {
+  .hero-glass {
+    top: 0;
+    bottom: auto;
+    width: 50vw;
+    height: 100vh;
+    padding: 0 0 0 3rem;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    z-index: 2;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  }
+  .hero-glass .hero-kicker {
+    font-size: 36px;
+  }
+  .hero-glass .hero-title {
+    font-size: 50px;
+    line-height: 1.05;
+    white-space: normal;
+  }
+}
+.hero-glass {
+  /* NIVEL 2: (1400px - 1599px) */
+}
+@media (min-width: 1400px) {
+  .hero-glass {
+    padding-left: 3rem;
+  }
+}
+.hero-glass {
+  /* NIVEL 3: (1600px+) */
+}
+@media (min-width: 1600px) {
+  .hero-glass {
+    padding-left: 50px;
+  }
+  .hero-glass .hero-kicker {
+    font-size: 40px;
+  }
+  .hero-glass .hero-title {
+    font-size: 65px;
+    line-height: 1;
+  }
 }
 
 [data-animation=parallax] .cd-section > div {
@@ -93,22 +157,25 @@
 
 nav {
   background-color: transparent;
-  height: 100px;
-}
-
-.container-fluid {
-  padding-left: 80px;
-  padding-right: 80px;
-  padding-top: 55px;
+  min-height: 100px;
+  transition: all 0.3s ease;
 }
 
 .menu {
   position: relative;
-  z-index: 5;
+  /* SOLUCIÓN: Z-index 100 para asegurar que flote sobre el vidrio */
+  z-index: 100;
 }
 .menu img {
-  width: 145px;
+  width: 120px;
   margin-right: 10px;
+}
+@media (min-width: 992px) {
+  .menu img {
+    width: 145px;
+    padding-left: 20px;
+    margin-right: 30px;
+  }
 }
 
 .nav-link {
@@ -118,6 +185,12 @@ nav {
   color: #FAEFEF;
   position: relative;
   text-decoration: none;
+  margin-bottom: 10px;
+}
+@media (min-width: 992px) {
+  .nav-link {
+    margin-bottom: 0;
+  }
 }
 .nav-link:hover {
   color: #FAEFEF;
@@ -137,27 +210,21 @@ nav {
   width: 100%;
 }
 
-.nav-item a {
-  margin-right: 20px;
+@media (min-width: 992px) {
+  .nav-item a {
+    margin-right: 20px;
+  }
 }
 
-.botones {
-  display: flex;
-  gap: 10px;
-}
-
-.search-btn,
-.cart-btn {
-  padding: 0px;
-}
-.search-btn img,
-.cart-btn img {
-  width: 30px;
-}
-
-.navbar-collapse {
-  display: flex;
-  align-items: center;
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: rgba(0, 0, 0, 0.95); /* Fondo casi negro para leer bien el menú */
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    z-index: 101; /* El desplegable incluso más arriba */
+  }
 }
 
 .contenedor-carrousel {
@@ -212,6 +279,12 @@ nav {
 .contenedor-carrousel .item.box img {
   width: 500px;
 }
+.contenedor-carrousel .item.box img.img-gestor {
+  width: 350px;
+  height: 230px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 .contenedor-carrousel .item.box figcaption {
   font-size: 30px;
   font-weight: 600;
@@ -249,87 +322,149 @@ nav {
   height: 100vh;
   background-image: url(../img/servicios/fondo-violeta-2.jpeg);
   background-size: cover;
+  opacity: 0.5;
 }
 
 .servicios-inner {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1400px;
-}
-.servicios-inner .servicios-title {
-  font-family: "Poppins", sans-serif;
-  font-size: 54pxpx;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 2rem;
-}
-
-/* ========================
-   GRID + LÍNEAS DIVISORIAS
-======================== */
-.servicios-grid {
-  width: 100%;
-  height: 460px;
-  padding: 2.5rem;
-  border-radius: 20px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(50px);
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  position: relative;
-  /* LÍNEAS ENTRE COLUMNAS (33% y 66% del contenedor) */
-}
-.servicios-grid::before, .servicios-grid::after {
-  content: "";
-  position: absolute;
-  top: 18%;
-  bottom: 18%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.18);
-}
-.servicios-grid::before {
-  left: 33.333%;
-  transform: translateX(-50%);
-}
-.servicios-grid::after {
-  left: 66.666%;
-  transform: translateX(-50%);
-}
-
-/* ========================
-   TARJETAS
-======================== */
-.servicio {
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  text-align: center;
+  gap: 5rem;
+}
+
+.block-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Al poner .servicios-inner antes, le damos más peso al selector */
+.servicios-inner .section-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 64px;
+  font-weight: 700; /* Ahora sí se va a aplicar */
   color: white;
+  margin: 0;
+  letter-spacing: 1px;
+  padding-left: 5px;
+}
+
+/* =========================================
+   ESTILO BASE DE LAS CAJAS (GLASS)
+========================================= */
+.glass-box {
+  width: 100%;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(50px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* === CAJA 1: SERVICIOS === */
+.servicios-box {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.servicio {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .servicio .servicio-icon img {
-  width: 60px;
-  margin-bottom: 1rem;
+  width: 40px;
+  margin-bottom: 10px;
 }
 .servicio .servicio-heading {
-  color: rgb(197, 143, 247);
+  color: rgb(210, 165, 252);
   font-family: "Poppins", sans-serif;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 5px;
 }
 .servicio .servicio-text {
   font-family: "Poppins", sans-serif;
-  color: #c8c3c3;
-  width: 300px;
+  color: #ccc;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.3;
+  max-width: 250px;
+}
+
+.separator {
+  width: 1px;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* === CAJA 2: SKILLS === */
+.skills-box {
+  height: 120px; /* Altura fija para la barra de skills */
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* IMPORTANTE: Oculta lo que sale de la caja */
+  padding: 0; /* Sin padding para que el track ocupe todo */
+}
+
+.skills-track {
+  display: flex;
+  align-items: center;
+  gap: 80px; /* Espacio entre logos */
+  padding-left: 20px;
+  height: 100%;
+  width: max-content; /* Asegura que el ancho sea el contenido total */
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.skill-item img {
+  height: 50px;
+  width: auto;
+  /* CAMBIO: Quitamos el grayscale y la opacidad */
+  filter: none;
+  opacity: 1;
+  transition: transform 0.3s ease;
+}
+.skill-item {
+  /* Al pasar el mouse, solo hacemos zoom (ya no cambiamos color porque ya tienen color) */
+}
+.skill-item:hover img {
+  transform: scale(1.1);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 991px) {
+  .servicios-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 6rem 1.5rem;
+  }
+  .servicios-box {
+    height: auto;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  .separator {
+    width: 80%;
+    height: 1px;
+  }
+  .section-title {
+    text-align: center;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
