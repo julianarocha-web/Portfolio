@@ -655,114 +655,72 @@ document.addEventListener("DOMContentLoaded", function() {
     // 1. Registramos los plugins
     gsap.registerPlugin(SplitText, Draggable, InertiaPlugin);
 
-    // -----------------------------------------------------
-    // A. ANIMACIONES DE TEXTO (TU NUEVO CÓDIGO REEMPLAZADO)
+// -----------------------------------------------------
+    // A. ANIMACIONES DE TEXTO (SIEMPRE ACTIVAS)
     // -----------------------------------------------------
 
-    // --- 1. Texto Reveal (Caracteres) ---
-    let observer = new IntersectionObserver((entries, observer) => {
+    // --- 1. Texto Reveal (Caracteres - Títulos) ---
+    let observerReveal = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+            let elemento = entry.target;
+            
+            // Creamos el split una sola vez y lo guardamos
+            if (!elemento.splitInstance) {
+                elemento.splitInstance = new SplitText(elemento, { type: "chars" });
+            }
+            let chars = elemento.splitInstance.chars;
+
             if (entry.isIntersecting) {
-                let elemento = entry.target;
-                elemento.style.opacity = 1; // asegurar visible
-                
-                let split = new SplitText(elemento, { type: "chars" });
-                gsap.from(split.chars, {
-                    opacity: 0,
-                    yPercent: 100,
-                    stagger: 0.05,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    overwrite: true
-                });
-                observer.unobserve(elemento);
+                // AL ENTRAR: Animar
+                elemento.style.opacity = 1;
+                gsap.fromTo(chars, 
+                    { opacity: 0, yPercent: 100 }, // Desde
+                    { 
+                        opacity: 1, 
+                        yPercent: 0, 
+                        stagger: 0.03, 
+                        duration: 0.8, 
+                        ease: "power3.out", 
+                        overwrite: true 
+                    }
+                );
+            } else {
+                // AL SALIR: Resetear (para que esté listo para la próxima)
+                gsap.set(chars, { opacity: 0, yPercent: 100 });
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.15 }); // <--- CAMBIO CLAVE: 0.15 (Más sensible)
 
-    let textos = document.querySelectorAll(".texto-reveal");
-    textos.forEach(texto => {
-        observer.observe(texto);
+    document.querySelectorAll(".texto-reveal").forEach(texto => {
+        observerReveal.observe(texto);
     });
 
-    // --- 2. Texto Mask (Estilo deiv.dev) ---
+    // --- 2. Texto Mask (Párrafos - Estilo deiv.dev) ---
     const textosMask = document.querySelectorAll(".texto-mask");
 
     if (textosMask.length > 0) {
         textosMask.forEach(texto => {
-            // Aseguramos que sea visible antes de dividir
             texto.style.opacity = 1;
+            
+            const splitOuter = new SplitText(texto, { type: "lines", linesClass: "texto-mask-line" });
+            const splitInner = new SplitText(splitOuter.lines, { type: "lines", linesClass: "texto-mask-inner" });
 
-            // Primera división: Crea los renglones contenedores (la máscara)
-            const splitOuter = new SplitText(texto, { 
-                type: "lines",
-                linesClass: "texto-mask-line" 
-            });
-
-            // Segunda división: Envuelve el texto dentro de la máscara
-            const splitInner = new SplitText(splitOuter.lines, {
-                type: "lines",
-                linesClass: "texto-mask-inner" 
-            });
-
-            // El Vigilante (Intersection Observer)
             const observerMask = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        
-                        // Animamos solo la parte interna hacia arriba
-                        gsap.from(splitInner.lines, {
-                            yPercent: 100,      // Sube desde el 100% abajo
-                            duration: 1.2,
-                            ease: "power4.out", // Movimiento muy elegante
-                            stagger: 0.1,       // Tiempo entre líneas
-                            overwrite: true
-                        });
-
-                        observerMask.unobserve(entry.target);
+                        // ENTRA
+                        gsap.fromTo(splitInner.lines, 
+                            { yPercent: 100 }, 
+                            { yPercent: 0, duration: 1.2, ease: "power4.out", stagger: 0.1, overwrite: true }
+                        );
+                    } else {
+                        // SALE
+                        gsap.set(splitInner.lines, { yPercent: 100 });
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.15 }); // <--- CAMBIO CLAVE AQUÍ TAMBIÉN
 
             observerMask.observe(texto);
-        });
-    }
-
-    // -----------------------------------------------------
-    // B. NAVEGACIÓN DE SECCIONES (Botones Next/Prev)
-    // -----------------------------------------------------
-    const sections = Array.from(document.querySelectorAll('.cd-section'));
-    if (sections.length > 0) {
-        let activeSection = 0;
-        const btnPrev = document.querySelector('.cd-prev');
-        const btnNext = document.querySelector('.cd-next');
-
-        function updateNavButtons() {
-            if (!btnPrev || !btnNext) return;
-            btnPrev.classList.toggle('inactive', activeSection === 0);
-            btnNext.classList.toggle('inactive', activeSection === sections.length - 1);
-        }
-        updateNavButtons();
-
-        function goToSection(index) {
-            if (index < 0 || index >= sections.length) return;
-            activeSection = index;
-            sections[index].scrollIntoView({ behavior: 'smooth' });
-            updateNavButtons();
-        }
-
-        if (btnPrev) btnPrev.addEventListener('click', () => goToSection(activeSection - 1));
-        if (btnNext) btnNext.addEventListener('click', () => goToSection(activeSection + 1));
-
-        window.addEventListener('scroll', () => {
-            const screenMid = window.innerHeight / 2;
-            sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= screenMid && rect.bottom > screenMid) {
-                    activeSection = index;
-                    updateNavButtons();
-                }
-            });
         });
     }
 

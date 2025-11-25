@@ -1,15 +1,20 @@
 @import "_variables";
 
+/* =========================================
+   1. ESTILOS GENERALES (Base Desktop)
+========================================= */
 .servicios-section {
   position: relative;
   width: 100%;
-  height: 100vh; 
+  background: #0a0a0a;
+  overflow: hidden; 
+  
+  /* Desktop: Altura fija */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 4rem;
-  overflow: hidden; 
-  background: #0a0a0a;
 }
 
 .servicios-bg {
@@ -20,6 +25,8 @@
   background-image: url(../img/servicios/fondo-violeta-2.jpeg);
   background-size: cover;
   opacity: 0.5;
+  position: fixed; 
+  z-index: 0;
 }
 
 .servicios-inner {
@@ -29,7 +36,7 @@
   max-width: 1200px;
   display: flex;
   flex-direction: column;
-  gap: 5rem; 
+  gap: 3rem; /* Espacio normal en desktop */
 }
 
 .block-container {
@@ -39,20 +46,19 @@
     gap: 1rem; 
 }
 
-/* Al poner .servicios-inner antes, le damos más peso al selector */
+/* Títulos */
 .servicios-inner .section-title {
     font-family: $font-principal;
     font-size: 64px;
-    font-weight: 700; /* Ahora sí se va a aplicar */
+    font-weight: 700; 
     color: white;
     margin: 0;
     letter-spacing: 1px;
     padding-left: 5px;
+    text-align: left; /* Izquierda en desktop */
 }
 
-/* =========================================
-   ESTILO BASE DE LAS CAJAS (GLASS)
-========================================= */
+/* Estilo Visual de la Caja (Glass) */
 .glass-box {
   width: 100%;
   background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
@@ -62,21 +68,39 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* === CAJA 1: SERVICIOS === */
+/* === CAJA SERVICIOS (DESKTOP: GRILLA DE 3) === */
 .servicios-box {
-  height: 250px; 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
+  height: 280px; 
+  padding: 2rem;
+  
+  /* AQUÍ ESTÁ LA CLAVE DE DESKTOP: 3 COLUMNAS IGUALES */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  justify-items: center;
+  gap: 2rem;
+  position: relative;
+
+  /* Líneas divisorias verticales (hechas con CSS) */
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+    display: block;
+  }
+  &::before { left: 33.333%; }
+  &::after { left: 66.666%; }
 }
 
 .servicio {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
   
   .servicio-icon img {
     width: 40px;
@@ -97,31 +121,31 @@
     font-size: 16px;
     line-height: 1.3;
     max-width: 250px;
+    margin: 0 auto;
   }
 }
 
+/* Ocultamos los separadores HTML en desktop (usamos las líneas de la grilla) */
 .separator {
-    width: 1px;
-    height: 60%;
-    background: rgba(255,255,255,0.1);
+    display: none;
 }
 
-/* === CAJA 2: SKILLS === */
+/* === CAJA SKILLS (DESKTOP) === */
 .skills-box {
-    height: 120px; /* Altura fija para la barra de skills */
+    height: 120px; 
     display: flex;
     align-items: center;
-    overflow: hidden; /* IMPORTANTE: Oculta lo que sale de la caja */
-    padding: 0; /* Sin padding para que el track ocupe todo */
+    overflow: hidden; 
+    padding: 0; 
 }
 
 .skills-track {
     display: flex;
     align-items: center;
-    gap: 80px; /* Espacio entre logos */
+    gap: 80px; 
     padding-left: 20px;
     height: 100%;
-    width: max-content; /* Asegura que el ancho sea el contenido total */
+    width: max-content; 
 }
 
 .skill-item {
@@ -133,45 +157,89 @@
     img {
         height: 50px; 
         width: auto;
-        
-        /* CAMBIO: Quitamos el grayscale y la opacidad */
         filter: none; 
         opacity: 1; 
-        
         transition: transform 0.3s ease;
     }
     
-    /* Al pasar el mouse, solo hacemos zoom (ya no cambiamos color porque ya tienen color) */
     &:hover img {
         transform: scale(1.1);
     }
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 991px) {
+    
+    /* 1. CONTENEDOR PRINCIPAL */
     .servicios-section {
-        height: auto;
+        height: auto !important; 
         min-height: 100vh;
-        padding: 6rem 1.5rem;
+        padding: 8rem 1.5rem 15rem 1.5rem; 
+        align-items: flex-start;
+        overflow: visible !important; 
+        background-color: #0a0a0a; /* Fondo negro sólido de base */
+        z-index: 10;
     }
 
-    .servicios-box {
+    /* ---> AQUÍ ESTÁ EL ARREGLO DEL FONDO <--- */
+    .servicios-bg {
+        position: absolute !important;
+        height: 100% !important;
+        width: 100% !important;
+    }
+
+    .servicios-inner {
         height: auto;
+        justify-content: flex-start;
+        gap: 6rem; 
+    }
+
+    /* 2. Títulos */
+    .servicios-inner .section-title {
+        text-align: center;
+        padding-left: 0;
+        font-size: 42px;
+        margin-bottom: 2rem;
+    }
+
+    /* 3. Caja Servicios (Columna) */
+    .servicios-box {
+        display: flex !important;
         flex-direction: column;
-        padding: 2rem;
-        gap: 2rem;
+        height: auto !important;
+        gap: 3rem;
+        padding: 3rem 2rem;
+    }
+
+    .servicios-box::before, 
+    .servicios-box::after {
+        display: none !important;
     }
 
     .separator {
-        width: 80%;
+        display: block !important;
+        width: 100%;
         height: 1px;
+        background: rgba(255,255,255,0.1);
+        margin: 0;
+    }
+
+    .servicio-text {
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    /* 4. Skills */
+    .skills-box {
+        height: 100px;
     }
     
-    .section-title {
-        text-align: center;
+    .skills-track {
+        gap: 40px;
+    }
+    
+    .skill-item img {
+        height: 40px;
     }
 }
-
-
 
 

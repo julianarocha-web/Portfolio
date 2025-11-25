@@ -8,7 +8,7 @@ nav {
 
 .menu {
   position: relative;
-  /* SOLUCIÓN: Z-index 100 para asegurar que flote sobre el vidrio */
+  /* Z-index 100 para asegurar que flote sobre el vidrio */
   z-index: 100; 
 
   img {
@@ -36,8 +36,12 @@ nav {
     margin-bottom: 0;
   }
 
-  &:hover {
-    color: $color-white; 
+  /* CORRECCIÓN: Mantiene el blanco al hacer click, foco o hover */
+  &:hover, 
+  &:focus, 
+  &:active {
+    color: $color-white !important; /* Forzamos el blanco */
+    background-color: transparent;
   }
 
   &::after {
@@ -65,16 +69,39 @@ nav {
   }
 }
 
+/* Estilos del Botón Hamburguesa */
+.navbar-toggler {
+  border: none; /* Quitamos el borde feo de Bootstrap */
+  padding: 0;   /* Quitamos padding extra */
+  outline: none; /* Sin borde azul al hacer click */
+  
+  /* Hacemos la imagen más chica */
+  img {
+    width: 50px !important; /* Ajusta este número a tu gusto (30px o 35px suele quedar bien) */
+    height: auto;
+    
+    /* FILTRO MÁGICO: Convierte cualquier SVG negro a BLANCO PURO */
+    filter: brightness(0) invert(1); 
+  }
+  
+  &:focus {
+    box-shadow: none; /* Quitamos sombra de foco de Bootstrap */
+  }
+}
+
 .navbar-collapse {
   @media (max-width: 991px) {
-    background: rgba(0, 0, 0, 0.95); /* Fondo casi negro para leer bien el menú */
+    background: $color-fondo; /* Fondo casi negro para leer bien el menú */
     backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 15px;
     margin-top: 15px;
     z-index: 101; /* El desplegable incluso más arriba */
+    text-align: center;
+    width: 100%;
   }
 }
+
 
 
 

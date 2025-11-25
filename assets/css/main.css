@@ -163,7 +163,7 @@ nav {
 
 .menu {
   position: relative;
-  /* SOLUCIÓN: Z-index 100 para asegurar que flote sobre el vidrio */
+  /* Z-index 100 para asegurar que flote sobre el vidrio */
   z-index: 100;
 }
 .menu img {
@@ -192,8 +192,12 @@ nav {
     margin-bottom: 0;
   }
 }
-.nav-link:hover {
-  color: #FAEFEF;
+.nav-link {
+  /* CORRECCIÓN: Mantiene el blanco al hacer click, foco o hover */
+}
+.nav-link:hover, .nav-link:focus, .nav-link:active {
+  color: #FAEFEF !important; /* Forzamos el blanco */
+  background-color: transparent;
 }
 .nav-link::after {
   content: "";
@@ -216,28 +220,51 @@ nav {
   }
 }
 
+/* Estilos del Botón Hamburguesa */
+.navbar-toggler {
+  border: none; /* Quitamos el borde feo de Bootstrap */
+  padding: 0; /* Quitamos padding extra */
+  outline: none; /* Sin borde azul al hacer click */
+  /* Hacemos la imagen más chica */
+}
+.navbar-toggler img {
+  width: 50px !important; /* Ajusta este número a tu gusto (30px o 35px suele quedar bien) */
+  height: auto;
+  /* FILTRO MÁGICO: Convierte cualquier SVG negro a BLANCO PURO */
+  filter: brightness(0) invert(1);
+}
+.navbar-toggler:focus {
+  box-shadow: none; /* Quitamos sombra de foco de Bootstrap */
+}
+
 @media (max-width: 991px) {
   .navbar-collapse {
-    background: rgba(0, 0, 0, 0.95); /* Fondo casi negro para leer bien el menú */
+    background: #0A0A09; /* Fondo casi negro para leer bien el menú */
     backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 15px;
     margin-top: 15px;
     z-index: 101; /* El desplegable incluso más arriba */
+    text-align: center;
+    width: 100%;
   }
 }
 
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
 .contenedor-carrousel {
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start; /* Alineado a la izquierda en Desktop */
   gap: 1.5rem;
 }
 .contenedor-carrousel .carrousel-title {
-  padding-left: 80px;
+  width: 100%;
+  padding-left: 80px; /* Alineación con el resto del layout desktop */
   display: flex;
   gap: 1rem;
 }
@@ -245,74 +272,207 @@ nav {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
   font-weight: 700;
-  padding-left: 200px;
+  padding-left: 200px; /* Indentación estética desktop */
+  color: white;
 }
 .contenedor-carrousel .carrousel.wrapper {
   display: flex;
   align-items: center;
   gap: 2rem;
   width: 100%;
-  padding: 2rem;
-  border-radius: 12px;
-  overflow: hidden;
+  padding: 2rem; /* Espacio para que la sombra no se corte */
+  /* overflow: hidden;  <-- GSAP lo maneja, a veces conviene quitarlo si corta sombras */
+}
+.contenedor-carrousel {
+  /* =========================================
+     TARJETA DE PROYECTO (ITEM BOX)
+  ========================================= */
 }
 .contenedor-carrousel .item.box {
+  /* DESKTOP: Ancho fijo grande */
   flex: 0 0 600px;
-  height: 400px;
+  height: 450px; /* Un poco más alto para que respiren los elementos */
   border-radius: 16px;
-  color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* Alineación interna */
+  justify-content: flex-start; /* Arrancamos desde arriba para alinear títulos */
   align-items: center;
   text-align: center;
-  padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.308);
+  padding: 50px 1.5rem 1.5rem 1.5rem; /* Padding top para bajar el título */
+  /* Estilo Glass */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   color: #FAEFEF;
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 4px 4px;
-  background-color: rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(24px);
-}
-.contenedor-carrousel .item.box img {
-  width: 500px;
-}
-.contenedor-carrousel .item.box img.img-gestor {
-  width: 350px;
-  height: 230px;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  /* TÍTULO DEL PROYECTO */
 }
 .contenedor-carrousel .item.box figcaption {
   font-size: 30px;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.contenedor-carrousel .item.box {
+  /* IMÁGENES */
+}
+.contenedor-carrousel .item.box img {
+  /* Estándar Horizontal */
+  width: 500px;
+  height: auto;
+  object-fit: contain;
+  max-height: 300px;
+  margin-top: 0;
+  /* FIX GESTOR DE TAREAS (Para alinear título) */
+}
+.contenedor-carrousel .item.box img.img-gestor {
+  width: 350px;
+  height: 300px; /* Forzamos altura igual a los otros */
+  object-fit: contain;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.contenedor-carrousel .item.box img {
+  /* CELULAR SOLO (Si hay uno solo) */
+}
+.contenedor-carrousel .item.box img.img-mobile {
+  width: auto;
+  height: 320px;
   margin-top: 15px;
+}
+.contenedor-carrousel .item.box {
+  /* FIX MOODIE MAP (Doble Celular) */
+}
+.contenedor-carrousel .item.box .img-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  margin-top: 0;
+}
+.contenedor-carrousel .item.box .img-row .img-mobile {
+  width: auto;
+  height: 280px;
+  max-width: 45%;
+  margin-top: 0 !important;
+}
+.contenedor-carrousel {
+  /* Estado Activo (Centro) */
 }
 .contenedor-carrousel .item.box.active {
   transform: scale(1.05);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
+/* =========================================
+   BOTONES DE NAVEGACIÓN (FLECHAS)
+========================================= */
+.carrousel-actions {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  justify-content: center;
+  width: 100%;
+  z-index: 10;
+  padding-left: 0; /* Centrado respecto a la pantalla */
+}
+
+.carousel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+.carousel-btn svg {
+  width: 24px;
+  height: 24px;
+}
+.carousel-btn:hover {
+  background: white;
+  color: #0a0a0a;
+  transform: scale(1.1);
+}
+
+/* Fondo de la sección */
 .fondo-proyectos {
   width: 100vw;
   height: 100vh;
   background-image: url(../img/proyectos/fondo-naranja-2.jpg);
   background-size: cover;
+  position: fixed;
+  z-index: -1;
 }
 
+/* =========================================
+   RESPONSIVE (MÓVIL / TABLET < 992px)
+========================================= */
+@media (max-width: 991px) {
+  .contenedor-carrousel {
+    align-items: center; /* Centrar todo */
+  }
+  .contenedor-carrousel .carrousel-title {
+    padding-left: 0;
+    justify-content: center;
+  }
+  .contenedor-carrousel .carrousel-title h2 {
+    padding-left: 0; /* Quitamos el padding gigante */
+    font-size: 42px;
+    text-align: center;
+  }
+  .item.box {
+    /* En móvil la tarjeta se achica */
+    flex: 0 0 85vw !important; /* 85% del ancho de la pantalla */
+    height: auto !important;
+    min-height: 400px;
+    padding: 30px 1rem;
+  }
+  .item.box img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 250px !important;
+  }
+  .item.box img.img-gestor {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .item.box {
+    /* Ajuste Moodie Map en móvil */
+  }
+  .item.box .img-row .img-mobile {
+    height: 200px !important; /* Celulares más chicos */
+  }
+  .carrousel-actions {
+    margin-bottom: 2rem;
+  }
+}
+/* =========================================
+   1. ESTILOS GENERALES (Base Desktop)
+========================================= */
 .servicios-section {
   position: relative;
   width: 100%;
+  background: #0a0a0a;
+  overflow: hidden;
+  /* Desktop: Altura fija */
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 4rem;
-  overflow: hidden;
-  background: #0a0a0a;
 }
 
 .servicios-bg {
@@ -323,6 +483,8 @@ nav {
   background-image: url(../img/servicios/fondo-violeta-2.jpeg);
   background-size: cover;
   opacity: 0.5;
+  position: fixed;
+  z-index: 0;
 }
 
 .servicios-inner {
@@ -332,7 +494,7 @@ nav {
   max-width: 1200px;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3rem; /* Espacio normal en desktop */
 }
 
 .block-container {
@@ -342,20 +504,19 @@ nav {
   gap: 1rem;
 }
 
-/* Al poner .servicios-inner antes, le damos más peso al selector */
+/* Títulos */
 .servicios-inner .section-title {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
-  font-weight: 700; /* Ahora sí se va a aplicar */
+  font-weight: 700;
   color: white;
   margin: 0;
   letter-spacing: 1px;
   padding-left: 5px;
+  text-align: left; /* Izquierda en desktop */
 }
 
-/* =========================================
-   ESTILO BASE DE LAS CAJAS (GLASS)
-========================================= */
+/* Estilo Visual de la Caja (Glass) */
 .glass-box {
   width: 100%;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
@@ -365,21 +526,41 @@ nav {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* === CAJA 1: SERVICIOS === */
+/* === CAJA SERVICIOS (DESKTOP: GRILLA DE 3) === */
 .servicios-box {
-  height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
+  height: 280px;
+  padding: 2rem;
+  /* AQUÍ ESTÁ LA CLAVE DE DESKTOP: 3 COLUMNAS IGUALES */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  justify-items: center;
+  gap: 2rem;
+  position: relative;
+  /* Líneas divisorias verticales (hechas con CSS) */
+}
+.servicios-box::before, .servicios-box::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  display: block;
+}
+.servicios-box::before {
+  left: 33.333%;
+}
+.servicios-box::after {
+  left: 66.666%;
 }
 
 .servicio {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
 .servicio .servicio-icon img {
   width: 40px;
@@ -398,30 +579,30 @@ nav {
   font-size: 16px;
   line-height: 1.3;
   max-width: 250px;
+  margin: 0 auto;
 }
 
+/* Ocultamos los separadores HTML en desktop (usamos las líneas de la grilla) */
 .separator {
-  width: 1px;
-  height: 60%;
-  background: rgba(255, 255, 255, 0.1);
+  display: none;
 }
 
-/* === CAJA 2: SKILLS === */
+/* === CAJA SKILLS (DESKTOP) === */
 .skills-box {
-  height: 120px; /* Altura fija para la barra de skills */
+  height: 120px;
   display: flex;
   align-items: center;
-  overflow: hidden; /* IMPORTANTE: Oculta lo que sale de la caja */
-  padding: 0; /* Sin padding para que el track ocupe todo */
+  overflow: hidden;
+  padding: 0;
 }
 
 .skills-track {
   display: flex;
   align-items: center;
-  gap: 80px; /* Espacio entre logos */
+  gap: 80px;
   padding-left: 20px;
   height: 100%;
-  width: max-content; /* Asegura que el ancho sea el contenido total */
+  width: max-content;
 }
 
 .skill-item {
@@ -433,37 +614,75 @@ nav {
 .skill-item img {
   height: 50px;
   width: auto;
-  /* CAMBIO: Quitamos el grayscale y la opacidad */
   filter: none;
   opacity: 1;
   transition: transform 0.3s ease;
-}
-.skill-item {
-  /* Al pasar el mouse, solo hacemos zoom (ya no cambiamos color porque ya tienen color) */
 }
 .skill-item:hover img {
   transform: scale(1.1);
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 991px) {
+  /* 1. CONTENEDOR PRINCIPAL */
   .servicios-section {
-    height: auto;
+    height: auto !important;
     min-height: 100vh;
-    padding: 6rem 1.5rem;
+    padding: 8rem 1.5rem 15rem 1.5rem;
+    align-items: flex-start;
+    overflow: visible !important;
+    background-color: #0a0a0a; /* Fondo negro sólido de base */
+    z-index: 10;
   }
-  .servicios-box {
+  /* ---> AQUÍ ESTÁ EL ARREGLO DEL FONDO <--- */
+  .servicios-bg {
+    position: absolute !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .servicios-inner {
     height: auto;
+    justify-content: flex-start;
+    gap: 6rem;
+  }
+  /* 2. Títulos */
+  .servicios-inner .section-title {
+    text-align: center;
+    padding-left: 0;
+    font-size: 42px;
+    margin-bottom: 2rem;
+  }
+  /* 3. Caja Servicios (Columna) */
+  .servicios-box {
+    display: flex !important;
     flex-direction: column;
-    padding: 2rem;
-    gap: 2rem;
+    height: auto !important;
+    gap: 3rem;
+    padding: 3rem 2rem;
+  }
+  .servicios-box::before,
+  .servicios-box::after {
+    display: none !important;
   }
   .separator {
-    width: 80%;
+    display: block !important;
+    width: 100%;
     height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0;
   }
-  .section-title {
-    text-align: center;
+  .servicio-text {
+    max-width: 100%;
+    font-size: 16px;
+  }
+  /* 4. Skills */
+  .skills-box {
+    height: 100px;
+  }
+  .skills-track {
+    gap: 40px;
+  }
+  .skill-item img {
+    height: 40px;
   }
 }
 
