@@ -167,6 +167,23 @@
     }
 }
 
+.servicio-icon {
+    /* Estilos para IMG o SVG por igual */
+    img, svg {
+        width: 45px;
+        height: 45px; 
+        margin-bottom: 10px;
+        display: block; 
+
+        /* --- PARA HACERLOS BLANCOS --- */
+        stroke: white;  /* Si es SVG inline (líneas) */
+        fill: none;     /* Asegura que no tenga relleno negro */
+        
+        /* Si usaras <img>, esto lo vuelve blanco: */
+        filter: brightness(0) invert(1); 
+    }
+}
+
 @media (max-width: 991px) {
     
     /* 1. CONTENEDOR PRINCIPAL */
