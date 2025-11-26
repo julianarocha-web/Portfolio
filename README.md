@@ -11,8 +11,8 @@ El **objetivo principal** es presentar mi perfil profesional, exhibir mis habili
 
 ## 🔗 Links Importantes
 
-* **🚀 Deploy (GitHub Pages):** [INSERTAR TU LINK DE GITHUB PAGES AQUÍ]
-* **🎨 Diseño Figma (Desktop + Mobile):*https://www.figma.com/design/WalOsgwMtciIpylfZhUp0n/Dise%C3%B1o-Portfolio?node-id=0-1&t=VoGwACCkzJ7J1qCR-1*
+* **🚀 Deploy (GitHub Pages): *https://julianarocha-web.github.io/Portfolio/*
+* **🎨 Diseño Figma (Desktop + Mobile): *https://www.figma.com/design/WalOsgwMtciIpylfZhUp0n/Dise%C3%B1o-Portfolio?node-id=0-1&t=VoGwACCkzJ7J1qCR-1*
 
 ---
 
