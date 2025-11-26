@@ -1,14 +1,15 @@
 @import "_variables";
 
 /* =========================================
-   1. LAYOUT PRINCIPAL
+   1. ESTILOS BASE (DESKTOP GRANDE > 1440px)
+   Este es tu diseño original "ideal"
 ========================================= */
 .sobre-mi-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh; 
+    min-height: 700px;
     
-    /* Fondo */
     background-image: url(../img/servicios/fondo-violeta-2.jpeg);   
     background-size: cover;
     background-position: center;
@@ -24,7 +25,7 @@
 
 .sobre-mi-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     position: relative;
     z-index: 2;
     display: flex;
@@ -35,79 +36,62 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* Reducimos espacio entre el título de afuera y la caja */
     gap: 1.5rem; 
 }
 
-/* Título (Afuera de la caja) */
+/* Título Grande */
 .section-title {
     font-family: $font-principal;
     font-size: 64px; 
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     color: white;
+    margin: 0;
+    padding-left: 10px;
+    text-align: left;
 }
 
-/* =========================================
-   2. CAJA GLASS (CONTENEDOR ÚNICO)
-========================================= */
+/* Caja Glass */
 .glass-box-sobre-mi {
-background: linear-gradient(145deg, rgba(20, 19, 19, 0.474), rgba(18, 18, 18, 0.622));
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, rgba(13, 12, 12, 0.303), rgba(13, 12, 12, 0.669));
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sobre-mi-card {
     display: flex;           
     align-items: center;     
     gap: 4rem;               
-    
-    /* AJUSTE 1: Menos padding interno para que la caja sea más baja */
     padding: 3rem;           
-    
     width: 100%;
 }
 
-/* --- GRUPO DE TEXTO --- */
+/* Texto */
 .inner-text {
     flex: 1; 
-    
     p {
         font-family: $font-principal;
         font-weight: 400;
         font-size: 16px;
-        
-        /* AJUSTE 2: Interlineado y márgenes más compactos */
         line-height: 1.6; 
         margin-bottom: 1rem; 
-        
         color: #e0e0e0; 
-        
         &:last-child { margin-bottom: 0; }
-
-        .accent {
-            color: #eab1ff; 
-            font-weight: 700;
-        }
-        
-        b {
-             color: white;
-             font-weight: 700;
-        }
+        .accent { color: #eab1ff; font-weight: 700; }
+        b { color: white; font-weight: 700; }
     }
 }
 
-/* --- IMAGEN --- */
+/* Imagen Grande */
 .sobre-mi-image {
-    flex: 0 0 350px; 
+    flex: 0 0 450px; 
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 
-    /* Efecto Glow */
     &::before {
         content: '';
         position: absolute;
@@ -131,38 +115,71 @@ background: linear-gradient(145deg, rgba(20, 19, 19, 0.474), rgba(18, 18, 18, 0.
         transition: transform 0.3s ease;
     }
     
-    &:hover img {
-        transform: scale(1.02);
+    &:hover img { transform: scale(1.02); }
+}
+
+/* ============================================================
+   2. MEDIDA INTERMEDIA (992px - 1440px)  <-- ¡AQUÍ ESTÁ!
+   (Laptops, monitores chicos)
+============================================================ */
+@media (max-width: 1440px) {
+
+    .sobre-mi-container {
+        max-width: 1100px; /* Menos padding lateral */
+    }
+    
+    .sobre-mi-section {
+        padding: 0 2rem; /* Menos padding lateral */
+    }
+
+    .section-title {
+        font-size: 48px; /* Título más chico */
+    }
+
+    .sobre-mi-card {
+        padding: 2.5rem; /* Caja más compacta */
+        gap: 2.5rem;
+    }
+
+    .sobre-mi-image {
+        flex: 0 0 350px; /* Foto reducida (de 450 a 350) */
+    }
+    
+    .inner-text p {
+        font-size: 15px; /* Texto apenas más chico */
+        line-height: 1.5;
     }
 }
 
-
-/* =========================================
-   3. RESPONSIVE (Móvil < 992px)
-========================================= */
+/* ============================================================
+   3. MÓVIL / TABLET (< 992px)
+   (Diseño vertical)
+============================================================ */
 @media (max-width: 991px) {
     .sobre-mi-section {
-        padding: 8rem 1.5rem; 
         height: auto; 
+        min-height: 100vh;
+        padding: 8rem 1.5rem 4rem 1.5rem; 
         align-items: flex-start;
+        overflow-y: visible;
     }
 
     .section-title {
         text-align: center;
-        font-size: 42px;
         padding-left: 0;
+        font-size: 42px; 
     }
 
     .sobre-mi-card {
-        flex-direction: column-reverse; 
+        flex-direction: column-reverse; /* Foto arriba */
         gap: 2rem;
-        padding: 2rem; /* Aún más compacto en móvil */
+        padding: 2rem;
     }
 
     .sobre-mi-image {
         flex: auto;
         width: 100%;
-        max-width: 300px; 
+        max-width: 300px; /* Foto controlada en móvil */
         
         &::before { filter: blur(40px); opacity: 0.7; }
     }
@@ -171,79 +188,5 @@ background: linear-gradient(145deg, rgba(20, 19, 19, 0.474), rgba(18, 18, 18, 0.
         text-align: center; 
         font-size: 16px;
         margin-bottom: 1rem;
-    }
-}
-
-/* --- IMAGEN --- */
-.sobre-mi-image {
-    flex: 0 0 450px; /* Ancho fijo para el contenedor de la foto */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-
-    /* Efecto Glow detrás de la foto */
-    &::before {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%; height: 80%;
-        background: linear-gradient(135deg, rgba(210, 165, 252, 0.5), rgba(231, 112, 74, 0.3));
-        filter: blur(60px); 
-        border-radius: 50%;
-        z-index: 0; 
-    }
-
-    img {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        height: auto;
-        border-radius: 20px; 
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3); 
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-    
-    &:hover img {
-        transform: scale(1.02);
-    }
-}
-
-
-/* =========================================
-   3. RESPONSIVE (Móvil < 992px)
-========================================= */
-@media (max-width: 991px) {
-    .sobre-mi-section {
-        padding: 8rem 1.5rem; 
-        height: auto; 
-        align-items: flex-start;
-    }
-
-    .section-title {
-        text-align: center;
-        font-size: 42px;
-        padding-left: 0;
-    }
-
-    .sobre-mi-card {
-        flex-direction: column-reverse; /* Foto arriba, texto abajo */
-        gap: 2rem;
-        padding: 2rem;
-    }
-
-    .sobre-mi-image {
-        flex: auto;
-        width: 100%;
-        max-width: 300px; /* Foto más chica */
-        
-        &::before { filter: blur(40px); opacity: 0.7; }
-    }
-    
-    .inner-text p {
-        text-align: center; /* O left, según gusto */
-        font-size: 16px;
     }
 }

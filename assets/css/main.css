@@ -251,102 +251,115 @@ nav {
 }
 
 /* =========================================
-   CONTENEDOR PRINCIPAL
+   1. ESTRUCTURA GENERAL (BASE DESKTOP)
 ========================================= */
-.contenedor-carrousel {
-  height: 100vh;
+.proyectos-section {
+  position: relative;
   width: 100%;
+  background: #0a0a0a;
+  overflow: hidden;
+  /* Desktop: Altura fija */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4rem;
+}
+
+.proyectos-bg {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../img/proyectos/fondo-naranja-2.jpg);
+  background-size: cover;
+  position: fixed;
+  z-index: 0;
+}
+
+.proyectos-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Alineado a la izquierda en Desktop */
+  align-items: flex-start; /* Izquierda en Desktop */
   gap: 1.5rem;
 }
-.contenedor-carrousel .carrousel-title {
+
+/* =========================================
+   2. ELEMENTOS INTERNOS
+========================================= */
+.carrousel-title {
   width: 100%;
-  padding-left: 80px; /* Alineación con el resto del layout desktop */
+  padding-left: 80px;
   display: flex;
   gap: 1rem;
 }
-.contenedor-carrousel .carrousel-title h2 {
+.carrousel-title h2 {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
   font-weight: 700;
-  padding-left: 200px; /* Indentación estética desktop */
+  padding-left: 200px;
   color: white;
+  margin: 0;
 }
-.contenedor-carrousel .carrousel.wrapper {
+
+.carrousel.wrapper {
   display: flex;
   align-items: center;
   gap: 2rem;
   width: 100%;
-  padding: 2rem; /* Espacio para que la sombra no se corte */
-  /* overflow: hidden;  <-- GSAP lo maneja, a veces conviene quitarlo si corta sombras */
+  padding: 2rem;
 }
-.contenedor-carrousel {
-  /* =========================================
-     TARJETA DE PROYECTO (ITEM BOX)
-  ========================================= */
-}
-.contenedor-carrousel .item.box {
-  /* DESKTOP: Ancho fijo grande */
+
+/* TARJETA (.item.box) */
+.item.box {
   flex: 0 0 600px;
-  height: 450px; /* Un poco más alto para que respiren los elementos */
+  height: 450px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  /* Alineación interna */
-  justify-content: flex-start; /* Arrancamos desde arriba para alinear títulos */
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: 50px 1.5rem 1.5rem 1.5rem; /* Padding top para bajar el título */
-  /* Estilo Glass */
+  padding: 50px 1.5rem 1.5rem 1.5rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   color: #FAEFEF;
-  /* TÍTULO DEL PROYECTO */
 }
-.contenedor-carrousel .item.box figcaption {
+.item.box figcaption {
   font-size: 30px;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   margin-top: 0;
   margin-bottom: 20px;
 }
-.contenedor-carrousel .item.box {
-  /* IMÁGENES */
-}
-.contenedor-carrousel .item.box img {
-  /* Estándar Horizontal */
+.item.box img {
   width: 500px;
   height: auto;
   object-fit: contain;
   max-height: 300px;
   margin-top: 0;
-  /* FIX GESTOR DE TAREAS (Para alinear título) */
 }
-.contenedor-carrousel .item.box img.img-gestor {
+.item.box img.img-gestor {
   width: 350px;
-  height: 300px; /* Forzamos altura igual a los otros */
+  height: 300px;
   object-fit: contain;
   margin-top: 10px;
   margin-bottom: 0;
 }
-.contenedor-carrousel .item.box img {
-  /* CELULAR SOLO (Si hay uno solo) */
-}
-.contenedor-carrousel .item.box img.img-mobile {
+.item.box img.img-mobile {
   width: auto;
   height: 320px;
   margin-top: 15px;
 }
-.contenedor-carrousel .item.box {
-  /* FIX MOODIE MAP (Doble Celular) */
-}
-.contenedor-carrousel .item.box .img-row {
+.item.box .img-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -355,23 +368,19 @@ nav {
   width: 100%;
   margin-top: 0;
 }
-.contenedor-carrousel .item.box .img-row .img-mobile {
+.item.box .img-row .img-mobile {
   width: auto;
   height: 280px;
   max-width: 45%;
   margin-top: 0 !important;
 }
-.contenedor-carrousel {
-  /* Estado Activo (Centro) */
-}
-.contenedor-carrousel .item.box.active {
+
+.item.box.active {
   transform: scale(1.05);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* =========================================
-   BOTONES DE NAVEGACIÓN (FLECHAS)
-========================================= */
+/* Botones */
 .carrousel-actions {
   display: flex;
   gap: 20px;
@@ -379,7 +388,7 @@ nav {
   justify-content: center;
   width: 100%;
   z-index: 10;
-  padding-left: 0; /* Centrado respecto a la pantalla */
+  padding-left: 0;
 }
 
 .carousel-btn {
@@ -406,35 +415,73 @@ nav {
   transform: scale(1.1);
 }
 
-/* Fondo de la sección */
-.fondo-proyectos {
-  width: 100vw;
-  height: 100vh;
-  background-image: url(../img/proyectos/fondo-naranja-2.jpg);
-  background-size: cover;
-  position: fixed;
-  z-index: -1;
-}
-
 /* =========================================
-   RESPONSIVE (MÓVIL / TABLET < 992px)
+   3. AJUSTE LAPTOP (992px - 1440px)
+========================================= */
+@media (max-width: 1440px) and (min-width: 992px) {
+  .carrousel-title {
+    padding-left: 40px;
+  }
+  .carrousel-title h2 {
+    font-size: 48px;
+    padding-left: 50px;
+  }
+  .item.box {
+    flex: 0 0 500px;
+    height: 400px;
+    padding: 40px 1rem;
+  }
+  .item.box img {
+    width: 400px;
+    max-height: 250px;
+  }
+  .item.box img.img-gestor {
+    width: 300px;
+    height: 250px;
+  }
+  .item.box img.img-mobile {
+    height: 260px;
+  }
+  .item.box .img-row .img-mobile {
+    height: 240px;
+  }
+}
+/* =========================================
+   4. RESPONSIVE MÓVIL (< 992px)
+   Aquí aplicamos la misma lógica que en Servicios
 ========================================= */
 @media (max-width: 991px) {
-  .contenedor-carrousel {
-    align-items: center; /* Centrar todo */
+  /* 1. CONTENEDOR PRINCIPAL: Crece y permite scroll */
+  .proyectos-section {
+    height: auto !important;
+    min-height: 100vh;
+    /* Padding grande para evitar cortes */
+    padding: 8rem 1.5rem 6rem 1.5rem;
+    align-items: flex-start;
+    overflow: visible !important;
+    background-color: #0a0a0a;
+    z-index: 10;
   }
-  .contenedor-carrousel .carrousel-title {
+  .proyectos-bg {
+    position: absolute !important;
+    height: 100% !important;
+  }
+  .proyectos-inner {
+    align-items: center;
+    height: auto;
+    gap: 2rem;
+  }
+  .carrousel-title {
     padding-left: 0;
     justify-content: center;
   }
-  .contenedor-carrousel .carrousel-title h2 {
-    padding-left: 0; /* Quitamos el padding gigante */
+  .carrousel-title h2 {
+    padding-left: 0;
     font-size: 42px;
     text-align: center;
   }
   .item.box {
-    /* En móvil la tarjeta se achica */
-    flex: 0 0 85vw !important; /* 85% del ancho de la pantalla */
+    flex: 0 0 85vw !important;
     height: auto !important;
     min-height: 400px;
     padding: 30px 1rem;
@@ -448,14 +495,21 @@ nav {
     width: 100% !important;
     height: auto !important;
   }
-  .item.box {
-    /* Ajuste Moodie Map en móvil */
+  .item.box img.img-mobile {
+    height: 240px !important;
+    width: auto !important;
+  }
+  .item.box .img-row {
+    gap: 10px;
   }
   .item.box .img-row .img-mobile {
-    height: 200px !important; /* Celulares más chicos */
+    height: 180px !important;
+  }
+  .item.box figcaption {
+    font-size: 24px;
   }
   .carrousel-actions {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
 }
 /* =========================================
@@ -536,7 +590,7 @@ nav {
   justify-items: center;
   gap: 2rem;
   position: relative;
-  /* Líneas divisorias verticales (hechas con CSS) */
+  /* Líneas divisorias verticales */
 }
 .servicios-box::before, .servicios-box::after {
   content: "";
@@ -581,7 +635,7 @@ nav {
   margin: 0 auto;
 }
 
-/* Ocultamos los separadores HTML en desktop (usamos las líneas de la grilla) */
+/* Ocultamos los separadores HTML en desktop */
 .separator {
   display: none;
 }
@@ -621,23 +675,30 @@ nav {
   transform: scale(1.1);
 }
 
-.servicio-icon {
-  /* Estilos para IMG o SVG por igual */
-}
 .servicio-icon img, .servicio-icon svg {
   width: 45px;
   height: 45px;
   margin-bottom: 10px;
   display: block;
-  /* --- PARA HACERLOS BLANCOS --- */
-  stroke: white; /* Si es SVG inline (líneas) */
-  fill: none; /* Asegura que no tenga relleno negro */
-  /* Si usaras <img>, esto lo vuelve blanco: */
+  stroke: white;
+  fill: none;
   filter: brightness(0) invert(1);
 }
 
+/* =========================================
+   2. REGLAS RESPONSIVE (SOLO MÓVIL < 992px)
+========================================= */
 @media (max-width: 991px) {
-  /* 1. CONTENEDOR PRINCIPAL */
+  /* --- ARREGLO CRÍTICO PARA EL PADRE --- */
+  /* Esto desbloquea la altura de la sección principal */
+  .cd-section,
+  .cd-section.visible,
+  .cd-section > div {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+  }
+  /* ------------------------------------- */
   .servicios-section {
     height: auto !important;
     min-height: 100vh;
@@ -647,7 +708,7 @@ nav {
     background-color: #0a0a0a; /* Fondo negro sólido de base */
     z-index: 10;
   }
-  /* ---> AQUÍ ESTÁ EL ARREGLO DEL FONDO <--- */
+  /* El fondo acompaña el crecimiento */
   .servicios-bg {
     position: absolute !important;
     height: 100% !important;
@@ -658,14 +719,12 @@ nav {
     justify-content: flex-start;
     gap: 6rem;
   }
-  /* 2. Títulos */
   .servicios-inner .section-title {
     text-align: center;
     padding-left: 0;
     font-size: 42px;
     margin-bottom: 2rem;
   }
-  /* 3. Caja Servicios (Columna) */
   .servicios-box {
     display: flex !important;
     flex-direction: column;
@@ -688,7 +747,6 @@ nav {
     max-width: 100%;
     font-size: 16px;
   }
-  /* 4. Skills */
   .skills-box {
     height: 100px;
   }
@@ -700,13 +758,14 @@ nav {
   }
 }
 /* =========================================
-   1. LAYOUT PRINCIPAL
+   1. ESTILOS BASE (DESKTOP GRANDE > 1440px)
+   Este es tu diseño original "ideal"
 ========================================= */
 .sobre-mi-section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  /* Fondo */
+  height: 100vh;
+  min-height: 700px;
   background-image: url(../img/servicios/fondo-violeta-2.jpeg);
   background-size: cover;
   background-position: center;
@@ -721,7 +780,7 @@ nav {
 
 .sobre-mi-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   position: relative;
   z-index: 2;
   display: flex;
@@ -732,23 +791,23 @@ nav {
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* Reducimos espacio entre el título de afuera y la caja */
   gap: 1.5rem;
 }
 
-/* Título (Afuera de la caja) */
+/* Título Grande */
 .section-title {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   color: white;
+  margin: 0;
+  padding-left: 10px;
+  text-align: left;
 }
 
-/* =========================================
-   2. CAJA GLASS (CONTENEDOR ÚNICO)
-========================================= */
+/* Caja Glass */
 .glass-box-sobre-mi {
-  background: linear-gradient(145deg, rgba(20, 19, 19, 0.474), rgba(18, 18, 18, 0.622));
+  background: linear-gradient(145deg, rgba(13, 12, 12, 0.303), rgba(13, 12, 12, 0.669));
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(50px);
@@ -760,12 +819,11 @@ nav {
   display: flex;
   align-items: center;
   gap: 4rem;
-  /* AJUSTE 1: Menos padding interno para que la caja sea más baja */
   padding: 3rem;
   width: 100%;
 }
 
-/* --- GRUPO DE TEXTO --- */
+/* Texto */
 .inner-text {
   flex: 1;
 }
@@ -773,7 +831,6 @@ nav {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  /* AJUSTE 2: Interlineado y márgenes más compactos */
   line-height: 1.6;
   margin-bottom: 1rem;
   color: #e0e0e0;
@@ -790,14 +847,13 @@ nav {
   font-weight: 700;
 }
 
-/* --- IMAGEN --- */
+/* Imagen Grande */
 .sobre-mi-image {
-  flex: 0 0 350px;
+  flex: 0 0 450px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  /* Efecto Glow */
 }
 .sobre-mi-image::before {
   content: "";
@@ -826,29 +882,58 @@ nav {
   transform: scale(1.02);
 }
 
-/* =========================================
-   3. RESPONSIVE (Móvil < 992px)
-========================================= */
+/* ============================================================
+   2. MEDIDA INTERMEDIA (992px - 1440px)  <-- ¡AQUÍ ESTÁ!
+   (Laptops, monitores chicos)
+============================================================ */
+@media (max-width: 1440px) {
+  .sobre-mi-container {
+    max-width: 1100px; /* Menos padding lateral */
+  }
+  .sobre-mi-section {
+    padding: 0 2rem; /* Menos padding lateral */
+  }
+  .section-title {
+    font-size: 48px; /* Título más chico */
+  }
+  .sobre-mi-card {
+    padding: 2.5rem; /* Caja más compacta */
+    gap: 2.5rem;
+  }
+  .sobre-mi-image {
+    flex: 0 0 350px; /* Foto reducida (de 450 a 350) */
+  }
+  .inner-text p {
+    font-size: 15px; /* Texto apenas más chico */
+    line-height: 1.5;
+  }
+}
+/* ============================================================
+   3. MÓVIL / TABLET (< 992px)
+   (Diseño vertical)
+============================================================ */
 @media (max-width: 991px) {
   .sobre-mi-section {
-    padding: 8rem 1.5rem;
     height: auto;
+    min-height: 100vh;
+    padding: 8rem 1.5rem 4rem 1.5rem;
     align-items: flex-start;
+    overflow-y: visible;
   }
   .section-title {
     text-align: center;
-    font-size: 42px;
     padding-left: 0;
+    font-size: 42px;
   }
   .sobre-mi-card {
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* Foto arriba */
     gap: 2rem;
-    padding: 2rem; /* Aún más compacto en móvil */
+    padding: 2rem;
   }
   .sobre-mi-image {
     flex: auto;
     width: 100%;
-    max-width: 300px;
+    max-width: 300px; /* Foto controlada en móvil */
   }
   .sobre-mi-image::before {
     filter: blur(40px);
@@ -858,75 +943,6 @@ nav {
     text-align: center;
     font-size: 16px;
     margin-bottom: 1rem;
-  }
-}
-/* --- IMAGEN --- */
-.sobre-mi-image {
-  flex: 0 0 450px; /* Ancho fijo para el contenedor de la foto */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  /* Efecto Glow detrás de la foto */
-}
-.sobre-mi-image::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
-  background: linear-gradient(135deg, rgba(210, 165, 252, 0.5), rgba(231, 112, 74, 0.3));
-  filter: blur(60px);
-  border-radius: 50%;
-  z-index: 0;
-}
-.sobre-mi-image img {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-.sobre-mi-image:hover img {
-  transform: scale(1.02);
-}
-
-/* =========================================
-   3. RESPONSIVE (Móvil < 992px)
-========================================= */
-@media (max-width: 991px) {
-  .sobre-mi-section {
-    padding: 8rem 1.5rem;
-    height: auto;
-    align-items: flex-start;
-  }
-  .section-title {
-    text-align: center;
-    font-size: 42px;
-    padding-left: 0;
-  }
-  .sobre-mi-card {
-    flex-direction: column-reverse; /* Foto arriba, texto abajo */
-    gap: 2rem;
-    padding: 2rem;
-  }
-  .sobre-mi-image {
-    flex: auto;
-    width: 100%;
-    max-width: 300px; /* Foto más chica */
-  }
-  .sobre-mi-image::before {
-    filter: blur(40px);
-    opacity: 0.7;
-  }
-  .inner-text p {
-    text-align: center; /* O left, según gusto */
-    font-size: 16px;
   }
 }
 

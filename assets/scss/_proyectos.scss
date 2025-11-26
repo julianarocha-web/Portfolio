@@ -1,132 +1,148 @@
 @import "_variables";
 
 /* =========================================
-   CONTENEDOR PRINCIPAL
+   1. ESTRUCTURA GENERAL (BASE DESKTOP)
 ========================================= */
-.contenedor-carrousel {
-  height: 100vh;
+.proyectos-section {
+  position: relative;
   width: 100%;
+  background: #0a0a0a;
+  overflow: hidden; 
+  
+  /* Desktop: Altura fija */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4rem;
+}
+
+.proyectos-bg {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../img/proyectos/fondo-naranja-2.jpg);
+  background-size: cover;
+  position: fixed; 
+  z-index: 0;
+}
+
+.proyectos-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Alineado a la izquierda en Desktop */
+  align-items: flex-start; /* Izquierda en Desktop */
   gap: 1.5rem;
-
-  .carrousel-title {
-    width: 100%;
-    padding-left: 80px; /* Alineación con el resto del layout desktop */
-    display: flex;
-    gap: 1rem;
-
-    h2 {
-      font-family: $font-principal;
-      font-size: 64px;
-      font-weight: 700;
-      padding-left: 200px; /* Indentación estética desktop */
-      color: white;
-    }
-  }
-
-  .carrousel.wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    width: 100%;
-    padding: 2rem; /* Espacio para que la sombra no se corte */
-    /* overflow: hidden;  <-- GSAP lo maneja, a veces conviene quitarlo si corta sombras */
-  }
-
-  /* =========================================
-     TARJETA DE PROYECTO (ITEM BOX)
-  ========================================= */
-  .item.box {
-    /* DESKTOP: Ancho fijo grande */
-    flex: 0 0 600px; 
-    height: 450px; /* Un poco más alto para que respiren los elementos */
-    
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    
-    /* Alineación interna */
-    justify-content: flex-start; /* Arrancamos desde arriba para alinear títulos */
-    align-items: center;
-    text-align: center;
-    
-    padding: 50px 1.5rem 1.5rem 1.5rem; /* Padding top para bajar el título */
-    
-    /* Estilo Glass */
-    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    color: $color-white;
-
-    /* TÍTULO DEL PROYECTO */
-    figcaption {
-      font-size: 30px;
-      font-weight: 600;
-      font-family: $font-principal;
-      margin-top: 0; 
-      margin-bottom: 20px; 
-    }
-
-    /* IMÁGENES */
-    img {
-      /* Estándar Horizontal */
-      width: 500px; 
-      height: auto;
-      object-fit: contain; 
-      max-height: 300px;   
-      margin-top: 0;
-
-      /* FIX GESTOR DE TAREAS (Para alinear título) */
-      &.img-gestor {
-        width: 350px; 
-        height: 300px; /* Forzamos altura igual a los otros */
-        object-fit: contain; 
-        margin-top: 10px; 
-        margin-bottom: 0;
-      }
-
-      /* CELULAR SOLO (Si hay uno solo) */
-      &.img-mobile {
-        width: auto;       
-        height: 320px;     
-        margin-top: 15px;
-      }
-    }
-
-    /* FIX MOODIE MAP (Doble Celular) */
-    .img-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        width: 100%;
-        margin-top: 0;
-
-        .img-mobile {
-            width: auto;
-            height: 280px; 
-            max-width: 45%;
-            margin-top: 0 !important; 
-        }
-    }
-  }
-
-  /* Estado Activo (Centro) */
-  .item.box.active {
-    transform: scale(1.05);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  }
 }
 
 /* =========================================
-   BOTONES DE NAVEGACIÓN (FLECHAS)
+   2. ELEMENTOS INTERNOS
 ========================================= */
+
+.carrousel-title {
+  width: 100%;
+  padding-left: 80px; 
+  display: flex;
+  gap: 1rem;
+
+  h2 {
+    font-family: $font-principal;
+    font-size: 64px;
+    font-weight: 700;
+    padding-left: 200px; 
+    color: white;
+    margin: 0;
+  }
+}
+
+.carrousel.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  padding: 2rem; 
+}
+
+/* TARJETA (.item.box) */
+.item.box {
+  flex: 0 0 600px; 
+  height: 450px; 
+  
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: center;
+  text-align: center;
+  padding: 50px 1.5rem 1.5rem 1.5rem; 
+  
+  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  color: $color-white;
+
+  figcaption {
+    font-size: 30px;
+    font-weight: 600;
+    font-family: $font-principal;
+    margin-top: 0; 
+    margin-bottom: 20px; 
+  }
+
+  img {
+    width: 500px; 
+    height: auto;
+    object-fit: contain; 
+    max-height: 300px;   
+    margin-top: 0;
+
+    &.img-gestor {
+      width: 350px; 
+      height: 300px; 
+      object-fit: contain; 
+      margin-top: 10px; 
+      margin-bottom: 0;
+    }
+
+    &.img-mobile {
+      width: auto;       
+      height: 320px;     
+      margin-top: 15px;
+    }
+  }
+
+  .img-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      margin-top: 0;
+
+      .img-mobile {
+          width: auto;
+          height: 280px; 
+          max-width: 45%;
+          margin-top: 0 !important; 
+      }
+  }
+}
+
+.item.box.active {
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Botones */
 .carrousel-actions {
   display: flex;
   gap: 20px;
@@ -134,7 +150,7 @@
   justify-content: center;
   width: 100%;
   z-index: 10;
-  padding-left: 0; /* Centrado respecto a la pantalla */
+  padding-left: 0; 
 }
 
 .carousel-btn {
@@ -151,10 +167,7 @@
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
 
-  svg {
-    width: 24px;
-    height: 24px;
-  }
+  svg { width: 24px; height: 24px; }
 
   &:hover {
     background: white;
@@ -163,39 +176,75 @@
   }
 }
 
-/* Fondo de la sección */
-.fondo-proyectos {
-  width: 100vw;
-  height: 100vh;
-  background-image: url(../img/proyectos/fondo-naranja-2.jpg);
-  background-size: cover;
-  position: fixed;
-  z-index: -1;
-}
 
 /* =========================================
-   RESPONSIVE (MÓVIL / TABLET < 992px)
+   3. AJUSTE LAPTOP (992px - 1440px)
+========================================= */
+@media (max-width: 1440px) and (min-width: 992px) {
+    .carrousel-title {
+        padding-left: 40px;
+        h2 {
+            font-size: 48px; 
+            padding-left: 50px; 
+        }
+    }
+    .item.box {
+        flex: 0 0 500px; 
+        height: 400px;
+        padding: 40px 1rem;
+        img {
+            width: 400px; max-height: 250px;
+            &.img-gestor { width: 300px; height: 250px; }
+            &.img-mobile { height: 260px; }
+        }
+        .img-row .img-mobile { height: 240px; }
+    }
+}
+
+
+/* =========================================
+   4. RESPONSIVE MÓVIL (< 992px)
+   Aquí aplicamos la misma lógica que en Servicios
 ========================================= */
 @media (max-width: 991px) {
     
-    .contenedor-carrousel {
-        align-items: center; /* Centrar todo */
+    /* 1. CONTENEDOR PRINCIPAL: Crece y permite scroll */
+    .proyectos-section {
+        height: auto !important; 
+        min-height: 100vh;
         
-        .carrousel-title {
-            padding-left: 0;
-            justify-content: center;
-            
-            h2 {
-                padding-left: 0; /* Quitamos el padding gigante */
-                font-size: 42px;
-                text-align: center;
-            }
+        /* Padding grande para evitar cortes */
+        padding: 8rem 1.5rem 6rem 1.5rem; 
+        
+        align-items: flex-start;
+        overflow: visible !important; 
+        background-color: #0a0a0a; 
+        z-index: 10;
+    }
+
+    .proyectos-bg {
+        position: absolute !important;
+        height: 100% !important;
+    }
+
+    .proyectos-inner {
+        align-items: center;
+        height: auto;
+        gap: 2rem;
+    }
+    
+    .carrousel-title {
+        padding-left: 0;
+        justify-content: center;
+        h2 {
+            padding-left: 0; 
+            font-size: 42px;
+            text-align: center;
         }
     }
 
     .item.box {
-        /* En móvil la tarjeta se achica */
-        flex: 0 0 85vw !important; /* 85% del ancho de la pantalla */
+        flex: 0 0 85vw !important; 
         height: auto !important;
         min-height: 400px;
         padding: 30px 1rem;
@@ -204,22 +253,19 @@
             width: 100% !important;
             height: auto !important;
             max-height: 250px !important;
-            
-            &.img-gestor {
-                width: 100% !important;
-                height: auto !important;
-            }
+            &.img-gestor { width: 100% !important; height: auto !important; }
+            &.img-mobile { height: 240px !important; width: auto !important; }
         }
 
-        /* Ajuste Moodie Map en móvil */
         .img-row {
-            .img-mobile {
-                height: 200px !important; /* Celulares más chicos */
-            }
+            gap: 10px;
+            .img-mobile { height: 180px !important; }
         }
+        
+        figcaption { font-size: 24px; }
     }
     
     .carrousel-actions {
-        margin-bottom: 2rem;
+        margin-bottom: 0;
     }
 }
