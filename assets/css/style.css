@@ -358,6 +358,58 @@ Main Components
     }
 }
 
+/* =========================================
+   PARCHE FINAL PARA IPHONE (SAFARI iOS)
+========================================= */
+@media only screen and (max-width: 1049px) {
+
+    /* 1. ARREGLAR FLECHAS INVISIBLES */
+    /* Forzamos el color blanco directamente en las líneas del dibujo SVG */
+    .carousel-btn svg,
+    .carousel-btn svg line,
+    .carousel-btn svg polyline,
+    .carousel-btn svg path {
+        stroke: #ffffff !important; /* Blanco puro obligatorio */
+        stroke-width: 2px !important; /* Aseguramos grosor */
+        opacity: 1 !important;
+        display: block !important; /* Evita que colapse */
+    }
+    
+    /* Aseguramos que el botón no tape al icono */
+    .carousel-btn {
+        z-index: 1000 !important;
+        background-color: rgba(255, 255, 255, 0.15) !important; /* Fondo semitransparente visible */
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 2. ARREGLAR FONDO PIXELADO/GIGANTE */
+    /* Desactivamos cualquier aceleración 3D que baje la calidad en iPhone */
+    .proyectos-bg,
+    .servicios-bg,
+    .contacto-bg,
+    .cd-section > div {
+        transform: none !important; /* Clave para evitar pixelado */
+        -webkit-transform: none !important;
+        will-change: auto !important; /* Reseteamos optimizaciones de memoria */
+        
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-position: center !important;
+        
+        /* Forzamos altura fija real para que no se estire infinitamente */
+        height: 100% !important; 
+        position: absolute !important;
+    }
+    
+    /* Ajuste extra para el contenedor padre en iPhone */
+    .proyectos-section {
+        background-attachment: scroll !important;
+        transform: none !important;
+    }
+}
+
 
 
 
