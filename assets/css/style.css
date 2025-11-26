@@ -314,75 +314,7 @@ Main Components
     }
 }
 
-/* =========================================
-   PARCHE FINAL CORREGIDO (SOLUCIÓN SUPERPOSICIÓN)
-========================================= */
-@media only screen and (max-width: 1049px) {
 
-    /* 1. ARREGLAR FLECHAS INVISIBLES (Esto lo mantenemos igual) */
-    .carousel-btn svg,
-    .carousel-btn svg line,
-    .carousel-btn svg polyline,
-    .carousel-btn svg path {
-        stroke: #ffffff !important;
-        stroke-width: 2px !important;
-        opacity: 1 !important;
-        display: block !important;
-    }
-    
-    .carousel-btn {
-        z-index: 1000 !important;
-        background-color: rgba(255, 255, 255, 0.15) !important;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* 2. ARREGLAR SUPERPOSICIÓN Y FONDOS */
-    
-    /* A. El contenedor DE CONTENIDO debe fluir (Relative) y crecer (Auto) */
-    /* Esto es lo que arregla que se encimen las secciones */
-    .cd-section > div {
-        position: relative !important; /* CLAVE: Relative para que no se superpongan */
-        height: auto !important;       /* CLAVE: Auto para que crezca con el texto */
-        min-height: 100dvh;            /* Mínimo pantalla completa */
-        
-        /* Reseteos de seguridad */
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        will-change: auto !important;
-        width: 100% !important;
-    }
-
-    /* B. Los FONDOS sí deben ser absolutos para ir detrás */
-    .proyectos-bg,
-    .servicios-bg,
-    .contacto-bg {
-        position: absolute !important;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-        z-index: 0;
-        
-        /* Fix de pixelado iPhone */
-        background-attachment: scroll !important; 
-        background-size: cover !important;
-        background-position: center !important;
-        transform: none !important;
-        will-change: auto !important;
-    }
-    
-    /* C. Aseguramos que las secciones internas también crezcan */
-    .proyectos-section, 
-    .contacto-section {
-        height: auto !important; 
-        min-height: 100dvh;
-        background-attachment: scroll !important;
-        transform: none !important;
-    }
-}
 
 
 
