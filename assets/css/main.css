@@ -314,8 +314,10 @@ nav {
   padding: 2rem;
 }
 
+/* --- TARJETA BASE (DESKTOP) --- */
 .item.box {
-  flex: 0 0 600px;
+  /* CAMBIO: Ancho reducido para que abrace mejor el contenido */
+  flex: 0 0 450px;
   height: 450px;
   border-radius: 16px;
   display: flex;
@@ -323,7 +325,8 @@ nav {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: 50px 1.5rem 1.5rem 1.5rem;
+  /* Padding ajustado para la tarjeta más angosta */
+  padding: 50px 2rem 2rem 2rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(24px);
@@ -339,15 +342,17 @@ nav {
   margin-bottom: 20px;
 }
 .item.box img {
-  width: 500px;
+  /* CAMBIO: La imagen ahora se adapta al ancho de la caja */
+  width: 100%;
+  max-width: 100%;
   height: auto;
   object-fit: contain;
-  max-height: 300px;
+  max-height: 250px;
   margin-top: 0;
 }
 .item.box img.img-gestor {
-  width: 350px;
-  height: 300px;
+  width: auto; /* Específico para mantener proporción en el gestor */
+  height: 220px;
   object-fit: contain;
   margin-top: 10px;
   margin-bottom: 0;
@@ -424,16 +429,15 @@ nav {
     padding-left: 50px;
   }
   .item.box {
-    flex: 0 0 500px;
+    /* En laptop mantenemos un ancho fijo intermedio si hace falta */
+    flex: 0 0 450px;
     height: 400px;
     padding: 40px 1rem;
   }
   .item.box img {
-    width: 400px;
     max-height: 250px;
   }
   .item.box img.img-gestor {
-    width: 300px;
     height: 250px;
   }
   .item.box img.img-mobile {
@@ -476,14 +480,16 @@ nav {
   }
   .item.box {
     flex: 0 0 85vw !important;
+    /* FIX MÓVIL: Altura automática y sin mínimo forzado */
     height: auto !important;
-    min-height: 400px;
-    padding: 30px 1rem;
+    min-height: 0 !important;
+    padding: 30px 1.5rem 30px 1.5rem !important;
   }
   .item.box img {
     width: 100% !important;
     height: auto !important;
     max-height: 250px !important;
+    margin-bottom: 0 !important;
   }
   .item.box img.img-gestor {
     width: 100% !important;
@@ -501,6 +507,7 @@ nav {
   }
   .item.box figcaption {
     font-size: 24px;
+    margin-bottom: 15px;
   }
   .carrousel-actions {
     margin-bottom: 0;

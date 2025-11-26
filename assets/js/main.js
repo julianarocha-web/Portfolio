@@ -35,6 +35,42 @@ jQuery(document).ready(function($){
             if( hijacking == 'on' ) {
                 initHijacking();
                 $(window).on('DOMMouseScroll mousewheel', scrollHijacking);
+
+                // --- DESKTOP: Lógica para navegar con el menú ---
+                $('.nav-link').on('click', function(event){
+                    event.preventDefault();
+                    var targetId = $(this).attr('href'); 
+                    var target = $(targetId);
+
+                    if(target.length && !target.hasClass('visible') && !animating) {
+                        animating = true;
+                        var current = sectionsAvailable.filter('.visible');
+                        
+                        var currentIndex = sectionsAvailable.index(current);
+                        var targetIndex = sectionsAvailable.index(target);
+                        var direction = (targetIndex > currentIndex) ? 'next' : 'prev';
+
+                        var animationParams = selectAnimation(animationType, false, direction);
+                        var exitAnimation = (direction == 'next') ? animationParams[1] : animationParams[2];
+
+                        if (direction == 'next') {
+                            target.prevAll('.cd-section').children('div').velocity(animationParams[1], 0);
+                        } else {
+                            target.nextAll('.cd-section').children('div').velocity(animationParams[2], 0);
+                        }
+
+                        current.removeClass('visible').children('div').velocity(exitAnimation, animationParams[3], animationParams[4]);
+
+                        target.addClass('visible').children('div').velocity(animationParams[0], animationParams[3], animationParams[4], function(){
+                            animating = false;
+                            resetScroll();
+                        });
+                        
+                        actual = targetIndex + 1;
+                    }
+                });
+                // --- FIN DESKTOP ---
+
             } else {
                 scrollAnimation();
                 $(window).on('scroll', scrollAnimation);
@@ -51,21 +87,45 @@ jQuery(document).ready(function($){
                     prevSection();
                 }
             });
-            //set navigation arrows visibility
             checkNavigation();
+
         } else if( MQ == 'mobile' ) {
-            //reset and unbind
+            // --- MOBILE: Lógica corregida ---
+            
+            // 1. Limpieza de efectos de escritorio
             resetSectionStyle();
             $(window).off('DOMMouseScroll mousewheel', scrollHijacking);
             $(window).off('scroll', scrollAnimation);
             prevArrow.off('click', prevSection);
             nextArrow.off('click', nextSection);
             $(document).off('keydown');
+
+            // 2. Activamos los clicks en el menú para celular
+            $('.nav-link').off('click').on('click', function(event){
+                event.preventDefault(); 
+                
+                // Cerrar el menú hamburguesa de Bootstrap
+                $('.navbar-collapse').collapse('hide'); 
+
+                // Buscar la sección destino
+                var targetId = $(this).attr('href');
+                var target = $(targetId);
+
+                if( target.length ) {
+                    // Calculamos un pequeño espacio para el header fijo (aprox 70px)
+                    var headerHeight = 70; 
+                    
+                    // Animación suave nativa (sin hijacking)
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - headerHeight
+                    }, 100); 
+                }
+            });
+            // --- FIN MOBILE ---
         }
     }
 
     function scrollAnimation(){
-        //normal scroll - use requestAnimationFrame (if defined) to optimize performance
         (!window.requestAnimationFrame) ? animateSection() : window.requestAnimationFrame(animateSection);
     }
 
@@ -78,7 +138,6 @@ jQuery(document).ready(function($){
             var actualBlock = $(this),
                 offset = scrollTop - actualBlock.offset().top;
 
-            //according to animation type and window scroll, define animation parameters
             var animationValues = setSectionAnimation(offset, windowHeight, animationType);
             
             transformSection(actualBlock.children('div'), animationValues[0], animationValues[1], animationValues[2], animationValues[3], animationValues[4]);
@@ -89,7 +148,6 @@ jQuery(document).ready(function($){
     }
 
     function transformSection(element, translateY, scaleValue, rotateXValue, opacityValue, boxShadow) {
-        //transform sections - normal scroll
         element.velocity({
             translateY: translateY+'vh',
             scale: scaleValue,
@@ -101,7 +159,6 @@ jQuery(document).ready(function($){
     }
 
     function initHijacking() {
-        // initialize section style - scrollhijacking
         var visibleSection = sectionsAvailable.filter('.visible'),
             topSection = visibleSection.prevAll('.cd-section'),
             bottomSection = visibleSection.nextAll('.cd-section'),
@@ -120,7 +177,6 @@ jQuery(document).ready(function($){
     }
 
     function scrollHijacking (event) {
-        // on mouse scroll - check if animate section
         if (event.originalEvent.detail < 0 || event.originalEvent.wheelDelta > 0) { 
             delta--;
             ( Math.abs(delta) >= scrollThreshold) && prevSection();
@@ -132,7 +188,6 @@ jQuery(document).ready(function($){
     }
 
     function prevSection(event) {
-        //go to previous section
         typeof event !== 'undefined' && event.preventDefault();
         
         var visibleSection = sectionsAvailable.filter('.visible'),
@@ -157,7 +212,6 @@ jQuery(document).ready(function($){
     }
 
     function nextSection(event) {
-        //go to next section
         typeof event !== 'undefined' && event.preventDefault();
 
         var visibleSection = sectionsAvailable.filter('.visible'),
@@ -180,7 +234,6 @@ jQuery(document).ready(function($){
     }
 
     function unbindScroll(section, time) {
-        //if clicking on navigation - unbind scroll and animate using custom velocity animation
         if( hijacking == 'off') {
             $(window).off('scroll', scrollAnimation);
             ( animationType == 'catch') ? $('body, html').scrollTop(section.offset().top) : section.velocity("scroll", { duration: time });
@@ -193,30 +246,30 @@ jQuery(document).ready(function($){
     }
 
     function checkNavigation() {
-        //update navigation arrows visibility
         ( sectionsAvailable.filter('.visible').is(':first-of-type') ) ? prevArrow.addClass('inactive') : prevArrow.removeClass('inactive');
         ( sectionsAvailable.filter('.visible').is(':last-of-type')  ) ? nextArrow.addClass('inactive') : nextArrow.removeClass('inactive');
     }
 
     function resetSectionStyle() {
-        //on mobile - remove style applied with jQuery
         sectionsAvailable.children('div').each(function(){
             $(this).attr('style', '');
         });
     }
 
     function deviceType() {
-        //detect if desktop/mobile
-        return window.getComputedStyle(document.querySelector('body'), '::before').getPropertyValue('content').replace(/"/g, "").replace(/'/g, "");
+        // DETECCIÓN SEGURA: Si mide menos de 1024px es mobile
+        if (window.innerWidth < 1024) {
+            return 'mobile';
+        }
+        return 'desktop';
     }
 
     function selectAnimation(animationName, middleScroll, direction) {
-        // select section animation - scrollhijacking
         var animationVisible = 'translateNone',
             animationTop = 'translateUp',
             animationBottom = 'translateDown',
             easing = 'ease',
-            animDuration = 800;
+            animDuration = 500;
 
         switch(animationName) {
             case 'scaleDown':
@@ -266,7 +319,6 @@ jQuery(document).ready(function($){
     }
 
     function setSectionAnimation(sectionOffset, windowHeight, animationName ) {
-        // select section animation - normal scroll
         var scale = 1,
             translateY = 100,
             rotateX = '0deg',
@@ -274,7 +326,6 @@ jQuery(document).ready(function($){
             boxShadowBlur = 0;
         
         if( sectionOffset >= -windowHeight && sectionOffset <= 0 ) {
-            // section entering the viewport
             translateY = (-sectionOffset)*100/windowHeight;
             
             switch(animationName) {
@@ -317,7 +368,6 @@ jQuery(document).ready(function($){
             }
 
         } else if( sectionOffset > 0 && sectionOffset <= windowHeight ) {
-            //section leaving the viewport - still has the '.visible' class
             translateY = (-sectionOffset)*100/windowHeight;
             
             switch(animationName) {
@@ -370,7 +420,6 @@ jQuery(document).ready(function($){
             }
 
         } else if( sectionOffset < -windowHeight ) {
-            //section not yet visible
             translateY = 100;
 
             switch(animationName) {
@@ -389,7 +438,6 @@ jQuery(document).ready(function($){
             }
 
         } else {
-            //section not visible anymore
             translateY = -100;
 
             switch(animationName) {
@@ -424,19 +472,12 @@ jQuery(document).ready(function($){
 });
 
 /* Custom effects registration - feature available in the Velocity UI pack */
-//none
 $.Velocity.RegisterEffect("translateUp", { defaultDuration: 1, calls: [ [ { translateY: '-100%'}, 1] ] });
 $.Velocity.RegisterEffect("translateDown", { defaultDuration: 1, calls: [ [ { translateY: '100%'}, 1] ] });
 $.Velocity.RegisterEffect("translateNone", { defaultDuration: 1, calls: [ [ { translateY: '0', opacity: '1', scale: '1', rotateX: '0', boxShadowBlur: '0'}, 1] ] });
-
-//scale down
 $.Velocity.RegisterEffect("scaleDown", { defaultDuration: 1, calls: [ [ { opacity: '0', scale: '0.7', boxShadowBlur: '40px' }, 1] ] });
-
-//rotation
 $.Velocity.RegisterEffect("rotation", { defaultDuration: 1, calls: [ [ { opacity: '0', rotateX: '90', translateY: '-100%'}, 1] ] });
 $.Velocity.RegisterEffect("rotation.scroll", { defaultDuration: 1, calls: [ [ { opacity: '0', rotateX: '90', translateY: '0'}, 1] ] });
-
-//gallery
 $.Velocity.RegisterEffect("scaleDown.moveUp", { defaultDuration: 1, calls: [ [ { translateY: '-10%', scale: '0.9', boxShadowBlur: '40px'}, 0.20 ], [ { translateY: '-100%' }, 0.60 ], [ { translateY: '-100%', scale: '1', boxShadowBlur: '0' }, 0.20 ] ] });
 $.Velocity.RegisterEffect("scaleDown.moveUp.scroll", { defaultDuration: 1, calls: [ [ { translateY: '-100%', scale: '0.9', boxShadowBlur: '40px' }, 0.60 ], [ { translateY: '-100%', scale: '1', boxShadowBlur: '0' }, 0.40 ] ] });
 $.Velocity.RegisterEffect("scaleUp.moveUp", { defaultDuration: 1, calls: [ [ { translateY: '90%', scale: '0.9', boxShadowBlur: '40px' }, 0.20 ], [ { translateY: '0%' }, 0.60 ], [ { translateY: '0%', scale: '1', boxShadowBlur: '0'}, 0.20 ] ] });
@@ -444,20 +485,14 @@ $.Velocity.RegisterEffect("scaleUp.moveUp.scroll", { defaultDuration: 1, calls: 
 $.Velocity.RegisterEffect("scaleDown.moveDown", { defaultDuration: 1, calls: [ [ { translateY: '10%', scale: '0.9', boxShadowBlur: '40px'}, 0.20 ], [ { translateY: '100%' }, 0.60 ], [ { translateY: '100%', scale: '1', boxShadowBlur: '0'}, 0.20 ] ] });
 $.Velocity.RegisterEffect("scaleDown.moveDown.scroll", { defaultDuration: 1, calls: [ [ { translateY: '100%', scale: '0.9', boxShadowBlur: '40px' }, 0.60 ], [ { translateY: '100%', scale: '1', boxShadowBlur: '0' }, 0.40 ] ] });
 $.Velocity.RegisterEffect("scaleUp.moveDown", { defaultDuration: 1, calls: [ [ { translateY: '-90%', scale: '0.9', boxShadowBlur: '40px' }, 0.20 ], [ { translateY: '0%' }, 0.60 ], [ { translateY: '0%', scale: '1', boxShadowBlur: '0'}, 0.20 ] ] });
-
-//catch up
 $.Velocity.RegisterEffect("translateUp.delay", { defaultDuration: 1, calls: [ [ { translateY: '0%'}, 0.8, { delay: 100 }], ] });
-
-//opacity
 $.Velocity.RegisterEffect("hide.scaleUp", { defaultDuration: 1, calls: [ [ { opacity: '0', scale: '1.2'}, 1 ] ] });
 $.Velocity.RegisterEffect("hide.scaleDown", { defaultDuration: 1, calls: [ [ { opacity: '0', scale: '0.8'}, 1 ] ] });
-
-//parallax
 $.Velocity.RegisterEffect("translateUp.half", { defaultDuration: 1, calls: [ [ { translateY: '-50%'}, 1] ] });
 
 
 // =================================================
-// HELPER FUNCTION: Horizontal Loop (NO TOCAR)
+// HELPER FUNCTION: Horizontal Loop
 // =================================================
 function horizontalLoop(items, config) {
   let timeline;
@@ -615,7 +650,6 @@ function horizontalLoop(items, config) {
         overshootTolerance: 0,
         inertia: true,
         snap(value) {
-          //note: if the user presses and releases in the middle of a throw, due to the sudden correction of proxy.x in the onPressInit(), the velocity could be very large, throwing off the snap. So sense that condition and adjust for it. We also need to set overshootTolerance to 0 to prevent the inertia from causing it to shoot past and come back
           if (Math.abs(startProgress / -ratio - this.x) < 10) {
             return lastSnap + initChangeX
           }
@@ -652,84 +686,59 @@ function horizontalLoop(items, config) {
 // =================================================
 
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Registramos los plugins
     gsap.registerPlugin(SplitText, Draggable, InertiaPlugin);
-
-// -----------------------------------------------------
-    // A. ANIMACIONES DE TEXTO (SIEMPRE ACTIVAS)
-    // -----------------------------------------------------
 
     // --- 1. Texto Reveal (Caracteres - Títulos) ---
     let observerReveal = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             let elemento = entry.target;
-            
-            // Creamos el split una sola vez y lo guardamos
             if (!elemento.splitInstance) {
                 elemento.splitInstance = new SplitText(elemento, { type: "chars" });
             }
             let chars = elemento.splitInstance.chars;
 
             if (entry.isIntersecting) {
-                // AL ENTRAR: Animar
                 elemento.style.opacity = 1;
                 gsap.fromTo(chars, 
-                    { opacity: 0, yPercent: 100 }, // Desde
-                    { 
-                        opacity: 1, 
-                        yPercent: 0, 
-                        stagger: 0.03, 
-                        duration: 0.8, 
-                        ease: "power3.out", 
-                        overwrite: true 
-                    }
+                    { opacity: 0, yPercent: 100 }, 
+                    { opacity: 1, yPercent: 0, stagger: 0.03, duration: 0.8, ease: "power3.out", overwrite: true }
                 );
             } else {
-                // AL SALIR: Resetear (para que esté listo para la próxima)
                 gsap.set(chars, { opacity: 0, yPercent: 100 });
             }
         });
-    }, { threshold: 0.15 }); // <--- CAMBIO CLAVE: 0.15 (Más sensible)
+    }, { threshold: 0.15 });
 
     document.querySelectorAll(".texto-reveal").forEach(texto => {
         observerReveal.observe(texto);
     });
 
-    // --- 2. Texto Mask (Párrafos - Estilo deiv.dev) ---
+    // --- 2. Texto Mask (Párrafos) ---
     const textosMask = document.querySelectorAll(".texto-mask");
-
     if (textosMask.length > 0) {
         textosMask.forEach(texto => {
             texto.style.opacity = 1;
-            
             const splitOuter = new SplitText(texto, { type: "lines", linesClass: "texto-mask-line" });
             const splitInner = new SplitText(splitOuter.lines, { type: "lines", linesClass: "texto-mask-inner" });
 
             const observerMask = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // ENTRA
                         gsap.fromTo(splitInner.lines, 
                             { yPercent: 100 }, 
                             { yPercent: 0, duration: 1.2, ease: "power4.out", stagger: 0.1, overwrite: true }
                         );
                     } else {
-                        // SALE
                         gsap.set(splitInner.lines, { yPercent: 100 });
                     }
                 });
-            }, { threshold: 0.15 }); // <--- CAMBIO CLAVE AQUÍ TAMBIÉN
-
+            }, { threshold: 0.15 });
             observerMask.observe(texto);
         });
     }
 
-    // -----------------------------------------------------
-    // C. CARROUSEL DE CARDS (INTACTO)
-    // -----------------------------------------------------
+    // --- 3. Carrousel de Cards ---
     const wrapper = document.querySelector(".wrapper");
-    
-    // Solo ejecutamos si el carrusel existe en la página
     if (wrapper) {
         const boxes = gsap.utils.toArray(".box");
         let activeElement;
@@ -755,26 +764,20 @@ document.addEventListener("DOMContentLoaded", function() {
         if(btnNext) btnNext.addEventListener("click", () => loop.next({duration: 0.4, ease: "power1.inOut"}));
         if(btnPrev) btnPrev.addEventListener("click", () => loop.previous({duration: 0.4, ease: "power1.inOut"}));
     }
-});
 
-
-// -----------------------------------------------------
-    // D. SKILLS MARQUEE (Horizontal Loop)
-    // -----------------------------------------------------
-    
-    // Esperamos a que carguen las imágenes para calcular bien el ancho
+    // --- 4. Skills Marquee ---
     window.addEventListener("load", () => {
         const skillItems = document.querySelectorAll(".skill-item");
-        
         if (skillItems.length > 0) {
             const skillsLoop = horizontalLoop(skillItems, {
                 repeat: -1, 
                 speed: 1,      
                 paused: false, 
-                paddingRight: 80 // Debe coincidir con el gap de CSS
+                paddingRight: 80 
             });
         }
     });
+});
 
 
 

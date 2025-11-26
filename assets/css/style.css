@@ -12,7 +12,7 @@ body {
   font-size: 1.6rem;
   font-family: "Open Sans", sans-serif;
   color: #ffffff;
-  background-color: #22283f;
+  background-color: #000000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -205,6 +205,44 @@ Main Components
 .cd-vertical-nav li::marker {
   content: "";
 }
+
+/* --- BOTÓN HOME (Navegación Vertical) --- */
+.cd-vertical-nav a.cd-home {
+    /* Icono de Casa en formato SVG incrustado (Color blanco) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 28px;       /* Tamaño del iconito dentro del círculo */
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px;         /* Espacio para separarlo de las flechas */
+    transform: none;             /* Aseguramos que no gire como las flechas */
+    opacity: 1;                  /* Siempre visible */
+    visibility: visible;
+}
+
+/* Opcional: Si querés que desaparezca cuando ya estás arriba de todo */
+.cd-section:first-of-type.visible ~ aside .cd-home {
+    opacity: 0.0;                /* Se pone transparente si estás en el inicio */
+    pointer-events: none;        /* No se puede clickear si ya estás ahí */
+    transition: opacity 0.3s;
+}
+
+/* --- CORRECCIÓN PARA MÓVIL (Fondo negro) --- */
+@media only screen and (max-width: 1049px) {
+    /* Quitamos el límite de altura fija en el contenedor padre */
+    .cd-section {
+        height: auto !important; 
+        min-height: 100vh; /* Al menos el alto de la pantalla, pero puede crecer */
+    }
+
+    /* Hacemos lo mismo para el div interno que tiene el color de fondo */
+    .cd-section > div {
+        height: auto !important;
+        min-height: 100vh;
+        position: relative !important; /* Aseguramos que no se quede flotando */
+    }
+}
+
+
 
 
 
