@@ -529,7 +529,6 @@ nav {
 }
 
 .servicios-bg {
-  position: absolute;
   inset: 0;
   width: 100vw;
   height: 100vh;
@@ -950,7 +949,7 @@ nav {
   width: 100%;
   height: 100vh;
   min-height: 700px;
-  background-image: url(../img/servicios/fondo-violeta-2.jpeg);
+  background-image: url(../img/proyectos/fondo-naranja-2.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1008,7 +1007,7 @@ nav {
   font-size: 64px;
   font-weight: 800;
   margin-bottom: 0.5rem;
-  color: rgb(240, 210, 253);
+  color: rgb(253, 241, 221);
   line-height: 1.1;
   width: 500px;
 }
@@ -1052,11 +1051,11 @@ nav {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.123));
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1068,14 +1067,6 @@ nav {
   height: 48px;
   object-fit: contain;
   /* Sin filtros para que se vean los colores originales */
-}
-.col-info .info-list .info-item .icon-box {
-  /* Estilo para ICONOS SVG (Como el pin de mapa) */
-}
-.col-info .info-list .info-item .icon-box svg {
-  stroke: white; /* Lo ponemos blanco */
-  width: 24px;
-  height: 24px;
 }
 .col-info .info-list .info-item {
   /* Texto */
@@ -1130,7 +1121,7 @@ nav {
   width: 100%;
   padding: 1rem 1.25rem;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(247, 241, 241, 0.3);
   border-radius: 12px;
   font-family: "Poppins", sans-serif;
   font-size: 16px;
@@ -1143,7 +1134,7 @@ nav {
   color: transparent;
 }
 .contacto-form .input-group input:focus, .contacto-form .input-group textarea:focus, .contacto-form .input-group select:focus {
-  border-color: #d2a5fc;
+  border-color: #e78624;
   background: rgba(255, 255, 255, 0.05);
 }
 .contacto-form .input-group textarea {
@@ -1176,7 +1167,7 @@ nav {
   left: 1.25rem;
   font-family: "Poppins", sans-serif;
   font-size: 16px;
-  color: #aaa;
+  color: #efeaea;
   pointer-events: none;
   transition: all 0.3s ease;
 }
@@ -1193,18 +1184,18 @@ nav {
   top: -10px;
   left: 10px;
   font-size: 12px;
-  color: #d2a5fc;
+  color: #da7e15;
   font-weight: 700;
   /* Fondo oscuro para tapar la línea del borde */
-  background: #1e1224;
+  background: #2e1d10;
   padding: 0 5px;
   border-radius: 4px;
 }
 .contacto-form .btn-enviar {
   margin-top: 1rem;
   padding: 15px;
-  background: #d2a5fc;
-  color: #0a0a0a;
+  background: #f5dfcf;
+  color: #cf5001;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -1219,21 +1210,9 @@ nav {
   transform: translateY(-2px);
 }
 
-/* FOOTER */
-.small-footer {
-  width: 100%;
-  text-align: center;
-  padding: 1rem 0; /* Un poco de aire arriba y abajo */
-  /* LA CLAVE: Empuja el footer al fondo del contenedor flex */
-  margin-top: auto;
-}
-.small-footer p {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
-  margin: 0;
-}
-
+/* ==========================================================================
+   RESPONSIVE (Móvil < 992px)
+========================================================================== */
 @media (max-width: 991px) {
   .contacto-section {
     height: auto !important;
@@ -1259,6 +1238,10 @@ nav {
   }
   .col-info .info-title {
     font-size: 32px;
+    width: 100%;
+  }
+  .col-info .info-subtitle {
+    width: 100%;
   }
   .col-info .info-list {
     gap: 1.5rem;
@@ -1267,9 +1250,37 @@ nav {
     flex-direction: column;
     gap: 0.5rem;
   }
+  /* AJUSTE FORMULARIO PARA QUE ENTRE TODO */
   .col-form.contacto-glass-form {
-    padding: 2rem;
+    padding: 1.5rem; /* Menos padding = más espacio para inputs */
     width: 100%;
+  }
+  .col-form.contacto-glass-form .form-title {
+    font-size: 24px; /* Título un poco más chico */
+  }
+  /* Ajuste de fuente para que los textos largos no corten */
+  .input-group input, .input-group textarea, .input-group select, .input-group label {
+    font-size: 14px !important; /* Achicamos un poco la letra */
+  }
+  .input-group {
+    /* Ajuste del label flotante */
+  }
+  .input-group input:focus ~ label,
+  .input-group input:not(:placeholder-shown) ~ label,
+  .input-group textarea:focus ~ label,
+  .input-group textarea:not(:placeholder-shown) ~ label,
+  .input-group select:focus ~ label,
+  .input-group select:valid ~ label {
+    font-size: 11px; /* Aún más chico cuando flota */
+  }
+  /* Ajuste parche label */
+  .input-group input:focus ~ label,
+  .input-group input:not(:placeholder-shown) ~ label,
+  .input-group textarea:focus ~ label,
+  .input-group textarea:not(:placeholder-shown) ~ label,
+  .input-group select:focus ~ label,
+  .input-group select:valid ~ label {
+    background: #111;
   }
 }
 
