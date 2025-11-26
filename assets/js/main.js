@@ -100,7 +100,7 @@ jQuery(document).ready(function($){
             nextArrow.off('click', nextSection);
             $(document).off('keydown');
 
-            // 2. Activamos los clicks en el menú para celular
+            // 2. Activamos los clicks en el menú para celular (LINKS NORMALES)
             $('.nav-link').off('click').on('click', function(event){
                 event.preventDefault(); 
                 
@@ -118,9 +118,18 @@ jQuery(document).ready(function($){
                     // Animación suave nativa (sin hijacking)
                     $('html, body').stop().animate({
                         scrollTop: target.offset().top - headerHeight
-                    }, 100); 
+                    }, 300); 
                 }
             });
+
+            // 3. LÓGICA HOME BUTTON (NUEVO: Ir arriba de todo)
+            $('.cd-home').off('click').on('click', function(event){
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: 0
+                }, 300);
+            });
+
             // --- FIN MOBILE ---
         }
     }
@@ -269,7 +278,7 @@ jQuery(document).ready(function($){
             animationTop = 'translateUp',
             animationBottom = 'translateDown',
             easing = 'ease',
-            animDuration = 500;
+            animDuration = 500; // Velocidad Desktop (ajustada a 500ms)
 
         switch(animationName) {
             case 'scaleDown':

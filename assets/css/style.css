@@ -208,14 +208,13 @@ Main Components
 
 /* --- BOTÓN HOME (Navegación Vertical) --- */
 .cd-vertical-nav a.cd-home {
-    /* Icono de Casa en formato SVG incrustado (Color blanco) */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
     background-size: 28px;       /* Tamaño del iconito dentro del círculo */
     background-repeat: no-repeat;
     background-position: center;
     margin-bottom: 10px;         /* Espacio para separarlo de las flechas */
     transform: none;             /* Aseguramos que no gire como las flechas */
-    opacity: 1;                  /* Siempre visible */
+    opacity: 1;                 
     visibility: visible;
 }
 
@@ -311,6 +310,28 @@ Main Components
         height: 48px;
         background-position: center;
         box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+}
+
+@media only screen and (max-width: 1049px) {
+    /* Aseguramos que el contenedor esté por encima de todo */
+    aside {
+        z-index: 99999 !important;
+        position: fixed;
+    }
+
+    /* Corrección del área de clic del botón Home */
+    .cd-vertical-nav a.cd-home {
+        text-indent: 0 !important; /* Anulamos el empuje del texto */
+        font-size: 0 !important;   /* Hacemos el texto invisible pero el botón queda */
+        overflow: hidden;
+        
+        display: block !important;
+        width: 50px !important;    /* Tamaño generoso para el dedo */
+        height: 50px !important;
+        
+        cursor: pointer !important;
+        pointer-events: auto !important; /* Habilita los clicks */
     }
 }
 
