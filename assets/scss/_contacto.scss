@@ -1,0 +1,364 @@
+@import "_variables";
+
+// ==========================================================================
+// SECCIÓN PRINCIPAL
+// ==========================================================================
+.contacto-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+    min-height: 700px;
+    
+    background-image: url(../img/servicios/fondo-violeta-2.jpeg);   
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 0 4rem; 
+    overflow: hidden; 
+}
+
+.contacto-container {
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+    z-index: 2;
+}
+
+.contacto-content {
+    width: 100%;
+}
+
+/* TÍTULO SECCIÓN */
+.section-title {
+    font-family: $font-principal;
+    font-size: 64px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    padding-left: 10px;
+    text-align: left; 
+}
+
+// ==========================================================================
+// CONTENEDOR FLEX
+// ==========================================================================
+.contacto-flex-container {
+    display: flex; 
+    width: 100%;
+    gap: 4rem;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+// ==========================================================================
+// COLUMNA IZQUIERDA (INFO)
+// ==========================================================================
+.col-info {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    color: #fff;
+    padding-left: 20px; 
+
+    .info-header {
+        margin-bottom: 3rem;
+    }
+
+    .info-title {
+        font-family: $font-principal;
+        font-size: 64px; 
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: rgb(240, 210, 253);
+        line-height: 1.1;
+        width: 500px;
+    }
+
+    .info-subtitle {
+        font-family: $font-principal;
+        font-size: 32px;
+        color: #ffffff;
+        margin: 0;
+        width: 300px;
+    }
+
+    .info-list {
+        width: fit-content;
+        gap: 15px;
+        list-style: none;
+        padding: 0;
+        margin: auto 0; /* Centrado vertical */
+        display: flex;
+        justify-content: center;
+
+        .info-item {
+            /* El LI ahora solo es un contenedor */
+            width: 100%; 
+            
+            /* Estilos para el enlace <a> o el div contenedor */
+            .contact-link {
+                display: flex;
+                align-items: center;
+                text-decoration: none; /* Quita subrayado */
+                color: #e0e0e0;
+                transition: transform 0.2s ease;
+
+                /* Efecto hover: se mueve un poquito y se ilumina */
+                &:hover {
+                    transform: translatey(-10px);
+                    color: white;
+                }
+            }
+
+            /* Caja del ícono */
+            .icon-box {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.123));
+                backdrop-filter: blur(50px);
+                -webkit-backdrop-filter: blur(24px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                
+                /* Estilo para LOGOS DE MARCA (Imágenes) */
+                img {
+                    width: 48px; /* Tamaño del logo */
+                    height: 48px;
+                    object-fit: contain;
+                    /* Sin filtros para que se vean los colores originales */
+                }
+
+                /* Estilo para ICONOS SVG (Como el pin de mapa) */
+                svg {
+                    stroke: white; /* Lo ponemos blanco */
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+            
+            /* Texto */
+            span {
+                font-family: $font-principal;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+// ==========================================================================
+// COLUMNA DERECHA (FORMULARIO)
+// ==========================================================================
+.col-form.contacto-glass-form {
+    flex: 1; 
+    
+    /* Estilo Glass */
+    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    padding: 3rem; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    .form-title {
+        font-family: $font-principal;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: white;
+    }
+}
+
+.contacto-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    .form-row {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --- GRUPO DE INPUT (Label Flotante) --- */
+    .input-group {
+        position: relative; 
+        width: 100%;
+        
+        /* INPUTS / TEXTAREA / SELECT */
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px; 
+            
+            font-family: $font-principal;
+            font-size: 16px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+
+            /* Placeholder transparente para el truco del label */
+            &::placeholder {
+                color: transparent; 
+            }
+
+            &:focus {
+                border-color: #d2a5fc; 
+                background: rgba(255, 255, 255, 0.05);
+            }
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+            border-radius: 20px;
+        }
+        
+        select {
+            appearance: none; 
+            cursor: pointer;
+            color-scheme: dark; 
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+            option { background: #1a1a1a; color: white; }
+            &:invalid { color: transparent; }
+        }
+
+        /* LABEL (Estado Inicial: Adentro) */
+        label {
+            position: absolute;
+            top: 1rem;
+            left: 1.25rem;
+            font-family: $font-principal;
+            font-size: 16px;
+            color: #aaa;
+            pointer-events: none; 
+            transition: all 0.3s ease;
+        }
+
+        /* LABEL (Estado Flotante: Arriba) */
+        /* Se activa si hay foco O si hay texto escrito */
+        input:focus ~ label,
+        input:not(:placeholder-shown) ~ label,
+        textarea:focus ~ label,
+        textarea:not(:placeholder-shown) ~ label,
+        select:focus ~ label,
+        select:valid ~ label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: #d2a5fc;
+            font-weight: 700;
+            
+            /* Fondo oscuro para tapar la línea del borde */
+            background: #1e1224; 
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+    }
+
+    .btn-enviar {
+        margin-top: 1rem;
+        padding: 15px;
+        background: #d2a5fc; 
+        color: #0a0a0a;
+        font-family: $font-principal;
+        font-weight: 700;
+        font-size: 16px;
+        border: none;
+        border-radius: 100px; 
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.3s ease;
+        width: 100%;
+
+        &:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+    }
+}
+
+/* FOOTER */
+.small-footer {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0; /* Un poco de aire arriba y abajo */
+    
+    /* LA CLAVE: Empuja el footer al fondo del contenedor flex */
+    margin-top: auto; 
+    
+    p {
+        font-family: $font-principal;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.4);
+        margin: 0;
+    }
+}
+
+// ==========================================================================
+// RESPONSIVE (Móvil < 992px)
+// ==========================================================================
+@media (max-width: 991px) {
+    .contacto-section {
+        height: auto !important; 
+        min-height: 100vh;
+        padding: 8rem 1.5rem 4rem 1.5rem;
+        align-items: flex-start;
+        overflow-y: visible;
+    }
+    
+    .section-title {
+        text-align: center;
+        font-size: 42px;
+        padding-left: 0;
+        align-self: center;
+    }
+
+    .contacto-flex-container {
+        flex-direction: column; 
+        gap: 3rem;
+    }
+
+    .col-info {
+        text-align: center;
+        align-items: center;
+        padding-left: 0;
+        
+        .info-title { font-size: 32px; }
+        
+        .info-list {
+            gap: 1.5rem;
+            .info-item {
+                flex-direction: column; 
+                gap: 0.5rem;
+            }
+        }
+    }
+    
+    .col-form.contacto-glass-form {
+        padding: 2rem;
+        width: 100%;
+    }
+}
