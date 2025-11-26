@@ -180,12 +180,10 @@
         flex-direction: column;
     }
 
-    /* --- GRUPO DE INPUT --- */
     .input-group {
         position: relative; 
         width: 100%;
-        
-        /* INPUTS / TEXTAREA / SELECT */
+
         input, textarea, select {
             width: 100%;
             padding: 1rem 1.25rem;
@@ -226,7 +224,6 @@
             &:invalid { color: transparent; }
         }
 
-        /* LABEL (Estado Inicial: Adentro) */
         label {
             position: absolute;
             top: 1rem;
@@ -238,7 +235,6 @@
             transition: all 0.3s ease;
         }
 
-        /* LABEL (Estado Flotante: Arriba) */
         input:focus ~ label,
         input:not(:placeholder-shown) ~ label,
         textarea:focus ~ label,

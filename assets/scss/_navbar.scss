@@ -69,34 +69,32 @@ nav {
   }
 }
 
-/* Estilos del Botón Hamburguesa */
 .navbar-toggler {
-  border: none; /* Quitamos el borde feo de Bootstrap */
-  padding: 0;   /* Quitamos padding extra */
-  outline: none; /* Sin borde azul al hacer click */
+  border: none; 
+  padding: 0;   
+  outline: none; 
   
-  /* Hacemos la imagen más chica */
+  
   img {
-    width: 50px !important; /* Ajusta este número a tu gusto (30px o 35px suele quedar bien) */
+    width: 50px !important; 
     height: auto;
     
-    /* FILTRO MÁGICO: Convierte cualquier SVG negro a BLANCO PURO */
     filter: brightness(0) invert(1); 
   }
   
   &:focus {
-    box-shadow: none; /* Quitamos sombra de foco de Bootstrap */
+    box-shadow: none; 
   }
 }
 
 .navbar-collapse {
   @media (max-width: 991px) {
-    background: $color-fondo; /* Fondo casi negro para leer bien el menú */
+    background: $color-fondo; 
     backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 15px;
     margin-top: 15px;
-    z-index: 101; /* El desplegable incluso más arriba */
+    z-index: 101; 
     text-align: center;
     width: 100%;
   }

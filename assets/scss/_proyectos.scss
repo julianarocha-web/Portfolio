@@ -69,7 +69,6 @@
 
 /* --- TARJETA BASE (DESKTOP) --- */
 .item.box {
-  /* CAMBIO: Ancho reducido para que abrace mejor el contenido */
   flex: 0 0 450px; 
   height: 450px; 
   
@@ -79,10 +78,7 @@
   justify-content: flex-start; 
   align-items: center;
   text-align: center;
-  
-  /* Padding ajustado para la tarjeta más angosta */
   padding: 50px 2rem 2rem 2rem; 
-  
   background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(24px);
@@ -99,7 +95,6 @@
   }
 
   img {
-    /* CAMBIO: La imagen ahora se adapta al ancho de la caja */
     width: 100%; 
     max-width: 100%;
     height: auto;
@@ -108,7 +103,7 @@
     margin-top: 0;
 
     &.img-gestor {
-      width: auto;       /* Específico para mantener proporción en el gestor */
+      width: auto;      
       height: 220px; 
       object-fit: contain; 
       margin-top: 10px; 
@@ -191,7 +186,6 @@
         }
     }
     .item.box {
-        /* En laptop mantenemos un ancho fijo intermedio si hace falta */
         flex: 0 0 450px; 
         height: 400px;
         padding: 40px 1rem;
@@ -244,8 +238,6 @@
 
     .item.box {
         flex: 0 0 85vw !important; 
-        
-        /* FIX MÓVIL: Altura automática y sin mínimo forzado */
         height: auto !important;
         min-height: 0 !important; 
         

@@ -1,4 +1,4 @@
-// Carrusel GSAP tipo CodePen GreenSock
+
 document.addEventListener("DOMContentLoaded", function () {
   const wrapper = document.querySelector(".carrousel.wrapper");
   const boxes = gsap.utils.toArray(".carrousel .item.box");
@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let activeElement;
 
   const loop = horizontalLoop(boxes, {
-    paused: false,           // se puede animar / arrastrar
-    draggable: true,         // drag con Draggable
-    center: true,            // activo en el centro
+    paused: false,           
+    draggable: true,         
+    center: true,          
     onChange: (element, index) => {
       if (activeElement) activeElement.classList.remove("active");
       element.classList.add("active");
@@ -18,10 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ▶ forzar a que arranque con la card 0 centrada
 loop.toIndex(0, { duration: 0 });
 
-  // Click en card: centrarla
   boxes.forEach((box, i) => {
     box.addEventListener("click", () => {
       loop.toIndex(i, { duration: 0.8, ease: "power1.inOut" });
@@ -52,10 +50,7 @@ loop.toIndex(0, { duration: 0 });
     );
 });
 
-/*
- * A partir de acá es la función horizontalLoop del CodePen,
- * pegada casi tal cual, solo con formateo.
- */
+
 function horizontalLoop(items, config) {
   let timeline;
   items = gsap.utils.toArray(items);
