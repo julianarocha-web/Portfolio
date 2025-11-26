@@ -242,7 +242,121 @@ Main Components
     }
 }
 
+/* =========================================
+   CORRECCIÓN PARA MÓVIL (ANDROID FIX)
+========================================= */
+@media only screen and (max-width: 1049px) {
+    
+    /* 1. Evitamos que la página "baile" horizontalmente */
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
 
+    /* 2. Forzamos a las secciones a comportarse como bloques normales */
+    .cd-section {
+        height: auto !important; 
+        /* Usamos dvh para que ignore la barra de navegación de Android */
+        min-height: 100dvh; 
+        min-height: -webkit-fill-available; /* Fix para Safari viejo */
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: 100% !important;
+    }
+
+    /* 3. El contenedor interno (donde está el color/foto) */
+    .cd-section > div {
+        height: auto !important;
+        min-height: 100dvh;
+        min-height: -webkit-fill-available;
+        position: relative !important; 
+        
+        /* Reseteamos cualquier posición fija del desktop */
+        top: auto !important;
+        left: auto !important;
+        transform: none !important; /* Importante para que no queden corridos */
+        width: 100% !important;
+    }
+
+    /* 4. Fix específico para el fondo de Proyectos en Android */
+    .proyectos-section {
+        min-height: 100dvh;
+        background-attachment: scroll !important; /* Evita error visual en móviles */
+    }
+
+    /* 5. Aseguramos que la barra lateral (casita) flote bien */
+    .cd-vertical-nav {
+        display: block !important; 
+        z-index: 9999; 
+        right: 20px;
+        top: auto;
+        bottom: 30px; /* La ponemos abajo a la derecha, más fácil para el dedo */
+        transform: none;
+    }
+
+    /* Ocultamos las flechas, dejamos solo la casita */
+    .cd-vertical-nav li a.cd-prev,
+    .cd-vertical-nav li a.cd-next {
+        display: none !important;
+    }
+
+    .cd-vertical-nav a.cd-home {
+        opacity: 1 !important;
+        visibility: visible !important;
+        background-color: rgba(0,0,0,0.6); 
+        border-radius: 50%; 
+        width: 48px; 
+        height: 48px;
+        background-position: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+}
+
+/* =========================================
+   FIX ESPECÍFICO PARA IPHONE (iOS)
+========================================= */
+@media only screen and (max-width: 1049px) {
+    
+    /* 1. ARREGLO DE FONDOS (Para que no se vean gigantes/pixelados) */
+    /* Le decimos al iPhone: "No intentes dejar el fondo quieto, dejalo que se mueva normal" */
+    .cd-section > div, 
+    .proyectos-bg, 
+    .servicios-bg, 
+    .contacto-bg,
+    .contacto-section .contacto-bg {
+        background-attachment: scroll !important;
+        background-position: center center !important;
+        background-size: cover !important;
+    }
+
+    /* 2. ARREGLO DE FLECHAS CARROUSEL (Que aparezcan siempre) */
+    .carrousel-actions {
+        z-index: 999 !important; /* Traerlas bien al frente */
+        position: relative;      /* Asegurar que el z-index funcione */
+        opacity: 1 !important;   /* Forzar visibilidad */
+        margin-top: 20px !important;
+        display: flex !important;
+    }
+
+    .carousel-btn {
+        /* Fix para el efecto vidrio en Safari */
+        -webkit-backdrop-filter: blur(5px); 
+        backdrop-filter: blur(5px);
+        
+        /* Asegurar color y borde */
+        background: rgba(255, 255, 255, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Aseguramos que el SVG de la flecha tenga color */
+    .carousel-btn svg {
+        stroke: white !important;
+    }
+}
 
 
 
