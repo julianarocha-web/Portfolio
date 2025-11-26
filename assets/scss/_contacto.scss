@@ -33,7 +33,6 @@
     width: 100%;
 }
 
-/* TÍTULO SECCIÓN */
 .section-title {
     font-family: $font-principal;
     font-size: 64px;
@@ -93,30 +92,26 @@
         gap: 15px;
         list-style: none;
         padding: 0;
-        margin: auto 0; /* Centrado vertical */
+        margin: auto 0; 
         display: flex;
         justify-content: center;
 
         .info-item {
-            /* El LI ahora solo es un contenedor */
             width: 100%; 
             
-            /* Estilos para el enlace <a> o el div contenedor */
             .contact-link {
                 display: flex;
                 align-items: center;
-                text-decoration: none; /* Quita subrayado */
+                text-decoration: none; 
                 color: #e0e0e0;
                 transition: transform 0.2s ease;
 
-                /* Efecto hover: se mueve un poquito y se ilumina */
                 &:hover {
                     transform: translatey(-10px);
                     color: white;
                 }
             }
 
-            /* Caja del ícono */
             .icon-box {
                 width: 80px;
                 height: 80px;
@@ -131,16 +126,13 @@
                 justify-content: center;
                 flex-shrink: 0;
                 
-                /* Estilo para LOGOS DE MARCA (Imágenes) */
                 img {
-                    width: 48px; /* Tamaño del logo */
+                    width: 48px; 
                     height: 48px;
                     object-fit: contain;
-                    /* Sin filtros para que se vean los colores originales */
                 }
             }
             
-            /* Texto */
             span {
                 font-family: $font-principal;
                 font-size: 16px;
@@ -154,8 +146,6 @@
 // ==========================================================================
 .col-form.contacto-glass-form {
     flex: 1; 
-    
-    /* Estilo Glass */
     background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     backdrop-filter: blur(50px);
@@ -190,7 +180,7 @@
         flex-direction: column;
     }
 
-    /* --- GRUPO DE INPUT (Label Flotante) --- */
+    /* --- GRUPO DE INPUT --- */
     .input-group {
         position: relative; 
         width: 100%;
@@ -199,18 +189,15 @@
         input, textarea, select {
             width: 100%;
             padding: 1rem 1.25rem;
-            
             background: transparent;
             border: 1px solid rgba(247, 241, 241, 0.3);
             border-radius: 12px; 
-            
             font-family: $font-principal;
             font-size: 16px;
             color: white;
             outline: none;
             transition: all 0.3s ease;
 
-            /* Placeholder transparente para el truco del label */
             &::placeholder {
                 color: transparent; 
             }
@@ -252,7 +239,6 @@
         }
 
         /* LABEL (Estado Flotante: Arriba) */
-        /* Se activa si hay foco O si hay texto escrito */
         input:focus ~ label,
         input:not(:placeholder-shown) ~ label,
         textarea:focus ~ label,
@@ -264,8 +250,6 @@
             font-size: 12px;
             color: #da7e15;
             font-weight: 700;
-            
-            /* Fondo oscuro para tapar la línea del borde */
             background: #2e1d10; 
             padding: 0 5px;
             border-radius: 4px;
@@ -295,7 +279,7 @@
 
 
 /* ==========================================================================
-   RESPONSIVE (Móvil < 992px)
+   RESPONSIVE (Móvil)
 ========================================================================== */
 @media (max-width: 991px) {
     .contacto-section {
@@ -335,34 +319,30 @@
         }
     }
     
-    /* AJUSTE FORMULARIO PARA QUE ENTRE TODO */
     .col-form.contacto-glass-form {
-        padding: 1.5rem; /* Menos padding = más espacio para inputs */
+        padding: 1.5rem; 
         width: 100%;
         
         .form-title {
-            font-size: 24px; /* Título un poco más chico */
+            font-size: 24px; 
         }
     }
 
-    /* Ajuste de fuente para que los textos largos no corten */
     .input-group {
         input, textarea, select, label {
-            font-size: 14px !important; /* Achicamos un poco la letra */
+            font-size: 14px !important; 
         }
         
-        /* Ajuste del label flotante */
         input:focus ~ label,
         input:not(:placeholder-shown) ~ label,
         textarea:focus ~ label,
         textarea:not(:placeholder-shown) ~ label,
         select:focus ~ label,
         select:valid ~ label {
-            font-size: 11px; /* Aún más chico cuando flota */
+            font-size: 11px; 
         }
     }
     
-    /* Ajuste parche label */
     .input-group input:focus ~ label,
     .input-group input:not(:placeholder-shown) ~ label,
     .input-group textarea:focus ~ label,

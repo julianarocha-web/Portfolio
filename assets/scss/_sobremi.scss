@@ -1,8 +1,7 @@
 @import "_variables";
 
 /* =========================================
-   1. ESTILOS BASE (DESKTOP GRANDE > 1440px)
-   Este es tu diseño original "ideal"
+   1. ESTILOS BASE (DESKTOP GRANDE )
 ========================================= */
 .sobre-mi-section {
     position: relative;
@@ -39,7 +38,7 @@
     gap: 1.5rem; 
 }
 
-/* Título Grande */
+
 .section-title {
     font-family: $font-principal;
     font-size: 64px; 
@@ -50,7 +49,7 @@
     text-align: left;
 }
 
-/* Caja Glass */
+
 .glass-box-sobre-mi {
     background: linear-gradient(145deg, rgba(13, 12, 12, 0.303), rgba(13, 12, 12, 0.669));
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -68,7 +67,7 @@
     width: 100%;
 }
 
-/* Texto */
+
 .inner-text {
     flex: 1; 
     p {
@@ -84,7 +83,7 @@
     }
 }
 
-/* Imagen Grande */
+
 .sobre-mi-image {
     flex: 0 0 450px; 
     display: flex;
@@ -119,41 +118,39 @@
 }
 
 /* ============================================================
-   2. MEDIDA INTERMEDIA (992px - 1440px)  <-- ¡AQUÍ ESTÁ!
-   (Laptops, monitores chicos)
+   2. MEDIDA INTERMEDIA 
 ============================================================ */
 @media (max-width: 1440px) {
 
     .sobre-mi-container {
-        max-width: 1100px; /* Menos padding lateral */
+        max-width: 1100px; 
     }
     
     .sobre-mi-section {
-        padding: 0 2rem; /* Menos padding lateral */
+        padding: 0 2rem; 
     }
 
     .section-title {
-        font-size: 48px; /* Título más chico */
+        font-size: 48px; 
     }
 
     .sobre-mi-card {
-        padding: 2.5rem; /* Caja más compacta */
+        padding: 2.5rem; 
         gap: 2.5rem;
     }
 
     .sobre-mi-image {
-        flex: 0 0 350px; /* Foto reducida (de 450 a 350) */
+        flex: 0 0 350px; 
     }
     
     .inner-text p {
-        font-size: 15px; /* Texto apenas más chico */
+        font-size: 15px; 
         line-height: 1.5;
     }
 }
 
 /* ============================================================
-   3. MÓVIL / TABLET (< 992px)
-   (Diseño vertical)
+   3. MÓVIL / TABLET 
 ============================================================ */
 @media (max-width: 991px) {
     .sobre-mi-section {
@@ -171,7 +168,7 @@
     }
 
     .sobre-mi-card {
-        flex-direction: column-reverse; /* Foto arriba */
+        flex-direction: column-reverse; 
         gap: 2rem;
         padding: 2rem;
     }
@@ -179,7 +176,7 @@
     .sobre-mi-image {
         flex: auto;
         width: 100%;
-        max-width: 300px; /* Foto controlada en móvil */
+        max-width: 300px; 
         
         &::before { filter: blur(40px); opacity: 0.7; }
     }

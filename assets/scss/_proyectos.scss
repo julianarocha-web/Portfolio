@@ -8,8 +8,6 @@
   width: 100%;
   background: #0a0a0a;
   overflow: hidden; 
-  
-  /* Desktop: Altura fija */
   height: 100vh;
   display: flex;
   align-items: center;
@@ -37,7 +35,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Izquierda en Desktop */
+  align-items: flex-start; 
   gap: 1.5rem;
 }
 
@@ -69,7 +67,6 @@
   padding: 2rem; 
 }
 
-/* TARJETA (.item.box) */
 .item.box {
   flex: 0 0 600px; 
   height: 450px; 
@@ -142,7 +139,6 @@
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* Botones */
 .carrousel-actions {
   display: flex;
   gap: 20px;
@@ -178,7 +174,7 @@
 
 
 /* =========================================
-   3. AJUSTE LAPTOP (992px - 1440px)
+   3. LAPTOP 
 ========================================= */
 @media (max-width: 1440px) and (min-width: 992px) {
     .carrousel-title {
@@ -203,19 +199,14 @@
 
 
 /* =========================================
-   4. RESPONSIVE MÓVIL (< 992px)
-   Aquí aplicamos la misma lógica que en Servicios
+   4. RESPONSIVE MÓVIL 
 ========================================= */
 @media (max-width: 991px) {
     
-    /* 1. CONTENEDOR PRINCIPAL: Crece y permite scroll */
     .proyectos-section {
         height: auto !important; 
         min-height: 100vh;
-        
-        /* Padding grande para evitar cortes */
         padding: 8rem 1.5rem 6rem 1.5rem; 
-        
         align-items: flex-start;
         overflow: visible !important; 
         background-color: #0a0a0a; 

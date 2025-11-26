@@ -145,14 +145,14 @@
 
 /* === EFECTO TEXTO MASK === */
 .texto-mask-line {
-  overflow: hidden !important; /* La máscara que oculta lo que está abajo */
+  overflow: hidden !important;
   display: block;
   margin: 0;
 }
 
 .texto-mask-inner {
   display: block;
-  will-change: transform; /* Optimiza el movimiento */
+  will-change: transform;
 }
 
 nav {
@@ -258,7 +258,6 @@ nav {
   width: 100%;
   background: #0a0a0a;
   overflow: hidden;
-  /* Desktop: Altura fija */
   height: 100vh;
   display: flex;
   align-items: center;
@@ -285,7 +284,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Izquierda en Desktop */
+  align-items: flex-start;
   gap: 1.5rem;
 }
 
@@ -315,7 +314,6 @@ nav {
   padding: 2rem;
 }
 
-/* TARJETA (.item.box) */
 .item.box {
   flex: 0 0 600px;
   height: 450px;
@@ -380,7 +378,6 @@ nav {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* Botones */
 .carrousel-actions {
   display: flex;
   gap: 20px;
@@ -416,7 +413,7 @@ nav {
 }
 
 /* =========================================
-   3. AJUSTE LAPTOP (992px - 1440px)
+   3. LAPTOP 
 ========================================= */
 @media (max-width: 1440px) and (min-width: 992px) {
   .carrousel-title {
@@ -447,15 +444,12 @@ nav {
   }
 }
 /* =========================================
-   4. RESPONSIVE MÓVIL (< 992px)
-   Aquí aplicamos la misma lógica que en Servicios
+   4. RESPONSIVE MÓVIL 
 ========================================= */
 @media (max-width: 991px) {
-  /* 1. CONTENEDOR PRINCIPAL: Crece y permite scroll */
   .proyectos-section {
     height: auto !important;
     min-height: 100vh;
-    /* Padding grande para evitar cortes */
     padding: 8rem 1.5rem 6rem 1.5rem;
     align-items: flex-start;
     overflow: visible !important;
@@ -513,14 +507,13 @@ nav {
   }
 }
 /* =========================================
-   1. ESTILOS GENERALES (Base Desktop)
+   1. ESTILOS GENERALES (Desktop)
 ========================================= */
 .servicios-section {
   position: relative;
   width: 100%;
   background: #0a0a0a;
   overflow: hidden;
-  /* Desktop: Altura fija */
   height: 100vh;
   display: flex;
   align-items: center;
@@ -546,7 +539,7 @@ nav {
   max-width: 1200px;
   display: flex;
   flex-direction: column;
-  gap: 3rem; /* Espacio normal en desktop */
+  gap: 3rem;
 }
 
 .block-container {
@@ -556,7 +549,6 @@ nav {
   gap: 1rem;
 }
 
-/* Títulos */
 .servicios-inner .section-title {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
@@ -565,10 +557,9 @@ nav {
   margin: 0;
   letter-spacing: 1px;
   padding-left: 5px;
-  text-align: left; /* Izquierda en desktop */
+  text-align: left;
 }
 
-/* Estilo Visual de la Caja (Glass) */
 .glass-box {
   width: 100%;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
@@ -578,18 +569,15 @@ nav {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* === CAJA SERVICIOS (DESKTOP: GRILLA DE 3) === */
 .servicios-box {
   height: 280px;
   padding: 2rem;
-  /* AQUÍ ESTÁ LA CLAVE DE DESKTOP: 3 COLUMNAS IGUALES */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-content: center;
   justify-items: center;
   gap: 2rem;
   position: relative;
-  /* Líneas divisorias verticales */
 }
 .servicios-box::before, .servicios-box::after {
   content: "";
@@ -634,12 +622,10 @@ nav {
   margin: 0 auto;
 }
 
-/* Ocultamos los separadores HTML en desktop */
 .separator {
   display: none;
 }
 
-/* === CAJA SKILLS (DESKTOP) === */
 .skills-box {
   height: 120px;
   display: flex;
@@ -685,11 +671,9 @@ nav {
 }
 
 /* =========================================
-   2. REGLAS RESPONSIVE (SOLO MÓVIL < 992px)
+   2. RESPONSIVE (SOLO MÓVIL)
 ========================================= */
 @media (max-width: 991px) {
-  /* --- ARREGLO CRÍTICO PARA EL PADRE --- */
-  /* Esto desbloquea la altura de la sección principal */
   .cd-section,
   .cd-section.visible,
   .cd-section > div {
@@ -704,10 +688,9 @@ nav {
     padding: 8rem 1.5rem 15rem 1.5rem;
     align-items: flex-start;
     overflow: visible !important;
-    background-color: #0a0a0a; /* Fondo negro sólido de base */
+    background-color: #0a0a0a;
     z-index: 10;
   }
-  /* El fondo acompaña el crecimiento */
   .servicios-bg {
     position: absolute !important;
     height: 100% !important;
@@ -757,8 +740,7 @@ nav {
   }
 }
 /* =========================================
-   1. ESTILOS BASE (DESKTOP GRANDE > 1440px)
-   Este es tu diseño original "ideal"
+   1. ESTILOS BASE (DESKTOP GRANDE )
 ========================================= */
 .sobre-mi-section {
   position: relative;
@@ -793,7 +775,6 @@ nav {
   gap: 1.5rem;
 }
 
-/* Título Grande */
 .section-title {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
@@ -804,7 +785,6 @@ nav {
   text-align: left;
 }
 
-/* Caja Glass */
 .glass-box-sobre-mi {
   background: linear-gradient(145deg, rgba(13, 12, 12, 0.303), rgba(13, 12, 12, 0.669));
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
@@ -822,7 +802,6 @@ nav {
   width: 100%;
 }
 
-/* Texto */
 .inner-text {
   flex: 1;
 }
@@ -846,7 +825,6 @@ nav {
   font-weight: 700;
 }
 
-/* Imagen Grande */
 .sobre-mi-image {
   flex: 0 0 450px;
   display: flex;
@@ -882,34 +860,32 @@ nav {
 }
 
 /* ============================================================
-   2. MEDIDA INTERMEDIA (992px - 1440px)  <-- ¡AQUÍ ESTÁ!
-   (Laptops, monitores chicos)
+   2. MEDIDA INTERMEDIA 
 ============================================================ */
 @media (max-width: 1440px) {
   .sobre-mi-container {
-    max-width: 1100px; /* Menos padding lateral */
+    max-width: 1100px;
   }
   .sobre-mi-section {
-    padding: 0 2rem; /* Menos padding lateral */
+    padding: 0 2rem;
   }
   .section-title {
-    font-size: 48px; /* Título más chico */
+    font-size: 48px;
   }
   .sobre-mi-card {
-    padding: 2.5rem; /* Caja más compacta */
+    padding: 2.5rem;
     gap: 2.5rem;
   }
   .sobre-mi-image {
-    flex: 0 0 350px; /* Foto reducida (de 450 a 350) */
+    flex: 0 0 350px;
   }
   .inner-text p {
-    font-size: 15px; /* Texto apenas más chico */
+    font-size: 15px;
     line-height: 1.5;
   }
 }
 /* ============================================================
-   3. MÓVIL / TABLET (< 992px)
-   (Diseño vertical)
+   3. MÓVIL / TABLET 
 ============================================================ */
 @media (max-width: 991px) {
   .sobre-mi-section {
@@ -925,14 +901,14 @@ nav {
     font-size: 42px;
   }
   .sobre-mi-card {
-    flex-direction: column-reverse; /* Foto arriba */
+    flex-direction: column-reverse;
     gap: 2rem;
     padding: 2rem;
   }
   .sobre-mi-image {
     flex: auto;
     width: 100%;
-    max-width: 300px; /* Foto controlada en móvil */
+    max-width: 300px;
   }
   .sobre-mi-image::before {
     filter: blur(40px);
@@ -972,7 +948,6 @@ nav {
   width: 100%;
 }
 
-/* TÍTULO SECCIÓN */
 .section-title {
   font-family: "Poppins", sans-serif;
   font-size: 64px;
@@ -1023,29 +998,23 @@ nav {
   gap: 15px;
   list-style: none;
   padding: 0;
-  margin: auto 0; /* Centrado vertical */
+  margin: auto 0;
   display: flex;
   justify-content: center;
 }
 .col-info .info-list .info-item {
-  /* El LI ahora solo es un contenedor */
   width: 100%;
-  /* Estilos para el enlace <a> o el div contenedor */
 }
 .col-info .info-list .info-item .contact-link {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Quita subrayado */
+  text-decoration: none;
   color: #e0e0e0;
   transition: transform 0.2s ease;
-  /* Efecto hover: se mueve un poquito y se ilumina */
 }
 .col-info .info-list .info-item .contact-link:hover {
   transform: translatey(-10px);
   color: white;
-}
-.col-info .info-list .info-item {
-  /* Caja del ícono */
 }
 .col-info .info-list .info-item .icon-box {
   width: 80px;
@@ -1060,16 +1029,11 @@ nav {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  /* Estilo para LOGOS DE MARCA (Imágenes) */
 }
 .col-info .info-list .info-item .icon-box img {
-  width: 48px; /* Tamaño del logo */
+  width: 48px;
   height: 48px;
   object-fit: contain;
-  /* Sin filtros para que se vean los colores originales */
-}
-.col-info .info-list .info-item {
-  /* Texto */
 }
 .col-info .info-list .info-item span {
   font-family: "Poppins", sans-serif;
@@ -1078,7 +1042,6 @@ nav {
 
 .col-form.contacto-glass-form {
   flex: 1;
-  /* Estilo Glass */
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(50px);
@@ -1110,7 +1073,7 @@ nav {
   flex-direction: column;
 }
 .contacto-form {
-  /* --- GRUPO DE INPUT (Label Flotante) --- */
+  /* --- GRUPO DE INPUT --- */
 }
 .contacto-form .input-group {
   position: relative;
@@ -1128,7 +1091,6 @@ nav {
   color: white;
   outline: none;
   transition: all 0.3s ease;
-  /* Placeholder transparente para el truco del label */
 }
 .contacto-form .input-group input::placeholder, .contacto-form .input-group textarea::placeholder, .contacto-form .input-group select::placeholder {
   color: transparent;
@@ -1173,7 +1135,6 @@ nav {
 }
 .contacto-form .input-group {
   /* LABEL (Estado Flotante: Arriba) */
-  /* Se activa si hay foco O si hay texto escrito */
 }
 .contacto-form .input-group input:focus ~ label,
 .contacto-form .input-group input:not(:placeholder-shown) ~ label,
@@ -1186,7 +1147,6 @@ nav {
   font-size: 12px;
   color: #da7e15;
   font-weight: 700;
-  /* Fondo oscuro para tapar la línea del borde */
   background: #2e1d10;
   padding: 0 5px;
   border-radius: 4px;
@@ -1211,7 +1171,7 @@ nav {
 }
 
 /* ==========================================================================
-   RESPONSIVE (Móvil < 992px)
+   RESPONSIVE (Móvil)
 ========================================================================== */
 @media (max-width: 991px) {
   .contacto-section {
@@ -1250,20 +1210,15 @@ nav {
     flex-direction: column;
     gap: 0.5rem;
   }
-  /* AJUSTE FORMULARIO PARA QUE ENTRE TODO */
   .col-form.contacto-glass-form {
-    padding: 1.5rem; /* Menos padding = más espacio para inputs */
+    padding: 1.5rem;
     width: 100%;
   }
   .col-form.contacto-glass-form .form-title {
-    font-size: 24px; /* Título un poco más chico */
+    font-size: 24px;
   }
-  /* Ajuste de fuente para que los textos largos no corten */
   .input-group input, .input-group textarea, .input-group select, .input-group label {
-    font-size: 14px !important; /* Achicamos un poco la letra */
-  }
-  .input-group {
-    /* Ajuste del label flotante */
+    font-size: 14px !important;
   }
   .input-group input:focus ~ label,
   .input-group input:not(:placeholder-shown) ~ label,
@@ -1271,9 +1226,8 @@ nav {
   .input-group textarea:not(:placeholder-shown) ~ label,
   .input-group select:focus ~ label,
   .input-group select:valid ~ label {
-    font-size: 11px; /* Aún más chico cuando flota */
+    font-size: 11px;
   }
-  /* Ajuste parche label */
   .input-group input:focus ~ label,
   .input-group input:not(:placeholder-shown) ~ label,
   .input-group textarea:focus ~ label,
