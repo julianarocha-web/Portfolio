@@ -154,8 +154,8 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -174,6 +174,200 @@
 }
 
 
+/* =========================================
+   3. MODAL
+========================================= */
+
+.glass-modal {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  color: white;
+
+  /* NUEVO: Espacio superior para que la "X" no pise el contenido */
+  .modal-body {
+      padding-top: 30px !important;
+      padding-bottom: 30px !important;
+  }
+
+  .modal-header-custom {
+      h2 { 
+          font-family: $font-principal; 
+          font-size: 3rem; 
+          letter-spacing: -1px; 
+      }
+      h3 { 
+          font-family: $font-principal; 
+          font-size: 2rem; 
+          color: rgba(255, 255, 255, 0.8); 
+      }
+  }
+
+  .project-description-box {
+      background-color: rgba(255, 255, 255, 0.05); 
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-family: $font-principal;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.85);
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 24px;
+      padding-right: 12px; 
+
+      p {
+          text-wrap: pretty;
+          margin-bottom: 1rem;
+          &:last-child { margin-bottom: 0; }
+      }
+
+      &::-webkit-scrollbar { width: 12px; }
+      &::-webkit-scrollbar-track { background: transparent; margin: 15px 0; }
+      &::-webkit-scrollbar-thumb { 
+          background-color: rgba(255, 255, 255, 0.2); 
+          border-radius: 10px; 
+          border: 4px solid transparent; 
+          background-clip: padding-box; 
+      }
+      &::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.4); }
+  }
+
+  .project-tags span {
+      background-color: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(241, 106, 48, 0.202);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+  }
+
+  /* Contenedor de flechas de navegación de la galería */
+  .d-flex.justify-content-center.gap-3 {
+      margin-top: 10px !important; 
+      margin-bottom: 3rem !important; 
+  }
+
+  .project-gallery {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      gap: 20px; 
+      scroll-behavior: smooth;
+      margin-top: 0.5rem !important;
+      margin-bottom: 0 !important;
+
+      /* EFECTO IMÁN */
+      scroll-snap-type: x mandatory;
+
+      /* OCULTAR BARRA DE SCROLL */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
+      
+      /* Altura uniforme */
+      height: 350px !important;
+
+      img {
+          height: 100% !important; 
+          width: auto !important;   
+          object-fit: contain !important; 
+          border-radius: 8px;
+          flex-shrink: 0; 
+          scroll-snap-align: start;
+          scroll-snap-stop: always;
+      }
+
+      .modal-img-desktop {
+          flex: 0 0 100% !important; 
+          max-width: 100% !important; 
+      }
+
+      .modal-img-mobile {
+          flex: 0 0 auto !important; 
+      }
+  }
+
+  .action-btn {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+          color: white;
+      }
+      
+      img, svg {
+          width: 18px;
+          height: 18px;
+      }
+  }
+
+  @media (min-width: 992px) {
+      .border-lg-start { 
+          border-left: 1px solid rgba(255,255,255,0.1) !important; 
+      }
+  }
+}
+
+.modal-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(210, 165, 252, 0.3) 0%, rgba(210, 165, 252, 0) 70%); 
+  filter: blur(40px);
+  z-index: 1;
+}
+
+/* =========================================
+   3. MODAL - AJUSTE DE GAP VERTICAL
+========================================= */
+
+#proyectoModal {
+    /* 1. Ajustamos la columna izquierda para que use el gap */
+    .col-lg-5 {
+        /* Bootstrap ya pone d-flex y flex-column en el HTML, 
+           aquí solo definimos la distancia entre los elementos */
+        gap: 35px !important; 
+        
+        /* Opcional: un poco de padding a la derecha para que no 
+           toque la línea divisoria si la tienes */
+        padding-right: 30px !important; 
+    }
+
+    /* 2. Ajustamos los elementos internos para que no tengan márgenes que molesten */
+    .modal-header-custom {
+        margin-bottom: 0 !important; // El gap ya se encarga del espacio
+    }
+
+    .project-description-box {
+        margin-bottom: 0 !important; // El gap ya se encarga del espacio
+        border-radius: 12px;
+        flex-grow: 0; // Para que no se estire de más si hay poco texto
+    }
+
+    .project-tags {
+        margin-top: 0 !important; // Quitamos el margin-top: auto anterior para que el gap mande
+    }
+}
 /* =========================================
    3. LAPTOP 
 ========================================= */
@@ -198,7 +392,6 @@
         .img-row .img-mobile { height: 240px; }
     }
 }
-
 
 /* =========================================
    4. RESPONSIVE MÓVIL 
@@ -249,6 +442,7 @@
             max-height: 250px !important;
             margin-bottom: 0 !important;
             
+            
             &.img-gestor { width: 100% !important; height: auto !important; }
             &.img-mobile { height: 240px !important; width: auto !important; }
         }
@@ -268,3 +462,64 @@
         margin-bottom: 0;
     }
 }
+
+/* --- Customizar el fondo oscuro de Bootstrap --- */
+.modal-backdrop.show {
+    opacity: 0.85 !important; 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+//* Estilos exclusivos para el modal de Piezas Gráficas */
+.modal-especial-grafico {
+    .col-lg-7 {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; 
+        min-height: 500px;
+    }
+
+    .project-gallery {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important; // Evita que bajen de línea
+        justify-content: flex-start !important; // CAMBIO: Siempre start para que el scroll funcione
+        align-items: center !important;
+        overflow-x: auto !important; // Habilita el scroll
+        width: 100% !important;
+        height: 350px !important;
+        gap: 20px !important; // Espacio entre imágenes
+
+        /* Asegura que el scroll sea visible si es necesario o fluido */
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+
+        img {
+            flex: 0 0 auto !important; // CLAVE: Evita que la imagen se encoja
+            height: 100% !important;
+            width: auto !important;
+            scroll-snap-align: center;
+        }
+    }
+}
+
+.video-container {
+    width: 100%;
+    height: 100%; // Asegura que use el alto del padre
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible; // Permite que el contenido se acomode bien
+
+    video {
+        max-height: 100%; // No permite que el video sea más alto que el contenedor
+        width: auto;
+        border-radius: 12px;
+        object-fit: contain; // Mantiene la proporción sin recortar
+    }
+}
+
+
+
+
+

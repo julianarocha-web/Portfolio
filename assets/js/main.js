@@ -185,7 +185,10 @@ jQuery(document).ready(function($){
         bottomSection.children('div').velocity(animationBottom, 0);
     }
 
-    function scrollHijacking (event) {
+function scrollHijacking (event) {
+        // NUEVO: Si hay un modal abierto, cancelamos el scroll de las secciones
+        if ($('body').hasClass('modal-open')) return false;
+
         if (event.originalEvent.detail < 0 || event.originalEvent.wheelDelta > 0) { 
             delta--;
             ( Math.abs(delta) >= scrollThreshold) && prevSection();
@@ -586,7 +589,7 @@ function horizontalLoop(items, config) {
       },
       refresh = (deep) => {
         let progress = tl.progress();
-        tl.progress(0, true);
+        tl.progress(progress, true);
         populateWidths();
         deep && populateTimeline();
         populateOffsets();
@@ -787,6 +790,242 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+
+const proyectosData = {
+    'menu': {
+        titleMain: "Menú a medida",
+        subtitle: "E-commerce",
+descripcion: "<p><strong>Menú a tu medida</strong> es una aplicación web pensada para resolver el estrés de la planificación de comidas semanales. La plataforma permite a los usuarios personalizar sus dietas eligiendo planes que se adaptan a sus rutinas y gustos, ofreciendo desde viandas principales hasta desayunos y meriendas.</p><p><strong>Diseño UX/UI:</strong> <br> El desafío principal fue crear un flujo intuitivo para recolectar las preferencias del usuario sin generar fricción. Me apoyé en la empatía para diseñar en Figma una interfaz limpia, accesible y visualmente apetitosa, donde la jerarquía visual guía la navegación de forma natural.</p><p><strong>Desarrollo Frontend:</strong> <br> Mi foco estuvo en ser el puente entre la creatividad y la lógica. Utilicé HTML5 para la estructura semántica y SASS para mantener estilos modulares y lograr un diseño responsive. La interactividad la trabajé con JavaScript, asegurando que la experiencia final fuera 100% fiel al prototipo.</p>",
+        tags: ["HTML5", "CSS3", "JavaScript", "SASS"],
+        gallery: [ 
+            "./assets/img/proyectos/galeria/matm-web1.png", 
+            "./assets/img/proyectos/galeria/matm-web2.png", 
+            "./assets/img/proyectos/galeria/matm-web3.png", 
+            "./assets/img/proyectos/galeria/matm-web4.png", 
+            "./assets/img/proyectos/galeria/matm-web5.png", 
+            "./assets/img/proyectos/galeria/matm-mobile1.png", 
+            "./assets/img/proyectos/galeria/matm-mobile2.png", 
+            "./assets/img/proyectos/galeria/matm-mobile3.png",
+            "./assets/img/proyectos/galeria/matm-mobile4.png"
+        ],
+        links: [
+            { label: "Ver código", url: "https://github.com/julianarocha-web/shop.menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver diseño", url: "https://www.figma.com/design/E18z6oe4RBHzbWjCBoCWkk/Prototipado-Men%C3%BA-E-Commerce?node-id=0-1&t=ZcCmgqZ5VGJ1GOpF-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", url: "https://julianarocha-web.github.io/shop.menuatumedida/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+        ]
+    },
+        'goJapon': {
+        titleMain: "Go Japón",
+        subtitle: "Guía de tu viaje",
+        descripcion: `
+        <p><strong>Go Japón</strong> es una plataforma informativa diseñada para viajeros que buscan una experiencia auténtica y organizada en el país nipón. El objetivo principal fue jerarquizar una gran cantidad de información práctica (transporte, gastronomía y destinos) en una interfaz limpia y visualmente atractiva.</p>
+        <p><strong>Diseño y Desarrollo:</strong> Se aplicó una estética minimalista inspirada en el diseño japonés, utilizando <strong>Bootstrap</strong> para una estructura de rejilla (grid) robusta y <strong>SASS</strong> para gestionar una paleta de colores coherente y componentes reutilizables. La arquitectura permite una navegación fluida entre guías de transporte y experiencias culturales.</p>
+        <p><strong>Aprendizajes clave:</strong> Reforcé el uso de utilidades avanzadas de Bootstrap y la modularización de estilos con SASS para mantener un código escalable y fácil de mantener.</p>
+    `,
+        tags: ["HTML5", "CSS3", "BootStrap", "SASS"],
+        gallery: [ 
+            "./assets/img/proyectos/galeria-japon/web-japon1.png", 
+            "./assets/img/proyectos/galeria-japon/web-japon2.png", 
+            "./assets/img/proyectos/galeria-japon/web-japon3.png", 
+            "./assets/img/proyectos/galeria-japon/web-japon4.png", 
+            "./assets/img/proyectos/galeria-japon/web-japon5.png",
+            "./assets/img/proyectos/galeria-japon/web-japon6.png"            
+        ],
+        links: [
+            { label: "Ver código", url: "https://github.com/julianarocha-web/gojapon-2", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver diseño", url: "https://www.figma.com/design/rpLtJ3ukYLhUrpjJ9cYjMU/Portfolio?node-id=341-511&t=RoDFMHOhre67bZJh-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", url: "https://julianarocha-web.github.io/gojapon-2/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+        ]
+    },
+            'menuLanding': {
+        titleMain: "Menú a medida",
+        subtitle: "Landing Page",
+descripcion: `
+        <p><strong>Menú a tu medida</strong> fue mi primer desafío de maquetación real. El objetivo fue crear una landing page atractiva y funcional para un servicio de viandas personalizadas, enfocada en resolver la organización alimentaria diaria de los usuarios.</p>
+        <p><strong>Diseño y Maquetación:</strong> Al ser mi proyecto inicial, me enfocqué en dominar la estructura semántica de <strong>HTML5</strong> y la potencia de <strong>CSS3</strong> para el diseño visual. Implementé un sistema de tarjetas para los planes y secciones de muestra de platos con composiciones asimétricas que dinamizan la lectura.</p>
+        <p><strong>Aprendizajes clave:</strong> Este proyecto fue fundamental para comprender el flujo de diseño (Mobile First), el uso de Flexbox para alineaciones complejas y la importancia de la UX en formularios de suscripción y secciones de FAQ.</p>
+    `,
+        tags: ["HTML5", "CSS3", "BootStrap", "SASS"],
+        gallery: [ 
+            "./assets/img/proyectos/galeria-menulanding/menulanding-1.png", 
+            "./assets/img/proyectos/galeria-menulanding/menulanding-2.png",  
+            "./assets/img/proyectos/galeria-menulanding/menulanding-3.png",  
+            "./assets/img/proyectos/galeria-menulanding/menulanding-4.png",  
+            "./assets/img/proyectos/galeria-menulanding/menulanding-5.png", 
+            "./assets/img/proyectos/galeria-menulanding/menulanding-6.png"            
+        ],
+        links: [
+            { label: "Ver código", url: "https://github.com/julianarocha-web/menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver diseño", url: "https://www.figma.com/design/rpLtJ3ukYLhUrpjJ9cYjMU/Portfolio?node-id=341-511&t=RoDFMHOhre67bZJh-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", url: "https://julianarocha-web.github.io/menuatumedida/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+        ]
+    },
+                'piezasGraficas': {
+        titleMain: "Redes sociales",
+        subtitle: "Comunicación visual",
+descripcion: `
+        <p>En este proyecto exploro la intersección entre el <strong>diseño gráfico publicitario</strong> y el <strong>marketing digital</strong>. El objetivo fue crear una identidad visual sólida y atractiva para redes sociales, capaz de captar la atención del usuario en segundos.</p>
+        <p><strong>Estrategia Visual:</strong> Utilicé <strong>Adobe Illustrator</strong> para la creación de piezas vectoriales de alta precisión y <strong>Figma</strong> para el prototipado de layouts dinámicos. Me enfocqué en la composición, el manejo de la teoría del color y la tipografía para transmitir los valores de la marca de forma clara y profesional.</p>
+        <p><strong>Marketing Digital:</strong> Cada pieza fue diseñada bajo criterios de conversión, optimizando el espacio para llamadas a la acción (CTA) y adaptando los formatos para maximizar el engagement en plataformas como Instagram y Facebook.</p>
+    `,
+        tags: ["Figma", "Adobe Illustrator"],
+        gallery: [ 
+            "./assets/img/proyectos/galeria-piezas/franui-jpg.jpg", 
+            "./assets/img/proyectos/galeria-piezas/avocado.jpg",  
+            "./assets/img/proyectos/galeria-piezas/burgas.jpg",  
+            "./assets/img/proyectos/galeria-piezas/cookies.jpg",  
+            "./assets/img/proyectos/galeria-piezas/panaderia.jpg", 
+            "./assets/img/proyectos/galeria-piezas/pasos.jpg", 
+            "./assets/img/proyectos/galeria-piezas/sandwich.jpg", 
+            "./assets/img/proyectos/galeria-piezas/chowfan.jpg",  
+            "./assets/img/proyectos/galeria-piezas/chipa.jpg",        
+        ],
+        links: [
+            { label: "Ver diseño", url: "https://www.figma.com/design/VFpH0ptcTAkCFlK4tDum7F/Comunicaci%C3%B3n-Visual?node-id=168-64&t=E89nwHKTR51cQXDG-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+        ]
+    },
+    'moodiemap': { // Por ejemplo, para tu app Moodie Map
+    titleMain: "Moodie Map",
+    subtitle: "UX Research & App",
+    descripcion: `
+    <p><strong>Moodie Map</strong> es una aplicación de bienestar personal diseñada para el seguimiento emocional diario. Actualmente, el desarrollo de la aplicación se encuentra <strong>en proceso</strong>, enfocándose en convertir una idea conceptual en una herramienta funcional y empática.</p>
+    <p><strong>Proceso de Diseño:</strong> Inicié este proyecto a principios de 2025, comenzando desde cero con la creación de wireframes de baja fidelidad para definir la arquitectura de la información. A través de un proceso iterativo, evolucioné estos esquemas básicos hasta alcanzar el <strong>prototipo de alta fidelidad</strong> que se muestra en el video, priorizando una navegación fluida y una estética relajante.</p>
+    <p><strong>Prototipado en Figma:</strong> Utilicé Figma para dar vida a la interacción, implementando componentes dinámicos y transiciones avanzadas que permiten visualizar la experiencia real del usuario. Mi objetivo fue garantizar que el registro de estados de ánimo fuera una tarea intuitiva, eliminando cualquier tipo de fricción cognitiva en el flujo de la app.</p>
+`,
+    tags: ["UX Research", "Figma", "Mobile Design"],
+    gallery: [], // Puedes dejarla vacía si solo quieres video
+    video: "./assets/img/proyectos/galeria-moodiemap/moodiemap.mp4", // Path a tu video
+            links: [
+            { label: "Ver prototipo", url: "https://www.figma.com/proto/jnUVU1ZnLWHFOkFEITqUq8/Manual-de-Marca?node-id=234-512&p=f&t=6xi6vTDCzgLBcJKb-1&scaling=min-zoom&content-scaling=fixed&page-id=234%3A511&starting-point-node-id=725%3A1127&show-proto-sidebar=1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+        ]
+},
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+    const modalElement = document.getElementById('proyectoModal');
+    if (!modalElement) return;
+    const proyectoModal = new bootstrap.Modal(modalElement);
+
+    const boxes = document.querySelectorAll('.carrousel .item.box');
+    let startX, startY;
+
+    boxes.forEach(box => {
+        box.addEventListener('pointerdown', (e) => {
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        box.addEventListener('pointerup', (e) => {
+            let diffX = Math.abs(e.clientX - startX);
+            let diffY = Math.abs(e.clientY - startY);
+
+            // Si es un clic real y no un drag
+            if (diffX < 5 && diffY < 5) {
+                const idProyecto = box.getAttribute('data-proyecto');
+                const data = proyectosData[idProyecto];
+
+                if (data) {
+                    // Limpiar clases previas para evitar conflictos
+                    modalElement.classList.remove('modal-especial-grafico');
+
+                    document.getElementById('modal-title-main').innerText = data.titleMain;
+                    document.getElementById('modal-subtitle').innerText = data.subtitle;
+                    document.getElementById('modal-descripcion').innerHTML = data.descripcion;
+
+                    // Llenar tags
+                    const tagsContainer = document.getElementById('modal-tags');
+                    tagsContainer.innerHTML = '';
+                    data.tags.forEach(tag => {
+                        tagsContainer.innerHTML += `<span>${tag}</span>`;
+                    });
+
+                    // Llenar galería o Video
+                    const galleryContainer = document.getElementById('modal-gallery');
+                    galleryContainer.innerHTML = '';
+
+                    const btnNext = document.getElementById('modal-btn-next');
+                    const btnPrev = document.getElementById('modal-btn-prev');
+
+                    if (data.video) {
+                        // Limpiamos estilos de la galería para el video
+                        galleryContainer.style.height = '350px';
+                        galleryContainer.style.overflow = 'hidden';
+
+                        galleryContainer.innerHTML = `
+                            <div class="video-container" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                <video controls autoplay muted loop class="rounded-4 shadow" style="max-height: 100%; width: auto; object-fit: contain;">
+                                    <source src="${data.video}" type="video/mp4">
+                                    Tu navegador no soporta videos.
+                                </video>
+                            </div>
+                        `;
+                        
+                        if(btnNext) btnNext.style.display = 'none';
+                        if(btnPrev) btnPrev.style.display = 'none';
+                    } else {
+                        // Si no hay video, cargamos la galería como antes
+                        if(btnNext) btnNext.style.display = 'flex';
+                        if(btnPrev) btnPrev.style.display = 'flex';
+                        
+                        data.gallery.forEach(imgSrc => {
+                            const esMobile = imgSrc.includes('mobile') ? 'modal-img-mobile' : 'modal-img-desktop';
+                            galleryContainer.innerHTML += `<img src="${imgSrc}" class="${esMobile}" alt="Proyecto" draggable="false" style="user-select: none; -webkit-user-drag: none;">`;
+                        });
+                    }
+
+                    // --- Llenar botones y ajustar Galería (LÓGICA ESPECIAL PARA PIEZAS GRÁFICAS) ---
+                    const linksContainer = document.getElementById('modal-links');
+                    linksContainer.innerHTML = '';
+
+                    if (idProyecto === 'piezasGraficas' || idProyecto === 'moodiemap') {
+                        // Añadir la clase especial al modal
+                        modalElement.classList.add('modal-especial-grafico');
+                        // Forzar flex-start para que el scroll horizontal funcione correctamente
+                        galleryContainer.style.justifyContent = 'center';
+                        linksContainer.classList.add('justify-content-center');
+                        linksContainer.classList.remove('justify-content-end');
+                    } else {
+                        // Para el resto de los proyectos, restauramos comportamiento normal
+                        galleryContainer.style.justifyContent = 'flex-start';
+                        linksContainer.classList.remove('justify-content-center');
+                        linksContainer.classList.add('justify-content-end');
+                    }
+
+                    data.links.forEach(link => {
+                        if (link.url && link.url !== "") {
+                            linksContainer.innerHTML += `
+                                <a href="${link.url}" target="_blank" class="action-btn">
+                                    ${link.icon} ${link.label} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                </a>
+                            `;
+                        }
+                    });
+
+                    proyectoModal.show();
+                }
+            }
+        });
+    });
+});
+
+// Lógica para botones de la galería del modal
+$(document).on('click', '#modal-btn-next', function() {
+    const container = document.getElementById('modal-gallery');
+    if (container) {
+        // Empujamos 450px fijos. Si hay más fotos, se moverá sin importar cálculos.
+        container.scrollBy({ left: 450, behavior: 'smooth' });
+    }
+});
+
+$(document).on('click', '#modal-btn-prev', function() {
+    const container = document.getElementById('modal-gallery');
+    if (container) {
+        container.scrollBy({ left: -450, behavior: 'smooth' });
+    }
+});
+
 
 
 

@@ -24,7 +24,6 @@
 .hero-glass {
   position: absolute;
   left: 0;
-  /* ---  MÓVIL (< 992px) --- */
   top: 0;
   bottom: auto;
   width: 100%;
@@ -65,19 +64,12 @@
   display: inline-block;
 }
 .hero-glass {
-  /* =============================================
-     ESCRITORIO
-  ============================================= */
-  /* NIVEL 1: (992px - 1399px) */
+  /* ESCRITORIO */
 }
 @media (min-width: 992px) {
   .hero-glass {
-    top: 0;
-    bottom: auto;
     width: 50vw;
-    height: 100vh;
     padding: 0 0 0 3rem;
-    justify-content: center;
     align-items: flex-start;
     text-align: left;
     z-index: 2;
@@ -90,19 +82,12 @@
   .hero-glass .hero-title {
     font-size: 50px;
     line-height: 1.05;
-    white-space: normal;
   }
-}
-.hero-glass {
-  /* NIVEL 2: (1400px - 1599px) */
 }
 @media (min-width: 1400px) {
   .hero-glass {
     padding-left: 3rem;
   }
-}
-.hero-glass {
-  /* NIVEL 3: (1600px+) */
 }
 @media (min-width: 1600px) {
   .hero-glass {
@@ -113,8 +98,75 @@
   }
   .hero-glass .hero-title {
     font-size: 65px;
-    line-height: 1;
   }
+}
+
+/* ======================
+   BOTONES REDES HEADER
+====================== */
+.hero-socials {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  gap: 20px;
+  flex-direction: row; /* Siempre en fila horizontal */
+  /* MOBILE: Centrados abajo */
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (min-width: 992px) {
+  .hero-socials {
+    /* DESKTOP: Centrados verticalmente a la derecha */
+    left: auto;
+    right: 50px;
+    top: 50%; /* Al centro de la pantalla */
+    bottom: auto; /* Quitamos el bottom de mobile */
+    transform: translateY(-50%); /* Ajuste para centrado vertical perfecto */
+    margin-right: 110px;
+  }
+}
+
+.social-btn {
+  /* Tamaño Mobile */
+  width: 55px;
+  height: 55px;
+  background: rgba(246, 244, 244, 0.155);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+}
+@media (min-width: 992px) {
+  .social-btn {
+    /* Tamaño Desktop */
+    width: 70px;
+    height: 70px;
+  }
+}
+.social-btn img {
+  width: 25px;
+  height: 25px;
+  filter: invert(62%) sepia(94%) saturate(4000%) hue-rotate(345deg) brightness(101%) contrast(101%);
+  transition: transform 0.3s ease;
+}
+@media (min-width: 992px) {
+  .social-btn img {
+    width: 30px;
+    height: 30px;
+  }
+}
+.social-btn:hover {
+  transform: scale(1.2); /* Solo agranda */
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.social-btn:hover img {
+  transform: scale(1.1);
 }
 
 [data-animation=parallax] .cd-section > div {
@@ -220,31 +272,28 @@ nav {
   }
 }
 
-/* Estilos del Botón Hamburguesa */
 .navbar-toggler {
-  border: none; /* Quitamos el borde feo de Bootstrap */
-  padding: 0; /* Quitamos padding extra */
-  outline: none; /* Sin borde azul al hacer click */
-  /* Hacemos la imagen más chica */
+  border: none;
+  padding: 0;
+  outline: none;
 }
 .navbar-toggler img {
-  width: 50px !important; /* Ajusta este número a tu gusto (30px o 35px suele quedar bien) */
+  width: 50px !important;
   height: auto;
-  /* FILTRO MÁGICO: Convierte cualquier SVG negro a BLANCO PURO */
   filter: brightness(0) invert(1);
 }
 .navbar-toggler:focus {
-  box-shadow: none; /* Quitamos sombra de foco de Bootstrap */
+  box-shadow: none;
 }
 
 @media (max-width: 991px) {
   .navbar-collapse {
-    background: #0A0A09; /* Fondo casi negro para leer bien el menú */
+    background: #0A0A09;
     backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 15px;
     margin-top: 15px;
-    z-index: 101; /* El desplegable incluso más arriba */
+    z-index: 101;
     text-align: center;
     width: 100%;
   }
@@ -316,7 +365,6 @@ nav {
 
 /* --- TARJETA BASE (DESKTOP) --- */
 .item.box {
-  /* CAMBIO: Ancho reducido para que abrace mejor el contenido */
   flex: 0 0 450px;
   height: 450px;
   border-radius: 16px;
@@ -325,7 +373,6 @@ nav {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  /* Padding ajustado para la tarjeta más angosta */
   padding: 50px 2rem 2rem 2rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
   backdrop-filter: blur(50px);
@@ -342,7 +389,6 @@ nav {
   margin-bottom: 20px;
 }
 .item.box img {
-  /* CAMBIO: La imagen ahora se adapta al ancho de la caja */
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -351,7 +397,7 @@ nav {
   margin-top: 0;
 }
 .item.box img.img-gestor {
-  width: auto; /* Específico para mantener proporción en el gestor */
+  width: auto;
   height: 220px;
   object-fit: contain;
   margin-top: 10px;
@@ -397,8 +443,8 @@ nav {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -418,6 +464,192 @@ nav {
 }
 
 /* =========================================
+   3. MODAL
+========================================= */
+.glass-modal {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  color: white;
+  /* NUEVO: Espacio superior para que la "X" no pise el contenido */
+}
+.glass-modal .modal-body {
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+}
+.glass-modal .modal-header-custom h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  letter-spacing: -1px;
+}
+.glass-modal .modal-header-custom h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.glass-modal .project-description-box {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 24px;
+  padding-right: 12px;
+}
+.glass-modal .project-description-box p {
+  text-wrap: pretty;
+  margin-bottom: 1rem;
+}
+.glass-modal .project-description-box p:last-child {
+  margin-bottom: 0;
+}
+.glass-modal .project-description-box::-webkit-scrollbar {
+  width: 12px;
+}
+.glass-modal .project-description-box::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 15px 0;
+}
+.glass-modal .project-description-box::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+.glass-modal .project-description-box::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.glass-modal .project-tags span {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(241, 106, 48, 0.202);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.glass-modal {
+  /* Contenedor de flechas de navegación de la galería */
+}
+.glass-modal .d-flex.justify-content-center.gap-3 {
+  margin-top: 10px !important;
+  margin-bottom: 3rem !important;
+}
+.glass-modal .project-gallery {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  scroll-behavior: smooth;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0 !important;
+  /* EFECTO IMÁN */
+  scroll-snap-type: x mandatory;
+  /* OCULTAR BARRA DE SCROLL */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.glass-modal .project-gallery::-webkit-scrollbar {
+  display: none;
+}
+.glass-modal .project-gallery {
+  /* Altura uniforme */
+  height: 350px !important;
+}
+.glass-modal .project-gallery img {
+  height: 100% !important;
+  width: auto !important;
+  object-fit: contain !important;
+  border-radius: 8px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.glass-modal .project-gallery .modal-img-desktop {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+.glass-modal .project-gallery .modal-img-mobile {
+  flex: 0 0 auto !important;
+}
+.glass-modal .action-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  text-decoration: none;
+  padding: 10px 24px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.glass-modal .action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  color: white;
+}
+.glass-modal .action-btn img, .glass-modal .action-btn svg {
+  width: 18px;
+  height: 18px;
+}
+@media (min-width: 992px) {
+  .glass-modal .border-lg-start {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+.modal-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(210, 165, 252, 0.3) 0%, rgba(210, 165, 252, 0) 70%);
+  filter: blur(40px);
+  z-index: 1;
+}
+
+/* =========================================
+   3. MODAL - AJUSTE DE GAP VERTICAL
+========================================= */
+#proyectoModal {
+  /* 1. Ajustamos la columna izquierda para que use el gap */
+}
+#proyectoModal .col-lg-5 {
+  /* Bootstrap ya pone d-flex y flex-column en el HTML, 
+     aquí solo definimos la distancia entre los elementos */
+  gap: 35px !important;
+  /* Opcional: un poco de padding a la derecha para que no 
+     toque la línea divisoria si la tienes */
+  padding-right: 30px !important;
+}
+#proyectoModal {
+  /* 2. Ajustamos los elementos internos para que no tengan márgenes que molesten */
+}
+#proyectoModal .modal-header-custom {
+  margin-bottom: 0 !important;
+}
+#proyectoModal .project-description-box {
+  margin-bottom: 0 !important;
+  border-radius: 12px;
+  flex-grow: 0;
+}
+#proyectoModal .project-tags {
+  margin-top: 0 !important;
+}
+
+/* =========================================
    3. LAPTOP 
 ========================================= */
 @media (max-width: 1440px) and (min-width: 992px) {
@@ -429,7 +661,6 @@ nav {
     padding-left: 50px;
   }
   .item.box {
-    /* En laptop mantenemos un ancho fijo intermedio si hace falta */
     flex: 0 0 450px;
     height: 400px;
     padding: 40px 1rem;
@@ -480,7 +711,6 @@ nav {
   }
   .item.box {
     flex: 0 0 85vw !important;
-    /* FIX MÓVIL: Altura automática y sin mínimo forzado */
     height: auto !important;
     min-height: 0 !important;
     padding: 30px 1.5rem 30px 1.5rem !important;
@@ -513,6 +743,55 @@ nav {
     margin-bottom: 0;
   }
 }
+/* --- Customizar el fondo oscuro de Bootstrap --- */
+.modal-backdrop.show {
+  opacity: 0.85 !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-especial-grafico .col-lg-7 {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  min-height: 500px;
+}
+.modal-especial-grafico .project-gallery {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  overflow-x: auto !important;
+  width: 100% !important;
+  height: 350px !important;
+  gap: 20px !important;
+  /* Asegura que el scroll sea visible si es necesario o fluido */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.modal-especial-grafico .project-gallery img {
+  flex: 0 0 auto !important;
+  height: 100% !important;
+  width: auto !important;
+  scroll-snap-align: center;
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+.video-container video {
+  max-height: 100%;
+  width: auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
 /* =========================================
    1. ESTILOS GENERALES (Desktop)
 ========================================= */
@@ -688,7 +967,6 @@ nav {
     min-height: 100vh !important;
     overflow: visible !important;
   }
-  /* ------------------------------------- */
   .servicios-section {
     height: auto !important;
     min-height: 100vh;
@@ -1079,13 +1357,9 @@ nav {
   display: flex;
   flex-direction: column;
 }
-.contacto-form {
-  /* --- GRUPO DE INPUT --- */
-}
 .contacto-form .input-group {
   position: relative;
   width: 100%;
-  /* INPUTS / TEXTAREA / SELECT */
 }
 .contacto-form .input-group input, .contacto-form .input-group textarea, .contacto-form .input-group select {
   width: 100%;
@@ -1127,9 +1401,6 @@ nav {
 .contacto-form .input-group select:invalid {
   color: transparent;
 }
-.contacto-form .input-group {
-  /* LABEL (Estado Inicial: Adentro) */
-}
 .contacto-form .input-group label {
   position: absolute;
   top: 1rem;
@@ -1139,9 +1410,6 @@ nav {
   color: #efeaea;
   pointer-events: none;
   transition: all 0.3s ease;
-}
-.contacto-form .input-group {
-  /* LABEL (Estado Flotante: Arriba) */
 }
 .contacto-form .input-group input:focus ~ label,
 .contacto-form .input-group input:not(:placeholder-shown) ~ label,
