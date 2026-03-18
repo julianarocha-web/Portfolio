@@ -96,13 +96,13 @@
 
 .hero-socials {
   position: absolute;
-  z-index: 10;
+  z-index: 100; // Aumentamos para asegurar que esté al frente
   display: flex;
   gap: 20px;
-  flex-direction: row; /* Siempre en fila horizontal */
+  flex-direction: row; 
   
   /* MOBILE: Centrados abajo */
-  bottom: 150px; 
+  bottom: 50px; // Ajustado: 150px podía dejarlos fuera de vista en algunas pantallas
   left: 50%;
   transform: translateX(-50%);
 
@@ -110,15 +110,14 @@
     /* DESKTOP: Centrados verticalmente a la derecha */
     left: auto;
     right: 50px; 
-    top: 50%;      /* Al centro de la pantalla */
-    bottom: auto;  /* Quitamos el bottom de mobile */
-    transform: translateY(-50%); /* Ajuste para centrado vertical perfecto */
+    top: 50%;      
+    bottom: auto;  
+    transform: translateY(-50%); 
     margin-right: 110px;
   }
 }
 
 .social-btn {
-  /* Tamaño Mobile */
   width: 55px;
   height: 55px;
   background: rgba(246, 244, 244, 0.155); 
@@ -132,7 +131,6 @@
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
 
   @media (min-width: 992px) {
-    /* Tamaño Desktop */
     width: 70px;
     height: 70px;
   }
@@ -140,7 +138,8 @@
   img {
     width: 25px;
     height: 25px;
-    filter: invert(62%) sepia(94%) saturate(4000%) hue-rotate(345deg) brightness(101%) contrast(101%);
+    // Filtro para que los iconos SVG externos se vean blancos o del color principal
+    filter: brightness(0) invert(1); 
     transition: transform 0.3s ease;
     
     @media (min-width: 992px) {
@@ -150,7 +149,7 @@
   }
 
   &:hover {
-    transform: scale(1.2); /* Solo agranda */
+    transform: scale(1.2); 
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4); 
 
@@ -159,3 +158,4 @@
     }
   }
 }
+// Asegúrate de que NO haya una llave "}" extra cerrando todo aquí.
