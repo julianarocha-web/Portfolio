@@ -929,6 +929,37 @@ descripcion: `
                         { label: "Ver diseño", url: "https://www.figma.com", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
             { label: "Ver demo", url: "https://dev-cherrydew.pantheonsite.io/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
         ]
+        
+},
+'aurea': { 
+    titleMain: "Áurea",
+    subtitle: "Evento - Landing Page",
+descripcion: `
+    <p><strong>Áurea</strong> es una landing page diseñada y desarrollada integralmente para una marca de eventos nocturnos. El proyecto nació desde la conceptualización y prototipado en <strong>Figma</strong>, con el objetivo de capturar la identidad visual aspiracional de la marca y centralizar la experiencia del usuario en torno a la comunidad y la asistencia a eventos.</p>
+    
+    <p><strong>Desarrollo y Dinamismo:</strong> La plataforma fue construida con una arquitectura de frontend robusta utilizando <strong>HTML, CSS y JavaScript</strong>, integrada con <strong>Node.js</strong> para gestionar componentes dinámicos como contadores en vivo, actualizaciones de ubicación y enlaces de venta de entradas. Para lograr una experiencia inmersiva y de alto impacto visual, implementé animaciones avanzadas mediante la librería <strong>GSAP</strong>.</p>
+    
+    <p><strong>Infraestructura y Despliegue:</strong> Me encargué de todo el ciclo de vida del producto, incluyendo el despliegue profesional. Utilicé <strong>Hostinger</strong> para el hosting y <strong>Cloudflare</strong> para la gestión avanzada de DNS y seguridad del dominio, garantizando una carga optimizada de la galería de fotos y una navegación segura para los usuarios que buscan adquirir sus entradas.</p>
+`,
+tags: ["Frontend Dev", "Node.js", "GSAP Animations", "UI/UX Design"],
+    gallery: [
+            "./assets/img/proyectos/aurea/desktop-1.png", 
+            "./assets/img/proyectos/aurea/desktop-2.png",  
+            "./assets/img/proyectos/aurea/desktop-3.png",  
+            "./assets/img/proyectos/aurea/desktop-4.png",  
+            "./assets/img/proyectos/aurea/desktop-5.png", 
+            "./assets/img/proyectos/aurea/mobile-1.png", 
+            "./assets/img/proyectos/aurea/mobile-2.png", 
+            "./assets/img/proyectos/aurea/mobile-3.png",  
+            "./assets/img/proyectos/aurea/mobile-4.png",
+            "./assets/img/proyectos/aurea/mobile-5.png",
+        ],
+        links: [
+            { label: "Ver código", url: "https://github.com/julianarocha-web/aurea", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+                        { label: "Ver diseño", url: "https://www.figma.com/design/66YLQ1ZJYKefTblIvNzRaH/Bocetos-%C3%81ura?node-id=0-1&t=eqHzRL4w6Al4VVX0-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver sitio", url: "https://aureaft.com/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+        ]
+        
 },
 };
 
