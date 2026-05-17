@@ -1087,5 +1087,95 @@ $(document).on('click', '#modal-btn-prev', function() {
 });
 
 
+// =========================================================================
+// LIGHTBOX DINÁMICO PARA GALERÍA DE PROYECTOS (SIN TOCAR HTML ORIGINAL)
+// =========================================================================
+$(function() {
+    // 1. Inyectar la estructura del Lightbox al final del body automáticamente
+    const lightboxHTML = `
+        <div id="custom-lightbox" class="custom-lightbox" aria-hidden="true">
+            <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+            <div class="lightbox-content">
+                <img id="lightbox-img" src="" alt="Vista ampliada" draggable="false">
+            </div>
+            <div class="lightbox-actions">
+                <button id="lightbox-btn-prev" class="lightbox-nav-btn" aria-label="Anterior">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button id="lightbox-btn-next" class="lightbox-nav-btn" aria-label="Siguiente">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    `;
+    $('body').append(lightboxHTML);
+
+    const $lightbox = $('#custom-lightbox');
+    const $lightboxImg = $('#lightbox-img');
+    let currentGalleryImages = [];
+    let currentImgIndex = 0;
+
+    // 2. Evento delegado: Detecta clics en imágenes dentro del contenedor de la galería
+    $(document).on('click', '#modal-gallery img', function() {
+        const srcTarget = $(this).attr('src');
+
+        // Escaneamos todas las imágenes clonando sus fuentes para armar el carrusel interno
+        currentGalleryImages = $('#modal-gallery img').map(function() {
+            return $(this).attr('src');
+        }).get();
+
+        currentImgIndex = currentGalleryImages.indexOf(srcTarget);
+
+        if (currentImgIndex !== -1) {
+            $lightboxImg.attr('src', srcTarget);
+            $lightbox.addClass('active').attr('aria-hidden', 'false');
+        }
+    });
+
+    // 3. Función de navegación (Siguiente / Anterior)
+    function navigateLightbox(direction) {
+        if (currentGalleryImages.length <= 1) return;
+
+        if (direction === 'next') {
+            currentImgIndex = (currentImgIndex + 1) % currentGalleryImages.length;
+        } else if (direction === 'prev') {
+            currentImgIndex = (currentImgIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+        }
+
+        // Transición suave al cambiar de imagen
+        $lightboxImg.css('opacity', '0.3');
+        setTimeout(() => {
+            $lightboxImg.attr('src', currentGalleryImages[currentImgIndex]).css('opacity', '1');
+        }, 120);
+    }
+
+    // 4. Cierre del Lightbox
+    function closeLightbox() {
+        $lightbox.removeClass('active').attr('aria-hidden', 'true');
+        setTimeout(() => $lightboxImg.attr('src', ''), 250);
+    }
+
+    // 5. Asignación de Triggers & Controles
+    $(document).on('click', '.lightbox-close', closeLightbox);
+    $(document).on('click', '#lightbox-btn-next', (e) => { e.stopPropagation(); navigateLightbox('next'); });
+    $(document).on('click', '#lightbox-btn-prev', (e) => { e.stopPropagation(); navigateLightbox('prev'); });
+
+    // Cerrar al hacer clic en el fondo oscuro (fuera de la imagen y los botones)
+    $lightbox.on('click', function(e) {
+        if ($(e.target).closest('.lightbox-content img, .lightbox-actions').length === 0) {
+            closeLightbox();
+        }
+    });
+
+    // 6. Soporte de Teclado (Desktop)
+    $(document).on('keydown', function(e) {
+        if (!$lightbox.hasClass('active')) return;
+        
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') navigateLightbox('next');
+        if (e.key === 'ArrowLeft') navigateLightbox('prev');
+    });
+});
+
 
 
