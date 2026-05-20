@@ -1015,22 +1015,65 @@ document.addEventListener("DOMContentLoaded", function() {
     // Exponer globalmente para que el drawer pueda cerrarlo
     window._proyectoModal = proyectoModal;
 
-    // Al cerrarse el modal, asegurarse de que body.overflow quede limpio
+    // Bootstrap inyecta padding-right inline al body y al modal para compensar
+    // el scrollbar del viewport. En mobile eso produce corrimiento horizontal.
+    // Lo cancelamos en shown() justo despues de que Bootstrap lo aplique,
+    // sin tocar el scroll position para evitar el salto de pagina.
+    modalElement.addEventListener('shown.bs.modal', function() {
+        if (window.innerWidth < 992) {
+            document.body.style.paddingRight = '0px';
+            modalElement.style.paddingRight = '0px';
+        }
+    });
+
+    // Al cerrarse: solo limpiar lo que Bootstrap ensucia, sin mover el scroll.
     modalElement.addEventListener('hidden.bs.modal', function() {
         document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
         document.body.classList.remove('modal-open');
+    });
+
+    // Bootstrap inyecta padding-right inline al body y al modal para compensar
+    // el scrollbar del viewport — en mobile esto causa el corrimiento horizontal.
+    // Lo cancelamos justo después de que Bootstrap lo aplica.
+    modalElement.addEventListener('shown.bs.modal', function() {
+        if (window.innerWidth < 992) {
+            document.body.style.paddingRight = '0px';
+            modalElement.style.paddingRight = '0px';
+            modalElement.style.overflow = 'hidden';
+        }
+    });
+
+    // Al cerrarse el modal, restaurar scroll y limpiar body
+    modalElement.addEventListener('hidden.bs.modal', function() {
+        if (window.innerWidth < 992) {
+            document.body.style.top = '';
+        }
+        document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
+        // Restaurar posición de scroll original
+        if (window.innerWidth < 992) {
+            window.scrollTo(0, _scrollYBeforeModal);
+        }
     });
 
     // ---- Cierre por swipe hacia abajo en mobile ----
     let touchStartY = 0;
+
+    function _modalSwipeHandler(e) {
+        const diff = e.changedTouches[0].clientY - touchStartY;
+        // Solo cerrar si el lightbox NO está abierto
+        const lightboxActive = document.getElementById('custom-lightbox') && 
+                               document.getElementById('custom-lightbox').classList.contains('active');
+        if (diff > 80 && !lightboxActive) proyectoModal.hide();
+    }
+    // Exponer para que el lightbox pueda quitarlo/ponerlo
+    window._modalSwipeHandler = _modalSwipeHandler;
+
     modalElement.addEventListener('touchstart', function(e) {
         touchStartY = e.touches[0].clientY;
     }, { passive: true });
-    modalElement.addEventListener('touchend', function(e) {
-        const diff = e.changedTouches[0].clientY - touchStartY;
-        // Swipe hacia abajo de más de 80px cierra el modal
-        if (diff > 80) proyectoModal.hide();
-    }, { passive: true });
+    modalElement.addEventListener('touchend', _modalSwipeHandler, { passive: true });
 
     const boxes = document.querySelectorAll('.carrousel .item.box');
     let startX, startY;
@@ -1179,9 +1222,12 @@ $(function() {
     const $lightboxImg = $('#lightbox-img');
     let currentGalleryImages = [];
     let currentImgIndex = 0;
+    let lightboxTouchStartX = 0;
+    let lightboxTouchStartY = 0;
 
     // 2. Evento delegado: Detecta clics en imágenes dentro del contenedor de la galería
-    $(document).on('click', '#modal-gallery img', function() {
+    $(document).on('click', '#modal-gallery img', function(e) {
+        e.stopPropagation(); // evitar que el clic cierre el modal por Bootstrap
         const srcTarget = $(this).attr('src');
 
         // Escaneamos todas las imágenes clonando sus fuentes para armar el carrusel interno
@@ -1194,6 +1240,8 @@ $(function() {
         if (currentImgIndex !== -1) {
             $lightboxImg.attr('src', srcTarget);
             $lightbox.addClass('active').attr('aria-hidden', 'false');
+            // Bloquar que el swipe del lightbox cierre el modal
+            document.getElementById('proyectoModal').removeEventListener('touchend', _modalSwipeHandler);
         }
     });
 
@@ -1218,6 +1266,11 @@ $(function() {
     function closeLightbox() {
         $lightbox.removeClass('active').attr('aria-hidden', 'true');
         setTimeout(() => $lightboxImg.attr('src', ''), 250);
+        // Reactivar el swipe-para-cerrar del modal
+        const modalElement = document.getElementById('proyectoModal');
+        if (modalElement) {
+            modalElement.addEventListener('touchend', _modalSwipeHandler, { passive: true });
+        }
     }
 
     // 5. Asignación de Triggers & Controles
@@ -1232,7 +1285,28 @@ $(function() {
         }
     });
 
-    // 6. Soporte de Teclado (Desktop)
+    // 6. Soporte táctil (swipe) para navegar dentro del lightbox
+    const lightboxEl = document.getElementById('custom-lightbox');
+    lightboxEl.addEventListener('touchstart', function(e) {
+        lightboxTouchStartX = e.touches[0].clientX;
+        lightboxTouchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    lightboxEl.addEventListener('touchend', function(e) {
+        const dx = e.changedTouches[0].clientX - lightboxTouchStartX;
+        const dy = e.changedTouches[0].clientY - lightboxTouchStartY;
+        // Swipe horizontal de más de 50px → navegar; ignorar si es más vertical que horizontal
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) navigateLightbox('next');
+            else navigateLightbox('prev');
+        }
+        // Swipe hacia abajo de más de 80px → cerrar lightbox
+        if (dy > 80 && Math.abs(dy) > Math.abs(dx)) {
+            closeLightbox();
+        }
+    }, { passive: true });
+
+    // 7. Soporte de Teclado (Desktop)
     $(document).on('keydown', function(e) {
         if (!$lightbox.hasClass('active')) return;
         

@@ -1103,7 +1103,7 @@ nav {
   background-color: rgba(5, 5, 5, 0.88);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  z-index: 1100;
+  z-index: 11000; /* por encima del modal mobile (10500) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2106,6 +2106,9 @@ nav {
     z-index: 10500 !important;
     align-items: flex-end !important;
     padding: 0 !important;
+    padding-right: 0 !important;   /* Bootstrap inyecta padding-right para el scrollbar; cancelarlo */
+    /* Bloquear scroll horizontal de la página */
+    overflow-x: hidden !important;
   }
 
   /* Backdrop también sube de z-index para cubrir la navbar */
@@ -2117,6 +2120,8 @@ nav {
     margin: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    /* Evitar que el diálogo se extienda horizontalmente */
+    overflow-x: hidden !important;
   }
 
   /* Animación slide-up (overrides Bootstrap fade) */
@@ -2126,6 +2131,17 @@ nav {
   }
   #proyectoModal.fade.show .modal-dialog {
     transform: translateY(0) !important;
+  }
+}
+
+/* Bloquear scroll del body cuando el modal está abierto en mobile.
+   NO usamos position:fixed porque eso salta el scroll al top de la pagina. */
+@media (max-width: 991px) {
+  body.modal-open {
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    /* Bootstrap inyecta padding-right para compensar el scrollbar — cancelarlo en mobile */
+    padding-right: 0 !important;
   }
 }
 
@@ -2148,9 +2164,13 @@ nav {
       0 -2px 0 rgba(210, 165, 252, 0.2) !important;
     max-height: 92dvh;
     overflow-y: auto;
+    overflow-x: hidden; /* prevenir scroll horizontal dentro del modal */
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 0 !important;
+    /* Aislar el scroll táctil dentro del modal */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   #proyectoModal .modal-content.glass-modal::-webkit-scrollbar {
@@ -2170,71 +2190,39 @@ nav {
 }
 
 /* =========================================
-   BOTÓN DE CIERRE — barra sticky completa
+   BOTÓN DE CIERRE — X simple arriba a la derecha
 ========================================= */
-@media (max-width: 991px) {
+@media (max-width: 1049px) {
   #proyectoModal .btn-close {
-    position: sticky !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: auto !important;
+    position: fixed !important;
+    top: 14px !important;
+    right: 14px !important;
     margin: 0 !important;
-    padding: 13px 20px !important;
-    border-radius: 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
-    z-index: 10 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background-image: none !important;
+    background-color: #ffffff !important;
+    border: none !important;
     filter: none !important;
     opacity: 1 !important;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    background: rgba(16, 10, 26, 0.92) !important;
+    z-index: 1060 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    cursor: pointer !important;
   }
-
-  /* "← Cerrar" a la izquierda */
   #proyectoModal .btn-close::before {
-    content: '← Cerrar';
-    font-family: "Poppins", sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.45);
-    transition: color 0.2s ease;
+    content: none !important;
   }
-
-  /* Círculo con X a la derecha */
   #proyectoModal .btn-close::after {
-    content: '';
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.45)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 13px;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-
-  #proyectoModal .btn-close:hover {
-    background: rgba(210, 165, 252, 0.06) !important;
-  }
-  #proyectoModal .btn-close:hover::before {
-    color: #eab1ff;
-  }
-  #proyectoModal .btn-close:hover::after {
-    background-color: rgba(210, 165, 252, 0.15);
-    border-color: rgba(210, 165, 252, 0.4);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%23eab1ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+    content: '✕' !important;
+    display: block !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    line-height: 1 !important;
   }
 }
 
@@ -2244,6 +2232,7 @@ nav {
 @media (max-width: 991px) {
   #proyectoModal .modal-body {
     padding: 22px 24px 40px 24px !important;
+    overflow-x: hidden !important;
   }
 
   #proyectoModal .row {
@@ -2529,25 +2518,144 @@ nav {
 }
 
 /* =========================================
-   AJUSTE DE PADDING — más aire en los bordes
+   AJUSTE DE PADDING — sin scroll horizontal en mobile
 ========================================= */
 @media (max-width: 991px) {
 
-  /* El sheet no toca los bordes laterales de la pantalla */
+  /* Raíz del modal: sin padding lateral, ocupa 100% */
+  #proyectoModal {
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  /* El diálogo ocupa todo el ancho sin márgenes laterales */
   #proyectoModal .modal-dialog {
-    padding: 0 6px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
   }
 
-  /* Esquinas redondeadas en los 4 lados con el margen lateral */
+  /* El modal-content NO tiene padding extra que lo agrande horizontalmente.
+     El p-4 de Bootstrap/HTML se cancela acá. */
   #proyectoModal .modal-content.glass-modal {
-    border-radius: 24px 24px 16px 16px !important;
+    border-radius: 24px 24px 0 0 !important;
+    padding: 0 !important;           /* cancela p-4 del HTML */
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
   }
 
-  /* Más padding en la barra de cierre */
-  #proyectoModal .btn-close {
-    padding: 13px 24px !important;
+  /* El body del modal tiene padding seguro */
+  #proyectoModal .modal-body {
+    padding: 20px 20px 40px 20px !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
+  /* La galería no debe exceder el ancho del contenedor */
+  #proyectoModal .project-gallery {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Las columnas tampoco */
+  #proyectoModal .col-lg-5,
+  #proyectoModal .col-lg-7 {
+    min-width: 0 !important;        /* fix flexbox overflow */
+    overflow: hidden !important;
+  }
+
+  /* La row no tiene gutter horizontal que desborde */
+  #proyectoModal .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* =========================================
+   LIGHTBOX CLOSE BUTTON — rediseño mobile
+========================================= */
+@media (max-width: 991px) {
+  /* Separar el botón cerrar de la imagen con más espacio */
+  .custom-lightbox {
+    gap: 0 !important;
+    padding: 28px 20px 24px !important;
+  }
+
+  /* Pill de cierre — más refinada y separada */
+  .custom-lightbox .lightbox-close {
+    order: -1 !important;
+    margin-bottom: 22px !important;  /* espacio visual entre pill e imagen */
+    /* Pill más elegante */
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 100px !important;
+    padding: 12px 32px !important;
+    min-height: 48px !important;
+    min-width: 140px !important;
+    /* Tipografía */
+    font-size: 0 !important;         /* oculta el × heredado */
+    letter-spacing: 0.08em !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    /* Sombra sutil para elevación */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+  .custom-lightbox .lightbox-close::before {
+    content: '✕  Cerrar';
+    font-size: 13px !important;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.08em;
+  }
+  .custom-lightbox .lightbox-close:active {
+    background: rgba(255, 255, 255, 0.22) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* Imagen con más espacio */
+  .custom-lightbox .lightbox-content {
+    order: 0 !important;
+    max-height: 54vh !important;
+    max-width: 92vw !important;
+    margin: 0 auto !important;
+  }
+  .custom-lightbox .lightbox-content img {
+    max-height: 54vh !important;
+    border-radius: 16px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7) !important;
+  }
+
+  /* Botones de navegación — más separados de la imagen */
+  .custom-lightbox .lightbox-actions {
+    order: 1 !important;
+    margin-top: 28px !important;
+    gap: 48px !important;
+  }
+  .custom-lightbox .lightbox-nav-btn {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  .custom-lightbox .lightbox-nav-btn:active {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: scale(0.93) !important;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
