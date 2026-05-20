@@ -749,46 +749,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- 3. Carrousel de Cards ---
-    const wrapper = document.querySelector(".wrapper");
-    if (wrapper) {
-        const boxes = gsap.utils.toArray(".box");
-        let activeElement;
-        
-        const loop = horizontalLoop(boxes, {
-            paused: true, 
-            draggable: true, 
-            center: true, 
-            onChange: (element, index) => { 
-                activeElement && activeElement.classList.remove("active");
-                element.classList.add("active");
-                activeElement = element;
-            }
-        });
-
-        boxes.forEach((box, i) => box.addEventListener("click", () => loop.toIndex(i, {duration: 0.8, ease: "power1.inOut"})));
-
-        const btnToggle = document.querySelector(".toggle");
-        const btnNext = document.querySelector(".next");
-        const btnPrev = document.querySelector(".prev");
-
-        if(btnToggle) btnToggle.addEventListener("click", () => wrapper.classList.toggle("show-overflow"));
-        if(btnNext) btnNext.addEventListener("click", () => loop.next({duration: 0.4, ease: "power1.inOut"}));
-        if(btnPrev) btnPrev.addEventListener("click", () => loop.previous({duration: 0.4, ease: "power1.inOut"}));
-    }
-
-    // --- 4. Skills Marquee ---
-    window.addEventListener("load", () => {
-        const skillItems = document.querySelectorAll(".skill-item");
-        if (skillItems.length > 0) {
-            const skillsLoop = horizontalLoop(skillItems, {
-                repeat: -1, 
-                speed: 1,      
-                paused: false, 
-                paddingRight: 80 
-            });
-        }
-    });
+    // NOTA: El carrusel de proyectos y el skills marquee
+    // son inicializados por carrousel-gsap.js para evitar
+    // instancias duplicadas que causaban bugs en desktop y mobile.
 });
 
 
@@ -1176,6 +1139,3 @@ $(function() {
         if (e.key === 'ArrowLeft') navigateLightbox('prev');
     });
 });
-
-
-

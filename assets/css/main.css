@@ -354,16 +354,22 @@ nav {
 }
 
 .carrousel.wrapper {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+  /* GSAP posiciona los items como absolute dentro de este contenedor */
+  position: relative;
   width: 100%;
-  padding: 2rem;
+  /* Extra padding-bottom para que la sombra de las cards no se corte */
+  height: 510px;
+  /* overflow visible para la sombra; las cards "fantasma" se ocultan
+     con opacity:0 o quedando fuera del viewport lateral */
+  overflow: visible;
+  padding: 0;
 }
 
 /* --- TARJETA BASE (DESKTOP) --- */
 .item.box {
+  /* position: absolute lo setea GSAP al init */
   flex: 0 0 450px;
+  width: 450px;
   height: 450px;
   border-radius: 16px;
   display: flex;
@@ -658,8 +664,12 @@ nav {
     font-size: 48px;
     padding-left: 50px;
   }
+  .carrousel.wrapper {
+    height: 470px;
+  }
   .item.box {
-    flex: 0 0 450px;
+    flex: 0 0 400px;
+    width: 400px;
     height: 400px;
     padding: 40px 1rem;
   }
@@ -683,7 +693,7 @@ nav {
   .proyectos-section {
     height: auto !important;
     min-height: 100vh;
-    padding: 8rem 1.5rem 6rem 1.5rem;
+    padding: 4rem 0 3rem 0;
     align-items: flex-start;
     overflow: visible !important;
     background-color: #0a0a0a;
@@ -707,38 +717,64 @@ nav {
     font-size: 42px;
     text-align: center;
   }
+  .carrousel.wrapper {
+    height: 320px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
   .item.box {
-    flex: 0 0 85vw !important;
-    height: auto !important;
-    min-height: 0 !important;
-    padding: 30px 1.5rem 30px 1.5rem !important;
+    /* En mobile GSAP también los posiciona como absolute */
+    width: 280px !important;
+    flex: 0 0 280px !important;
+    height: 290px !important;
+    padding: 20px 1.2rem !important;
+    /* Centrar imagen verticalmente dentro de la card */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
   .item.box img {
     width: 100% !important;
     height: auto !important;
-    max-height: 250px !important;
-    margin-bottom: 0 !important;
+    max-height: 185px !important;
+    /* Centrar verticalmente las imágenes de laptop */
+    display: block !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
   }
   .item.box img.img-gestor {
     width: 100% !important;
     height: auto !important;
+    max-height: 185px !important;
+  }
+  .item.box img {
+    /* Celulares: no tocar */
   }
   .item.box img.img-mobile {
-    height: 240px !important;
+    height: 210px !important;
     width: auto !important;
+    max-height: unset !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
   .item.box .img-row {
-    gap: 10px;
+    gap: 6px;
+    align-items: flex-end;
   }
   .item.box .img-row .img-mobile {
-    height: 180px !important;
+    height: 195px !important;
+    max-height: unset !important;
   }
   .item.box figcaption {
-    font-size: 24px;
-    margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 10px;
   }
   .carrousel-actions {
     margin-bottom: 0;
+  }
+  /* Botones de links externos del modal — centrados en mobile */
+  #modal-links {
+    justify-content: center !important;
   }
 }
 /* --- Customizar el fondo oscuro de Bootstrap --- */
@@ -1088,7 +1124,7 @@ nav {
   .servicios-section {
     height: auto !important;
     min-height: 100vh;
-    padding: 8rem 1.5rem 15rem 1.5rem;
+    padding: 4rem 1.5rem 5rem 1.5rem;
     align-items: flex-start;
     overflow: visible !important;
     background-color: #0a0a0a;
@@ -1102,7 +1138,7 @@ nav {
   .servicios-inner {
     height: auto;
     justify-content: flex-start;
-    gap: 6rem;
+    gap: 3rem;
   }
   .servicios-inner .section-title {
     text-align: center;
@@ -1294,7 +1330,7 @@ nav {
   .sobre-mi-section {
     height: auto;
     min-height: 100vh;
-    padding: 8rem 1.5rem 4rem 1.5rem;
+    padding: 4rem 1.5rem 3rem 1.5rem;
     align-items: flex-start;
     overflow-y: visible;
   }
@@ -1570,7 +1606,7 @@ nav {
   .contacto-section {
     height: auto !important;
     min-height: 100vh;
-    padding: 8rem 1.5rem 4rem 1.5rem;
+    padding: 4rem 1.5rem 3rem 1.5rem;
     align-items: flex-start;
     overflow-y: visible;
   }
