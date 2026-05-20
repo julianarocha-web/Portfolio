@@ -695,6 +695,95 @@
 
     })();
     </script>
+
+    <!-- ===================== Modal — "Leer más / Leer menos" descripción (mobile) ===================== -->
+    <script>
+    (function () {
+
+        var COLLAPSE_THRESHOLD = 88; // px (~3 líneas)
+
+        var labels = {
+            es: { more: 'Leer más', less: 'Leer menos' },
+            en: { more: 'Read more', less: 'Read less' }
+        };
+
+        function getLang() {
+            return window._i18nCurrent || 'es';
+        }
+
+        function isMobile() {
+            return window.innerWidth < 992;
+        }
+
+        var chevronSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+
+        function initModalReadMore() {
+            if (!isMobile()) return;
+
+            var descBox     = document.getElementById('modal-descripcion');
+            var descWrapper = descBox ? descBox.closest('.project-description-box') : null;
+            if (!descWrapper) return;
+
+            // Limpiar toggle anterior (al abrir otro proyecto)
+            var oldToggle = descWrapper.parentNode.querySelector('.modal-desc-toggle');
+            if (oldToggle) oldToggle.remove();
+
+            // Resetear estado colapsado
+            descWrapper.classList.remove('modal-desc-collapsed');
+
+            // Medir altura real del contenido
+            var realHeight = descWrapper.scrollHeight;
+            if (realHeight <= COLLAPSE_THRESHOLD + 20) return; // texto corto, no hace falta botón
+
+            // Colapsar
+            descWrapper.classList.add('modal-desc-collapsed');
+
+            // Crear botón
+            var btn = document.createElement('button');
+            btn.className = 'modal-desc-toggle';
+            btn.setAttribute('aria-expanded', 'false');
+            btn.style.display = 'flex';
+
+            var lang = getLang();
+            btn.innerHTML = labels[lang].more + ' ' + chevronSVG;
+
+            // Insertarlo justo después del description-box
+            descWrapper.insertAdjacentElement('afterend', btn);
+
+            btn.addEventListener('click', function () {
+                var expanded = btn.getAttribute('aria-expanded') === 'true';
+                var l = getLang();
+
+                if (expanded) {
+                    descWrapper.classList.add('modal-desc-collapsed');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.classList.remove('expanded');
+                    btn.innerHTML = labels[l].more + ' ' + chevronSVG;
+
+                    // Scroll suave de vuelta al título
+                    var titleEl = document.getElementById('modal-title-main');
+                    if (titleEl) titleEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                } else {
+                    descWrapper.classList.remove('modal-desc-collapsed');
+                    btn.setAttribute('aria-expanded', 'true');
+                    btn.classList.add('expanded');
+                    btn.innerHTML = labels[l].less + ' ' + chevronSVG;
+                }
+            });
+        }
+
+        // Ejecutar cuando Bootstrap termina de mostrar el modal
+        var modalEl = document.getElementById('proyectoModal');
+        if (modalEl) {
+            modalEl.addEventListener('shown.bs.modal', function () {
+                setTimeout(initModalReadMore, 80);
+            });
+        }
+
+    })();
+    </script>
+
 </body>
 </html>
 

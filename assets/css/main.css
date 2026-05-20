@@ -2078,4 +2078,476 @@ nav {
   transform: translateX(21px);
 }
 
+
+
+/* =============================================
+   MODAL MOBILE — REDISEÑO v2
+   Agregá este bloque al FINAL de main.css
+   (reemplaza la versión anterior completa)
+============================================= */
+
+/* =========================================
+   OVERLAY
+========================================= */
+@media (max-width: 991px) {
+  .modal-backdrop.show {
+    opacity: 0.9 !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}
+
+/* =========================================
+   BOTTOM SHEET — animación slide-up
+========================================= */
+@media (max-width: 991px) {
+  /* El modal vive ENCIMA de la navbar (z-index 10000) */
+  #proyectoModal {
+    z-index: 10500 !important;
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  /* Backdrop también sube de z-index para cubrir la navbar */
+  .modal-backdrop {
+    z-index: 10400 !important;
+  }
+
+  #proyectoModal .modal-dialog {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Animación slide-up (overrides Bootstrap fade) */
+  #proyectoModal.fade .modal-dialog {
+    transform: translateY(100%) !important;
+    transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  #proyectoModal.fade.show .modal-dialog {
+    transform: translateY(0) !important;
+  }
+}
+
+/* =========================================
+   CONTENIDO DEL MODAL
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .modal-content.glass-modal {
+    border-radius: 28px 28px 0 0 !important;
+    border-bottom: none !important;
+    background: linear-gradient(160deg,
+      rgba(22, 14, 36, 0.98) 0%,
+      rgba(10, 8, 18, 0.99) 100%) !important;
+    backdrop-filter: blur(32px) !important;
+    -webkit-backdrop-filter: blur(32px) !important;
+    border: 1px solid rgba(210, 165, 252, 0.18) !important;
+    border-bottom: none !important;
+    box-shadow:
+      0 -20px 60px rgba(0, 0, 0, 0.7),
+      0 -2px 0 rgba(210, 165, 252, 0.2) !important;
+    max-height: 92dvh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 !important;
+  }
+
+  #proyectoModal .modal-content.glass-modal::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Drag handle */
+  #proyectoModal .modal-content.glass-modal::before {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 2px;
+    margin: 14px auto 0 auto;
+  }
+}
+
+/* =========================================
+   BOTÓN DE CIERRE — barra sticky completa
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .btn-close {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 13px 20px !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+    z-index: 10 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    filter: none !important;
+    opacity: 1 !important;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: rgba(16, 10, 26, 0.92) !important;
+  }
+
+  /* "← Cerrar" a la izquierda */
+  #proyectoModal .btn-close::before {
+    content: '← Cerrar';
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    transition: color 0.2s ease;
+  }
+
+  /* Círculo con X a la derecha */
+  #proyectoModal .btn-close::after {
+    content: '';
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.45)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  #proyectoModal .btn-close:hover {
+    background: rgba(210, 165, 252, 0.06) !important;
+  }
+  #proyectoModal .btn-close:hover::before {
+    color: #eab1ff;
+  }
+  #proyectoModal .btn-close:hover::after {
+    background-color: rgba(210, 165, 252, 0.15);
+    border-color: rgba(210, 165, 252, 0.4);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%23eab1ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+  }
+}
+
+/* =========================================
+   LAYOUT — columna única
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .modal-body {
+    padding: 22px 24px 40px 24px !important;
+  }
+
+  #proyectoModal .row {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  #proyectoModal .col-lg-5,
+  #proyectoModal .col-lg-7 {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  #proyectoModal .col-lg-5 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    margin-bottom: 24px !important;
+    padding-right: 0 !important;
+  }
+
+  #proyectoModal .col-lg-7 {
+    border: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* =========================================
+   TÍTULO
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .modal-header-custom {
+    margin-bottom: 0 !important;
+  }
+  #proyectoModal .modal-header-custom h2 {
+    font-size: 1.9rem !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1 !important;
+  }
+  #proyectoModal .modal-header-custom h3 {
+    font-size: 1.15rem !important;
+    margin-top: 4px !important;
+  }
+}
+
+/* =========================================
+   DESCRIPCIÓN — colapsable con "Leer más"
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .project-description-box {
+    padding: 16px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    font-size: 0.875rem !important;
+    line-height: 1.65 !important;
+    /* Sin scroll ni max-height fijo — el collapse lo maneja JS */
+    max-height: none !important;
+    overflow-y: visible !important;
+    position: relative;
+  }
+
+  /* Estado colapsado: muestra ~3 líneas y desvanece el borde */
+  #proyectoModal .project-description-box.modal-desc-collapsed {
+    max-height: 88px !important;
+    overflow: hidden !important;
+  }
+
+  /* Gradiente de fade al final cuando está colapsado */
+  #proyectoModal .project-description-box.modal-desc-collapsed::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom,
+      rgba(16, 10, 26, 0) 0%,
+      rgba(16, 10, 26, 0.95) 100%);
+    pointer-events: none;
+    border-radius: 0 0 14px 14px;
+  }
+
+  /* Botón "Leer más / Leer menos" del modal */
+  .modal-desc-toggle {
+    display: none; /* JS lo muestra solo en mobile si el texto es largo */
+    align-self: flex-start;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(210, 165, 252, 0.85);
+    letter-spacing: 0.04em;
+    gap: 5px;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+  .modal-desc-toggle:hover {
+    color: #eab1ff;
+  }
+  .modal-desc-toggle svg {
+    width: 13px;
+    height: 13px;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .modal-desc-toggle.expanded svg {
+    transform: rotate(180deg);
+  }
+}
+
+/* =========================================
+   TAGS — centrados
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .project-tags {
+    justify-content: center !important;
+    gap: 7px !important;
+    flex-wrap: wrap !important;
+  }
+  #proyectoModal .project-tags span {
+    font-size: 0.72rem !important;
+    padding: 5px 11px !important;
+    border-radius: 6px !important;
+  }
+}
+
+/* =========================================
+   GALERÍA
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal .project-gallery {
+    height: 230px !important;
+    gap: 12px !important;
+    border-radius: 12px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  #proyectoModal .project-gallery img {
+    border-radius: 10px !important;
+    height: 100% !important;
+    width: auto !important;
+    object-fit: contain !important;
+    cursor: zoom-in;
+  }
+
+  /* Botones nav galería */
+  #proyectoModal .d-flex.justify-content-center.gap-3 {
+    margin-top: 12px !important;
+    margin-bottom: 18px !important;
+    gap: 14px !important;
+  }
+  #proyectoModal #modal-btn-prev,
+  #proyectoModal #modal-btn-next {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+  }
+
+  /* Modal especial gráfico */
+  .modal-especial-grafico .project-gallery {
+    height: 210px !important;
+  }
+}
+
+/* =========================================
+   LINKS DE ACCIÓN
+========================================= */
+@media (max-width: 991px) {
+  #proyectoModal #modal-links {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+  #proyectoModal .action-btn {
+    font-size: 0.82rem !important;
+    padding: 9px 20px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* =========================================
+   LIGHTBOX — botón cerrar más visible en mobile
+========================================= */
+@media (max-width: 991px) {
+  /* Reubicamos el botón de cierre: de esquina superior a una
+     pill centrada debajo de la imagen, más fácil de tocar */
+  .custom-lightbox .lightbox-close {
+    /* Moverlo fuera de la esquina */
+    position: static !important;
+    /* Pill centrada */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    margin: 0 auto !important;
+    margin-bottom: 8px !important;
+    /* Tamaño */
+    width: auto !important;
+    height: auto !important;
+    padding: 11px 28px !important;
+    border-radius: 100px !important;
+    /* Estilo glass coherente */
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    /* Texto */
+    font-family: "Poppins", sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    /* Resetear el font-size gigante heredado */
+    line-height: 1.2 !important;
+    /* Touch target */
+    min-height: 44px !important;
+    min-width: 120px !important;
+    /* Transición */
+    transition: background 0.2s ease, border-color 0.2s ease !important;
+    /* Orden visual: aparece PRIMERO (arriba de la imagen),
+       así está al alcance del pulgar sin tener que subir */
+    order: -1 !important;
+  }
+  .custom-lightbox .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+  }
+
+  /* El × heredado de Bootstrap — lo convertimos en texto legible */
+  /* El botón usa &times; como contenido; lo ocultamos con font-size 0
+     y mostramos nuestro label vía ::before */
+  .custom-lightbox .lightbox-close {
+    font-size: 0 !important; /* oculta el × */
+  }
+  .custom-lightbox .lightbox-close::before {
+    content: '✕  Cerrar';
+    font-size: 13px !important;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.06em;
+  }
+
+  /* Reorganizamos el flex del lightbox para que el botón cerrar
+     quede arriba (antes de la imagen) y los nav-btns abajo */
+  .custom-lightbox {
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    padding: 24px 16px !important;
+  }
+
+  /* Imagen — un poco menos alta para dejar espacio al botón */
+  .custom-lightbox .lightbox-content {
+    max-height: 58vh !important;
+    max-width: 94vw !important;
+    margin: 0 auto 0 auto !important;
+    order: 0 !important;
+  }
+  .custom-lightbox .lightbox-content img {
+    max-height: 58vh !important;
+  }
+
+  /* Botonera de navegación — debajo de la imagen */
+  .custom-lightbox .lightbox-actions {
+    margin-top: 20px !important;
+    order: 1 !important;
+    gap: 48px !important;
+  }
+  .custom-lightbox .lightbox-nav-btn {
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+  }
+}
+
+/* =========================================
+   AJUSTE DE PADDING — más aire en los bordes
+========================================= */
+@media (max-width: 991px) {
+
+  /* El sheet no toca los bordes laterales de la pantalla */
+  #proyectoModal .modal-dialog {
+    padding: 0 6px !important;
+  }
+
+  /* Esquinas redondeadas en los 4 lados con el margen lateral */
+  #proyectoModal .modal-content.glass-modal {
+    border-radius: 24px 24px 16px 16px !important;
+  }
+
+  /* Más padding en la barra de cierre */
+  #proyectoModal .btn-close {
+    padding: 13px 24px !important;
+  }
+
+}
+
 /*# sourceMappingURL=main.css.map */
