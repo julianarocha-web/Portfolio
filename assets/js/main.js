@@ -969,6 +969,37 @@ tags: ["Frontend Dev", "Node.js", "GSAP Animations", "UI/UX Design"],
         ]
         
 },
+'rickmorty': { 
+    titleMain: "Rick & Morty",
+    subtitle: "Buscador Dinámico - API",
+    titleMain_en: "Áurea",
+    subtitle_en: "Dinamic Search - API",
+    descripcion_en: `
+    <p><strong>Rick & Morty Explorer</strong> is an interactive web application designed as a galactic character database. The main objective of the project was to create a fluid, high-performance user experience, allowing users to search and discover detailed information about hundreds of characters from the series instantly.</p>
+    
+    <p><strong>Development and Dynamism:</strong> Developed with <strong>React</strong> and bundled using <strong>Vite</strong>, the platform features a real-time, dynamic search engine that filters characters instantly as the user types. The interface is built with modern <strong>JavaScript (ES6+)</strong> to manage state efficiently, and styled with a dark-mode, futuristic aesthetic using clean <strong>CSS3</strong> to deliver a highly responsive and visually striking experience across all devices.</p>
+    
+    <p><strong>Data and Deployment:</strong> The application consumes data in real time from the public <strong>Rick and Morty API</strong>, handling asynchronous requests seamlessly. For infrastructure and deployment, I automated the product lifecycle by configuring <strong>GitHub Pages</strong> with the <code>gh-pages</code> package, achieving a fast, secure, and production-ready live deployment directly from the repository.</p>
+`,
+descripcion: `
+    <p><strong>Rick & Morty Explorer</strong> es una aplicación web interactiva diseñada como una base de datos galáctica de personajes. El objetivo principal del proyecto fue crear una experiencia de usuario fluida y de alto rendimiento, permitiendo buscar y descubrir información detallada sobre cientos de personajes de la serie de forma instantánea.</p>
+    
+    <p><strong>Desarrollo y Dinamismo:</strong> Desarrollada con <strong>React</strong> y empaquetada mediante <strong>Vite</strong>, la plataforma cuenta con un buscador dinámico en tiempo real que filtra los personajes inmediatamente a medida que el usuario escribe. La interfaz fue construida con <strong>JavaScript (ES6+)</strong> moderno para una gestión eficiente del estado, y diseñada con una estética futurista y *dark mode* usando <strong>CSS3</strong>, garantizando total adaptabilidad y un alto impacto visual en cualquier dispositivo.</p>
+    
+    <p><strong>Datos y Despliegue:</strong> La aplicación consume datos en vivo desde la API pública de <strong>Rick and Morty</strong>, gestionando peticiones asíncronas de manera óptima. En cuanto a la infraestructura, automaticé el ciclo de vida del producto configurando e integrando <strong>GitHub Pages</strong> a través del paquete gh-pages, logrando un despliegue en producción rápido, seguro y accesible de forma directa.</p>
+`,
+tags: ["React / Vite", "Frontend Dev", "API Integration", "Responsive Design"],
+    gallery: [
+            "./assets/img/proyectos/rickmorty/1.png", 
+            "./assets/img/proyectos/rickmorty/2.png",   
+            "./assets/img/proyectos/rickmorty/1-m.png"   
+        ],
+        links: [
+            { label: "Ver código", label_en: "View code", url: "https://github.com/julianarocha-web/rickandmorty", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver sitio", label_en: "Visit site", url: "https://julianarocha-web.github.io/rickandmorty/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+        ]
+        
+},
 };
 
 document.addEventListener("DOMContentLoaded", function() {
