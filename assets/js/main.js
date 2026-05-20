@@ -974,7 +974,32 @@ tags: ["Frontend Dev", "Node.js", "GSAP Animations", "UI/UX Design"],
 document.addEventListener("DOMContentLoaded", function() {
     const modalElement = document.getElementById('proyectoModal');
     if (!modalElement) return;
-    const proyectoModal = new bootstrap.Modal(modalElement);
+
+    // Inicializar con backdrop explícito para garantizar cierre al tocar fuera
+    const proyectoModal = new bootstrap.Modal(modalElement, {
+        backdrop: true,
+        keyboard: true
+    });
+
+    // Exponer globalmente para que el drawer pueda cerrarlo
+    window._proyectoModal = proyectoModal;
+
+    // Al cerrarse el modal, asegurarse de que body.overflow quede limpio
+    modalElement.addEventListener('hidden.bs.modal', function() {
+        document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
+    });
+
+    // ---- Cierre por swipe hacia abajo en mobile ----
+    let touchStartY = 0;
+    modalElement.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    modalElement.addEventListener('touchend', function(e) {
+        const diff = e.changedTouches[0].clientY - touchStartY;
+        // Swipe hacia abajo de más de 80px cierra el modal
+        if (diff > 80) proyectoModal.hide();
+    }, { passive: true });
 
     const boxes = document.querySelectorAll('.carrousel .item.box');
     let startX, startY;

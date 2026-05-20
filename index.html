@@ -183,13 +183,13 @@
                 </div>
                 <div class="carrousel-actions">
                     <button class="carousel-btn prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="19" y1="12" x2="5" y2="12"></line>
                             <polyline points="12 19 5 12 12 5"></polyline>
                         </svg>
                     </button>
                     <button class="carousel-btn next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
@@ -412,10 +412,10 @@
                                 <div id="modal-gallery" class="project-gallery d-flex gap-3 overflow-auto pb-3"></div>
                                 <div class="d-flex justify-content-center gap-3 mt-1 mb-3">
                                     <button id="modal-btn-prev" class="carousel-btn glass">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"></polyline></svg>
                                     </button>
                                     <button id="modal-btn-next" class="carousel-btn glass">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                     </button>
                                 </div>
                             </div>
@@ -496,7 +496,13 @@
 
         // Cerrar al tocar un link del drawer
         drawerLinks.forEach(function (link) {
-            link.addEventListener('click', closeDrawer);
+            link.addEventListener('click', function() {
+                closeDrawer();
+                // Si hay un modal de proyecto abierto, cerrarlo también
+                if (window._proyectoModal) {
+                    window._proyectoModal.hide();
+                }
+            });
         });
 
         // Tecla Escape
