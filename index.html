@@ -19,19 +19,30 @@
                         <a class="navbar-brand" href="#">
                             <img src="./assets/img/header/portfolio-logo.png" alt="Logo">
                         </a>
-                        <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <!-- Hamburger: en mobile abre el drawer; en desktop Bootstrap maneja el collapse -->
+                        <button class="navbar-toggler ms-2" type="button"
+                            id="drawerToggle"
+                            aria-label="Abrir menú"
+                            aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="3" y1="12" x2="21" y2="12"></line>
                                 <line x1="3" y1="6" x2="21" y2="6"></line>
                                 <line x1="3" y1="18" x2="21" y2="18"></line>
                             </svg>
                         </button>
+                        <!-- Switch de idioma — solo visible en mobile, dentro de la navbar -->
+                        <div class="navbar-lang-mobile d-lg-none ms-auto">
+                            <div class="lang-toggle-mobile lang-toggle" id="langToggleMobile" title="Switch language">
+                                <span id="langLabelMobile">EN</span>
+                            </div>
+                        </div>
+                        <!-- Collapse Bootstrap solo para desktop -->
                         <div class="collapse navbar-collapse order-lg-1" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#sobremi">Sobre mi</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#servicios" data-i18n="nav.services">Servicios</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#proyectos" data-i18n="nav.projects">Proyectos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#sobremi" data-i18n="nav.about">Sobre mí</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#contacto" data-i18n="nav.contact">Contacto</a></li>
                             </ul>
                         </div>
                     </div>
@@ -39,15 +50,15 @@
             </header>
 
             <div class="hero-glass">
-                <p class="hero-kicker">Hola! Soy Juliana Rocha</p>
+                <p class="hero-kicker" data-i18n="hero.kicker">Hola! Soy Juliana Rocha</p>
                 <h1 class="hero-title efecto-blur">
-                    Desarrolladora <span class="accent texto-reveal">FrontEnd</span><br>
-                    <span class="accent texto-reveal">&amp;</span> Diseñadora <span class="accent texto-reveal">UX/UI</span>
+                    <span data-i18n="hero.dev">Desarrolladora</span> <span class="accent texto-reveal">FrontEnd</span><br>
+                    <span class="accent texto-reveal">&amp;</span> <span data-i18n="hero.designer">Diseñadora</span> <span class="accent texto-reveal">UX/UI</span>
                 </h1>
             </div>
 
             <div class="hero-socials">
-                <a href="https://github.com/julianarocha-web" target="_blank" class="social-btn" >
+                <a href="https://github.com/julianarocha-web" target="_blank" class="social-btn">
                     <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub">
                 </a>
                 <a href="https://www.linkedin.com/in/juliana-rocha-754227174/?skipRedirect=true" target="_blank" class="social-btn">
@@ -65,7 +76,7 @@
             <div class="servicios-bg"></div>
             <div class="servicios-inner">
                 <div class="block-container">
-                    <h2 class="section-title texto-reveal">Mis Servicios</h2>
+                    <h2 class="section-title texto-reveal" data-i18n="services.title">Mis Servicios</h2>
                     <div class="glass-box servicios-box">
                         <article class="servicio">
                             <div class="servicio-icon">
@@ -78,8 +89,8 @@
                                     <rect x="16" y="15" width="6" height="6" rx="1"></rect>
                                 </svg>
                             </div>
-                            <h3 class="servicio-heading">Diseño UX</h3>
-                            <p class="servicio-text texto-mask">Investigo, prototipo y testeo para eliminar la fricción entre el usuario y la tecnología, creando experiencias que se sienten naturales y lógicas.</p>
+                            <h3 class="servicio-heading" data-i18n="services.ux.title">Diseño UX</h3>
+                            <p class="servicio-text texto-mask" data-i18n="services.ux.text">Investigo, prototipo y testeo para eliminar la fricción entre el usuario y la tecnología, creando experiencias que se sienten naturales y lógicas.</p>
                         </article>
                         <div class="separator"></div>
                         <article class="servicio">
@@ -90,8 +101,8 @@
                                     <line x1="9" y1="21" x2="9" y2="9"></line>
                                 </svg>
                             </div>
-                            <h3 class="servicio-heading">Diseño UI</h3>
-                            <p class="servicio-text texto-mask">Transformo ideas abstractas en interfaces accesibles, donde cada color y espacio tiene una razón de ser para guiar al usuario intuitivamente.</p>
+                            <h3 class="servicio-heading" data-i18n="services.ui.title">Diseño UI</h3>
+                            <p class="servicio-text texto-mask" data-i18n="services.ui.text">Transformo ideas abstractas en interfaces accesibles, donde cada color y espacio tiene una razón de ser para guiar al usuario intuitivamente.</p>
                         </article>
                         <div class="separator"></div>
                         <article class="servicio">
@@ -101,13 +112,13 @@
                                     <polyline points="8 6 2 12 8 18"></polyline>
                                 </svg>
                             </div>
-                            <h3 class="servicio-heading">Frontend</h3>
-                            <p class="servicio-text texto-mask">Traduzco prototipos en código limpio y fiel, asegurando que la visión creativa llegue intacta al navegador sin perder calidad en el camino.</p>
+                            <h3 class="servicio-heading" data-i18n="services.fe.title">Frontend</h3>
+                            <p class="servicio-text texto-mask" data-i18n="services.fe.text">Traduzco prototipos en código limpio y fiel, asegurando que la visión creativa llegue intacta al navegador sin perder calidad en el camino.</p>
                         </article>
                     </div>
                 </div>
                 <div class="block-container">
-                    <h2 class="section-title texto-reveal">Skills</h2>
+                    <h2 class="section-title texto-reveal" data-i18n="skills.title">Skills</h2>
                     <div class="glass-box skills-box">
                         <div class="skills-track">
                             <div class="skill-item"><img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5"></div>
@@ -133,7 +144,7 @@
             <div class="proyectos-bg"></div>
             <div class="proyectos-inner">
                 <div class="carrousel-title">
-                    <h2 class="texto-reveal">Proyectos</h2>
+                    <h2 class="texto-reveal" data-i18n="projects.title">Proyectos</h2>
                 </div>
                 <div class="carrousel wrapper">
                     <figure class="item box" data-proyecto="menuLanding" style="cursor: pointer;">
@@ -193,13 +204,23 @@
             <div class="sobre-mi-section">
                 <div class="sobre-mi-container">
                     <div class="sobre-mi-content">
-                        <h2 class="texto-reveal section-title">Sobre mí</h2>
+                        <h2 class="texto-reveal section-title" data-i18n="about.title">Sobre mí</h2>
                         <div class="glass-box-sobre-mi sobre-mi-card">
                             <div class="inner-text">
-                                <p class="texto-mask">Hola! Mi nombre es <span class="accent">Juliana</span> <b>:)</b>. Cuento con una base en <span class="accent">Artes Digitales</span>, que hoy fusiono con la técnica a través de mi formación en la <span class="accent">Tecnicatura Superior en Diseño y Desarrollo Web</span>. Ya certificada como <span class="accent">Diseñadora UX/UI</span> y capacitada en <span class="accent">Frontend</span>, mi perfil se destaca por unir la sensibilidad estética con la estructura lógica del código.</p>
-                                <p class="texto-mask"><span class="accent">¿Qué me define?</span> El compromiso con la calidad. Soy rigurosa con mi trabajo y ambiciosa en mis metas; me encanta cuidar esos pequeños detalles que transforman un proyecto correcto en uno <span class="accent">memorable</span>.</p>
-                                <p class="texto-mask">Creo firmemente que la tecnología sin <span class="accent">humanidad</span> no sirve. Por eso, trabajé profundamente en la <span class="accent">empatía</span> y la <span class="accent">escucha activa</span>, convirtiéndolas en herramientas prácticas para mi día a día. Esta sensibilidad me permite hacer de puente entre el diseño y el desarrollo, traduciendo necesidades creativas a código lógico sin que se pierda la esencia en el camino.</p>
-                                <p class="texto-mask">Hoy busco sumarme a un equipo como <span class="accent">Desarrolladora Junior</span>, donde pueda aportar esta <span class="accent">visión integral</span>, mi compromiso con la calidad y seguir potenciando mis habilidades en un entorno profesional desafiante.</p>
+                                <p class="texto-mask" data-i18n="about.p1">Hola! Mi nombre es <span class="accent">Juliana</span> <b>:)</b>. Cuento con una base en <span class="accent">Artes Digitales</span>, que hoy fusiono con la técnica a través de mi formación en la <span class="accent">Tecnicatura Superior en Diseño y Desarrollo Web</span>. Ya certificada como <span class="accent">Diseñadora UX/UI</span> y capacitada en <span class="accent">Frontend</span>, mi perfil se destaca por unir la sensibilidad estética con la estructura lógica del código.</p>
+
+                                <div class="inner-text-collapsible">
+                                    <p class="texto-mask" data-i18n="about.p2"><span class="accent">¿Qué me define?</span> El compromiso con la calidad. Soy rigurosa con mi trabajo y ambiciosa en mis metas; me encanta cuidar esos pequeños detalles que transforman un proyecto correcto en uno <span class="accent">memorable</span>.</p>
+                                    <p class="texto-mask" data-i18n="about.p3">Creo firmemente que la tecnología sin <span class="accent">humanidad</span> no sirve. Por eso, trabajé profundamente en la <span class="accent">empatía</span> y la <span class="accent">escucha activa</span>, convirtiéndolas en herramientas prácticas para mi día a día. Esta sensibilidad me permite hacer de puente entre el diseño y el desarrollo, traduciendo necesidades creativas a código lógico sin que se pierda la esencia en el camino.</p>
+                                    <p class="texto-mask" data-i18n="about.p4">Hoy busco sumarme a un equipo como <span class="accent">Desarrolladora Junior</span>, donde pueda aportar esta <span class="accent">visión integral</span>, mi compromiso con la calidad y seguir potenciando mis habilidades en un entorno profesional desafiante.</p>
+                                </div>
+
+                                <button class="btn-leer-mas" id="btnLeerMas" aria-expanded="false">
+                                    <span class="btn-leer-mas-text" data-i18n="about.readmore">Leer más</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icono-chevron">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
                             </div>
                             <div class="sobre-mi-image">
                                 <img src="./assets/img/sobre-mi/foto-cv.png" alt="Foto de Juliana">
@@ -210,6 +231,7 @@
             </div>
         </div>
     </section>
+
     <!-- Section 5: Contacto -->
     <section id="contacto" class="cd-section">
         <div>
@@ -220,8 +242,8 @@
                         <div class="contacto-flex-container">
                             <div class="col-info">
                                 <div class="info-header">
-                                    <h2 class="info-title">¿Tenés un proyecto <br>en mente?</h2>
-                                    <p class="info-subtitle">¡Contactame y creémoslo juntos!</p>
+                                    <h2 class="info-title" data-i18n="contact.title">¿Tenés un proyecto <br>en mente?</h2>
+                                    <p class="info-subtitle" data-i18n="contact.subtitle">¡Contactame y creémoslo juntos!</p>
                                 </div>
                                 <ul class="info-list">
                                     <li class="info-item">
@@ -241,43 +263,40 @@
                                 </ul>
                             </div>
                             <div class="col-form contacto-glass-form">
-                                <h3 class="form-title">Pronto me comunico con vos!</h3>
+                                <h3 class="form-title" data-i18n="contact.form.title">Pronto me comunico con vos!</h3>
                                 <form action="https://formspree.io/f/manzzbgb" method="POST" class="contacto-form">
-                                <div class="form-row">
-                                  <div class="input-group">
-                                    <input type="text" id="nombre" name="nombre" required placeholder=" ">
-                                    <label for="nombre">¿Cómo es tu nombre?</label>
-                                  </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                  <div class="input-group">
-                                    <select id="servicio" name="servicio" required>
-                                      <option value="" disabled selected></option>
-                                      <option value="uxui">Diseño UI (Identidad Visual)</option>
-                                      <option value="frontend">Diseño UX (Experiencia)</option>
-                                      <option value="full">Frontend (Código)</option>
-                                      <option value="otro">Pack Completo (Diseño + Dev)</option>
-                                    </select>
-                                    <label for="servicio">¿Qué tipo de desafío tenés?</label>
-                                  </div>
-                                </div>
-                                <div class="form-row">
-                                  <div class="input-group">
-                                    <input type="email" id="email" name="email" required placeholder=" ">
-                                    <label for="email">¿A qué mail te escribo?</label>
-                                  </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                  <div class="input-group">
-                                    <textarea id="mensaje" name="mensaje" required placeholder=" "></textarea>
-                                    <label for="mensaje">¡Contame un poco más!</label>
-                                  </div>
-                                </div>
-
-                                <button type="submit" class="btn-enviar">¡Démosle vida a esa idea!</button>
-                              </form>
+                                    <div class="form-row">
+                                        <div class="input-group">
+                                            <input type="text" id="nombre" name="nombre" required placeholder=" ">
+                                            <label for="nombre" data-i18n="contact.form.name">¿Cómo es tu nombre?</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="input-group">
+                                            <select id="servicio" name="servicio" required>
+                                                <option value="" disabled selected></option>
+                                                <option value="uxui" data-i18n="contact.form.opt1">Diseño UI (Identidad Visual)</option>
+                                                <option value="frontend" data-i18n="contact.form.opt2">Diseño UX (Experiencia)</option>
+                                                <option value="full" data-i18n="contact.form.opt3">Frontend (Código)</option>
+                                                <option value="otro" data-i18n="contact.form.opt4">Pack Completo (Diseño + Dev)</option>
+                                            </select>
+                                            <label for="servicio" data-i18n="contact.form.service">¿Qué tipo de desafío tenés?</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="input-group">
+                                            <input type="email" id="email" name="email" required placeholder=" ">
+                                            <label for="email" data-i18n="contact.form.email">¿A qué mail te escribo?</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="input-group">
+                                            <textarea id="mensaje" name="mensaje" required placeholder=" "></textarea>
+                                            <label for="mensaje" data-i18n="contact.form.message">¡Contame un poco más!</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-enviar" data-i18n="contact.form.submit">¡Démosle vida a esa idea!</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -288,15 +307,93 @@
 
     <aside>
         <ul class="cd-vertical-nav">
+            <!-- Switch de idioma — arriba del todo -->
+            <li class="lang-switch-item">
+                <div class="lang-switch-aside" id="langSwitch" title="Switch language">
+                    <div class="lang-toggle" id="langToggle">
+                        <span class="lang-label" id="langLabel">EN</span>
+                    </div>
+                </div>
+            </li>
             <li><a href="#inicio" class="cd-home nav-link">Home</a></li>
             <li><a href="#0" class="cd-prev inactive">Next</a></li>
             <li><a href="#0" class="cd-next">Prev</a></li>
         </ul>
     </aside>
 
+    <!-- Side Drawer mobile -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-logo">Menú</span>
+            <button class="drawer-close" id="drawerClose" aria-label="Cerrar menú">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="#inicio" class="drawer-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span data-i18n="drawer.home">Inicio</span>
+            </a>
+            <a href="#servicios" class="drawer-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                </svg>
+                <span data-i18n="drawer.services">Servicios</span>
+            </a>
+            <a href="#proyectos" class="drawer-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                    <path d="M8 21h8M12 17v4"></path>
+                </svg>
+                <span data-i18n="drawer.projects">Proyectos</span>
+            </a>
+            <a href="#sobremi" class="drawer-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span data-i18n="drawer.about">Sobre mí</span>
+            </a>
+            <a href="#contacto" class="drawer-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span data-i18n="drawer.contact">Contacto</span>
+            </a>
+            <!-- Switch de idioma mobile -->
+            <div class="drawer-lang">
+                <span>ES</span>
+                <div class="lang-toggle lang-toggle--drawer" id="langToggleMobile">
+                    <div class="lang-knob"></div>
+                </div>
+                <span>EN</span>
+            </div>
+        </nav>
+        <div class="drawer-footer">
+            <a href="https://github.com/julianarocha-web" target="_blank" aria-label="GitHub">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/juliana-rocha-754227174/?skipRedirect=true" target="_blank" aria-label="LinkedIn">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn">
+            </a>
+            <a href="https://behance.net/tu-usuario" target="_blank" aria-label="Behance">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/behance.svg" alt="Behance">
+            </a>
+        </div>
+    </div>
+
     <div class="modal fade" id="proyectoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content glass-modal p-4 p-lg-5 position-relative"> 
+            <div class="modal-content glass-modal p-4 p-lg-5 position-relative">
                 <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-4 z-3" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-body p-0">
                     <div class="row gx-lg-5">
@@ -340,6 +437,258 @@
     <script src="./assets/js/velocity.min.js"></script>
     <script src="./assets/js/velocity.ui.min.js"></script>
     <script src="./assets/js/main.js?v=2"></script>
+
+    <script>
+    (function () {
+
+        /* ---- Leer más / Leer menos ---- */
+        var btn = document.getElementById('btnLeerMas');
+        var collapsible = document.querySelector('.inner-text-collapsible');
+        if (btn && collapsible) {
+            btn.addEventListener('click', function () {
+                var expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', String(!expanded));
+                var t = window._i18nCurrent || 'es';
+                var readMore = { es: 'Leer más', en: 'Read more' };
+                var readLess = { es: 'Leer menos', en: 'Read less' };
+                btn.querySelector('.btn-leer-mas-text').textContent = expanded ? readMore[t] : readLess[t];
+                collapsible.classList.toggle('expandido', !expanded);
+            });
+        }
+
+        /* ---- Side Drawer ---- */
+        var toggle   = document.getElementById('drawerToggle');
+        var drawer   = document.getElementById('mobileDrawer');
+        var overlay  = document.getElementById('drawerOverlay');
+        var closeBtn = document.getElementById('drawerClose');
+        var drawerLinks = document.querySelectorAll('.drawer-link');
+
+        function isMobile() {
+            return window.innerWidth < 992;
+        }
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            overlay.classList.add('open');
+            drawer.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('open');
+            drawer.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        if (toggle) {
+            toggle.addEventListener('click', function (e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+                }
+            });
+        }
+
+        if (closeBtn)  closeBtn.addEventListener('click', closeDrawer);
+        if (overlay)   overlay.addEventListener('click', closeDrawer);
+
+        // Cerrar al tocar un link del drawer
+        drawerLinks.forEach(function (link) {
+            link.addEventListener('click', closeDrawer);
+        });
+
+        // Tecla Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeDrawer();
+        });
+
+    })();
+    </script>
+    <!-- ===================== i18n Language Switch ===================== -->
+    <script>
+    (function () {
+
+        var translations = {
+            es: {
+                'nav.services':        'Servicios',
+                'nav.projects':        'Proyectos',
+                'nav.about':           'Sobre mí',
+                'nav.contact':         'Contacto',
+                'hero.kicker':         'Hola! Soy Juliana Rocha',
+                'hero.dev':            'Desarrolladora',
+                'hero.designer':       'Diseñadora',
+                'services.title':      'Mis Servicios',
+                'services.ux.title':   'Diseño UX',
+                'services.ux.text':    'Investigo, prototipo y testeo para eliminar la fricción entre el usuario y la tecnología, creando experiencias que se sienten naturales y lógicas.',
+                'services.ui.title':   'Diseño UI',
+                'services.ui.text':    'Transformo ideas abstractas en interfaces accesibles, donde cada color y espacio tiene una razón de ser para guiar al usuario intuitivamente.',
+                'services.fe.title':   'Frontend',
+                'services.fe.text':    'Traduzco prototipos en código limpio y fiel, asegurando que la visión creativa llegue intacta al navegador sin perder calidad en el camino.',
+                'skills.title':        'Skills',
+                'projects.title':      'Proyectos',
+                'about.title':         'Sobre mí',
+                'about.p1':            'Hola! Mi nombre es Juliana :). Cuento con una base en Artes Digitales, que hoy fusiono con la técnica a través de mi formación en la Tecnicatura Superior en Diseño y Desarrollo Web. Ya certificada como Diseñadora UX/UI y capacitada en Frontend, mi perfil se destaca por unir la sensibilidad estética con la estructura lógica del código.',
+                'about.p2':            '¿Qué me define? El compromiso con la calidad. Soy rigurosa con mi trabajo y ambiciosa en mis metas; me encanta cuidar esos pequeños detalles que transforman un proyecto correcto en uno memorable.',
+                'about.p3':            'Creo firmemente que la tecnología sin humanidad no sirve. Por eso, trabajé profundamente en la empatía y la escucha activa, convirtiéndolas en herramientas prácticas para mi día a día. Esta sensibilidad me permite hacer de puente entre el diseño y el desarrollo, traduciendo necesidades creativas a código lógico sin que se pierda la esencia en el camino.',
+                'about.p4':            'Hoy busco sumarme a un equipo como Desarrolladora Junior, donde pueda aportar esta visión integral, mi compromiso con la calidad y seguir potenciando mis habilidades en un entorno profesional desafiante.',
+                'about.readmore':      'Leer más',
+                'about.readless':      'Leer menos',
+                'contact.title':       '¿Tenés un proyecto en mente?',
+                'contact.subtitle':    '¡Contactame y creémoslo juntos!',
+                'contact.form.title':  '¡Pronto me comunico con vos!',
+                'contact.form.name':   '¿Cómo es tu nombre?',
+                'contact.form.service':'¿Qué tipo de desafío tenés?',
+                'contact.form.opt1':   'Diseño UI (Identidad Visual)',
+                'contact.form.opt2':   'Diseño UX (Experiencia)',
+                'contact.form.opt3':   'Frontend (Código)',
+                'contact.form.opt4':   'Pack Completo (Diseño + Dev)',
+                'contact.form.email':  '¿A qué mail te escribo?',
+                'contact.form.message':'¡Contame un poco más!',
+                'contact.form.submit': '¡Démosle vida a esa idea!',
+                'drawer.home':         'Inicio',
+                'drawer.services':     'Servicios',
+                'drawer.projects':     'Proyectos',
+                'drawer.about':        'Sobre mí',
+                'drawer.contact':      'Contacto'
+            },
+            en: {
+                'nav.services':        'Services',
+                'nav.projects':        'Projects',
+                'nav.about':           'About me',
+                'nav.contact':         'Contact',
+                'hero.kicker':         'Hi! I\'m Juliana Rocha',
+                'hero.dev':            'Frontend',
+                'hero.designer':       'Developer & UX/UI',
+                'services.title':      'My Services',
+                'services.ux.title':   'UX Design',
+                'services.ux.text':    'I research, prototype, and test to remove friction between the user and technology, creating experiences that feel natural and intuitive.',
+                'services.ui.title':   'UI Design',
+                'services.ui.text':    'I turn abstract ideas into accessible interfaces, where every color and space has a purpose to guide the user effortlessly.',
+                'services.fe.title':   'Frontend',
+                'services.fe.text':    'I translate prototypes into clean, faithful code — ensuring the creative vision reaches the browser intact, without losing quality along the way.',
+                'skills.title':        'Skills',
+                'projects.title':      'Projects',
+                'about.title':         'About me',
+                'about.p1':            'Hi! My name is Juliana :). I have a background in Digital Arts, which I now blend with technology through my studies in a Higher Technical Degree in Web Design and Development. Already certified as a UX/UI Designer and trained in Frontend, my profile stands out for bridging aesthetic sensibility with the logical structure of code.',
+                'about.p2':            'What defines me? A commitment to quality. I am thorough in my work and ambitious in my goals — I love taking care of those small details that turn a good project into a memorable one.',
+                'about.p3':            'I firmly believe that technology without humanity is useless. That\'s why I\'ve worked deeply on empathy and active listening, turning them into practical tools for my day-to-day. This sensitivity allows me to bridge design and development, translating creative needs into logical code without losing the essence along the way.',
+                'about.p4':            'I\'m now looking to join a team as a Junior Developer, where I can contribute this holistic vision, my commitment to quality, and keep growing my skills in a challenging professional environment.',
+                'about.readmore':      'Read more',
+                'about.readless':      'Read less',
+                'contact.title':       'Got a project in mind?',
+                'contact.subtitle':    'Reach out and let\'s build it together!',
+                'contact.form.title':  'I\'ll get back to you soon!',
+                'contact.form.name':   'What\'s your name?',
+                'contact.form.service':'What kind of challenge do you have?',
+                'contact.form.opt1':   'UI Design (Visual Identity)',
+                'contact.form.opt2':   'UX Design (Experience)',
+                'contact.form.opt3':   'Frontend (Code)',
+                'contact.form.opt4':   'Full Pack (Design + Dev)',
+                'contact.form.email':  'What\'s your email?',
+                'contact.form.message':'Tell me a bit more!',
+                'contact.form.submit': 'Let\'s bring that idea to life!',
+                'drawer.home':         'Home',
+                'drawer.services':     'Services',
+                'drawer.projects':     'Projects',
+                'drawer.about':        'About me',
+                'drawer.contact':      'Contact'
+            }
+        };
+
+        // Paragraphs about section preserve HTML markup (spans with accent class)
+        var aboutHTML = {
+            es: {
+                p1: 'Hola! Mi nombre es <span class="accent">Juliana</span> <b>:)</b>. Cuento con una base en <span class="accent">Artes Digitales</span>, que hoy fusiono con la técnica a través de mi formación en la <span class="accent">Tecnicatura Superior en Diseño y Desarrollo Web</span>. Ya certificada como <span class="accent">Diseñadora UX/UI</span> y capacitada en <span class="accent">Frontend</span>, mi perfil se destaca por unir la sensibilidad estética con la estructura lógica del código.',
+                p2: '<span class="accent">¿Qué me define?</span> El compromiso con la calidad. Soy rigurosa con mi trabajo y ambiciosa en mis metas; me encanta cuidar esos pequeños detalles que transforman un proyecto correcto en uno <span class="accent">memorable</span>.',
+                p3: 'Creo firmemente que la tecnología sin <span class="accent">humanidad</span> no sirve. Por eso, trabajé profundamente en la <span class="accent">empatía</span> y la <span class="accent">escucha activa</span>, convirtiéndolas en herramientas prácticas para mi día a día. Esta sensibilidad me permite hacer de puente entre el diseño y el desarrollo, traduciendo necesidades creativas a código lógico sin que se pierda la esencia en el camino.',
+                p4: 'Hoy busco sumarme a un equipo como <span class="accent">Desarrolladora Junior</span>, donde pueda aportar esta <span class="accent">visión integral</span>, mi compromiso con la calidad y seguir potenciando mis habilidades en un entorno profesional desafiante.'
+            },
+            en: {
+                p1: 'Hi! My name is <span class="accent">Juliana</span> <b>:)</b>. I have a background in <span class="accent">Digital Arts</span>, which I now blend with technology through my studies in a <span class="accent">Higher Technical Degree in Web Design and Development</span>. Already certified as a <span class="accent">UX/UI Designer</span> and trained in <span class="accent">Frontend</span>, my profile stands out for bridging aesthetic sensibility with the logical structure of code.',
+                p2: '<span class="accent">What defines me?</span> A commitment to quality. I am thorough in my work and ambitious in my goals — I love taking care of those small details that turn a good project into a <span class="accent">memorable</span> one.',
+                p3: 'I firmly believe that technology without <span class="accent">humanity</span> is useless. That\'s why I\'ve worked deeply on <span class="accent">empathy</span> and <span class="accent">active listening</span>, turning them into practical tools for my day-to-day. This sensitivity allows me to bridge design and development, translating creative needs into logical code without losing the essence along the way.',
+                p4: 'I\'m now looking to join a team as a <span class="accent">Junior Developer</span>, where I can contribute this <span class="accent">holistic vision</span>, my commitment to quality, and keep growing my skills in a challenging professional environment.'
+            }
+        };
+
+        var currentLang = 'es';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            window._i18nCurrent = lang;
+            var t = translations[lang];
+
+            // Translate all simple [data-i18n] elements (skip about paragraphs handled separately)
+            var skipKeys = ['about.p1','about.p2','about.p3','about.p4'];
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n');
+                if (skipKeys.indexOf(key) !== -1) return;
+                if (t[key] !== undefined) el.textContent = t[key];
+            });
+
+            // About paragraphs — use innerHTML to preserve accent spans
+            var aHTML = aboutHTML[lang];
+            ['p1','p2','p3','p4'].forEach(function(k) {
+                var el = document.querySelector('[data-i18n="about.' + k + '"]');
+                if (el) el.innerHTML = aHTML[k];
+            });
+
+            // Update read more/less button text respecting current expanded state
+            var readBtn = document.getElementById('btnLeerMas');
+            if (readBtn) {
+                var isExpanded = readBtn.getAttribute('aria-expanded') === 'true';
+                readBtn.querySelector('.btn-leer-mas-text').textContent = isExpanded ? t['about.readless'] : t['about.readmore'];
+            }
+
+            // Update lang label on desktop switch
+            var label = document.getElementById('langLabel');
+            if (label) label.textContent = lang === 'es' ? 'EN' : 'ES';
+
+            // Update lang label on mobile navbar switch
+            var labelMobile = document.getElementById('langLabelMobile');
+            if (labelMobile) labelMobile.textContent = lang === 'es' ? 'EN' : 'ES';
+
+            // Sync visual state of all toggles
+            document.querySelectorAll('.lang-toggle').forEach(function(tog) {
+                tog.classList.toggle('active', lang === 'en');
+            });
+
+            // Update html lang attribute
+            document.documentElement.setAttribute('lang', lang);
+
+            // Save preference
+            try { localStorage.setItem('portfolio_lang', lang); } catch(e) {}
+        }
+
+        function setupLangSwitch() {
+            var desktopToggle = document.getElementById('langToggle');
+            var mobileToggle  = document.getElementById('langToggleMobile');
+
+            function handleToggle() {
+                applyLanguage(currentLang === 'es' ? 'en' : 'es');
+            }
+
+            if (desktopToggle) desktopToggle.addEventListener('click', handleToggle);
+            if (mobileToggle)  mobileToggle.addEventListener('click', handleToggle);
+
+            // Restore saved preference
+            var saved;
+            try { saved = localStorage.getItem('portfolio_lang'); } catch(e) {}
+            if (saved && saved !== 'es') {
+                applyLanguage(saved);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupLangSwitch);
+        } else {
+            setupLangSwitch();
+        }
+
+    })();
+    </script>
 </body>
 </html>
 

@@ -7,7 +7,6 @@ Primary style
   box-sizing: border-box;
 }
 
-
 body {
   font-size: 1.6rem;
   font-family: "Open Sans", sans-serif;
@@ -17,13 +16,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 body::before {
-  /* never visible - this is used in jQuery to check the current MQ */
   content: 'mobile';
   display: none;
 }
 @media only screen and (min-width: 1050px) {
   body::before {
-    /* never visible - this is used in jQuery to check the current MQ */
     content: 'desktop';
   }
 }
@@ -34,9 +31,7 @@ a {
 }
 
 /* -------------------------------- 
-
 Main Components 
-
 -------------------------------- */
 @media only screen and (min-width: 1050px) {
   body[data-hijacking="on"] {
@@ -44,286 +39,170 @@ Main Components
   }
 }
 
-.cd-section {
-  height: 100vh;
-}
+.cd-section { height: 100vh; }
 
-.cd-section:first-of-type > div {
-  background-color: #0A0A09;
-  height: 100vh;
-}
-
-.cd-section:nth-of-type(2) > div {
-  background-color: #0A0A09;
-  height: 100vh;
-}
-.cd-section:nth-of-type(3) > div {
-  background-image: #0A0A09;
-  height: 100vh;
-}
-.cd-section:nth-of-type(4) > div {
-  background-color: #0A0A09;
-  height: 100vh;
-}
-.cd-section:nth-of-type(5) > div {
-  background-color: #f06a59;
-  height: 100vh;
-}
+.cd-section:first-of-type > div { background-color: #0A0A09; height: 100vh; }
+.cd-section:nth-of-type(2) > div { background-color: #0A0A09; height: 100vh; }
+.cd-section:nth-of-type(3) > div { background-image: #0A0A09; height: 100vh; }
+.cd-section:nth-of-type(4) > div { background-color: #0A0A09; height: 100vh; }
+.cd-section:nth-of-type(5) > div { background-color: #f06a59; height: 100vh; }
 
 @media only screen and (min-width: 1050px) {
-  .cd-section h2 {
-    font-size: 4rem;
-    font-weight: 300;
-  }
+  .cd-section h2 { font-size: 4rem; font-weight: 300; }
   [data-hijacking="on"] .cd-section {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    opacity: 0; visibility: hidden;
+    position: absolute; top: 0; left: 0; width: 100%;
   }
-  [data-hijacking="on"] .cd-section > div {
-    visibility: visible;
-  }
-  [data-hijacking="off"] .cd-section > div {
-    opacity: 0;
-  }
+  [data-hijacking="on"] .cd-section > div { visibility: visible; }
+  [data-hijacking="off"] .cd-section > div { opacity: 0; }
   [data-animation="rotate"] .cd-section {
-    /* enable a 3D-space for children elements */
-    -webkit-perspective: 1800px;
-    -moz-perspective: 1800px;
-    perspective: 1800px;
+    -webkit-perspective: 1800px; -moz-perspective: 1800px; perspective: 1800px;
   }
   [data-hijacking="on"][data-animation="rotate"] .cd-section:not(:first-of-type) {
-    -webkit-perspective-origin: center 0;
-    -moz-perspective-origin: center 0;
-    perspective-origin: center 0;
+    -webkit-perspective-origin: center 0; -moz-perspective-origin: center 0; perspective-origin: center 0;
   }
-  [data-animation="scaleDown"] .cd-section > div, [data-animation="gallery"] .cd-section > div, [data-animation="catch"] .cd-section > div {
+  [data-animation="scaleDown"] .cd-section > div,
+  [data-animation="gallery"] .cd-section > div,
+  [data-animation="catch"] .cd-section > div {
     box-shadow: 0 0 0 rgba(25, 30, 46, 0.4);
   }
-  [data-animation="opacity"] .cd-section.visible > div {
-    z-index: 1;
-  }
+  [data-animation="opacity"] .cd-section.visible > div { z-index: 1; }
 }
 
 @media only screen and (min-width: 1050px) {
-  .cd-section:first-of-type > div::before {
-    display: none;
-  }
-}
-@media only screen and (min-width: 1050px) {
+  .cd-section:first-of-type > div::before { display: none; }
   .cd-section > div {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Force Hardware Acceleration */
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    position: fixed; top: 0; left: 0; width: 100%;
+    -webkit-transform: translateZ(0); -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0); -o-transform: translateZ(0); transform: translateZ(0);
+    -webkit-backface-visibility: hidden; backface-visibility: hidden;
   }
-  [data-hijacking="on"] .cd-section > div {
-    position: absolute;
-  }
+  [data-hijacking="on"] .cd-section > div { position: absolute; }
   [data-animation="rotate"] .cd-section > div {
-    -webkit-transform-origin: center bottom;
-    -moz-transform-origin: center bottom;
-    -ms-transform-origin: center bottom;
-    -o-transform-origin: center bottom;
+    -webkit-transform-origin: center bottom; -moz-transform-origin: center bottom;
+    -ms-transform-origin: center bottom; -o-transform-origin: center bottom;
     transform-origin: center bottom;
   }
 }
 
-
-/* PARALLAX REINSTALADO */
 [data-animation="parallax"] .cd-section > div {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-
+/* =========================================
+   NAVEGACIÓN VERTICAL (solo desktop)
+========================================= */
 .cd-vertical-nav {
-  /* lateral navigation */
-  position: fixed;
-  z-index: 1;
-  right: 3%;
-  top: 90%;
-  bottom: auto;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
+  position: fixed; z-index: 1;
+  right: 3%; bottom: 3%; top: auto;
   display: none;
 }
+
+/* Switch de idioma — posición por defecto: arriba de la pantalla */
+.lang-switch-item {
+  position: fixed !important;
+  right: 3%;
+  top: 3%;
+  bottom: auto !important;
+  margin-bottom: 0 !important;
+  z-index: 10;
+  /* transición suave al moverse */
+  transition: top 0.4s ease, bottom 0.4s ease;
+}
+
+/* En la primera sección: el switch baja justo encima del botón cd-next.
+   cd-next está a bottom:3%, mide 40px → sumamos 40px + 10px gap = bottom: calc(3% + 50px) */
+.cd-section:first-of-type.visible ~ aside .lang-switch-item {
+  top: auto !important;
+  bottom: calc(3% + 50px) !important;
+}
 .cd-vertical-nav a {
-  display: block;
-  height: 40px;
-  width: 40px;
-  /* image replace */
-  overflow: hidden;
-  text-indent: 100%;
-  white-space: nowrap;
+  display: block; height: 40px; width: 40px;
+  overflow: hidden; text-indent: 100%; white-space: nowrap;
   background: url(../img/cd-icon-arrow.svg);
 }
 .cd-vertical-nav a.cd-prev {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-  margin-bottom: 10px;
+  -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg); -o-transform: rotate(180deg);
+  transform: rotate(180deg); margin-bottom: 10px;
 }
 .cd-vertical-nav a.inactive {
-  visibility: hidden;
-  opacity: 0;
+  visibility: hidden; opacity: 0;
   -webkit-transition: opacity 0.2s 0s, visibility 0s 0.2s;
   -moz-transition: opacity 0.2s 0s, visibility 0s 0.2s;
   transition: opacity 0.2s 0s, visibility 0s 0.2s;
 }
 @media only screen and (min-width: 1050px) {
+  .cd-vertical-nav { display: block; }
+}
+.cd-vertical-nav, .cd-vertical-nav ul, .cd-vertical-nav li {
+  list-style: none; margin: 0; padding: 0;
+}
+.cd-vertical-nav li::marker { content: ""; }
+
+.cd-vertical-nav a.cd-home {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: 28px; background-repeat: no-repeat;
+  background-position: center; margin-bottom: 10px;
+  transform: none; opacity: 1; visibility: visible;
+}
+.cd-section:first-of-type.visible ~ aside .cd-home {
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+
+/* Ocultar aside en mobile */
+@media only screen and (max-width: 1049px) {
+  aside { display: none !important; }
+}
+
+/* ---- Lang switch en el aside (desktop) ---- */
+.cd-vertical-nav {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (min-width: 1050px) {
   .cd-vertical-nav {
-    display: block;
+    display: flex;
   }
 }
 
-.cd-vertical-nav,
-.cd-vertical-nav ul,
-.cd-vertical-nav li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.cd-vertical-nav li::marker {
-  content: "";
-}
-
-/* --- BOTÓN HOME (Navegación Vertical) --- */
-.cd-vertical-nav a.cd-home {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
-    background-size: 28px;      
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 10px;        
-    transform: none;            
-    opacity: 1;                 
-    visibility: visible;
-}
-
-
-.cd-section:first-of-type.visible ~ aside .cd-home {
-    opacity: 0.0;               
-    pointer-events: none;        
-    transition: opacity 0.3s;
-}
-
-/* --- CORRECCIÓN PARA MÓVIL (Fondo negro) --- */
-@media only screen and (max-width: 1049px) {
-    .cd-section {
-        height: auto !important; 
-        min-height: 100vh; 
-    }
-
-    .cd-section > div {
-        height: auto !important;
-        min-height: 100vh;
-        position: relative !important; 
-    }
-}
+/* Los botones de nav quedan en el aside (abajo), el switch es fixed independiente */
 
 /* =========================================
-   CORRECCIÓN PARA MÓVIL (ANDROID FIX)
+   CORRECCIÓN MÓVIL
 ========================================= */
 @media only screen and (max-width: 1049px) {
-    
-    body, html {
-        overflow-x: hidden;
-        width: 100%;
-        position: relative;
-    }
+  body, html { overflow-x: hidden; width: 100%; position: relative; }
 
-    .cd-section {
-        height: auto !important; 
-        min-height: 100dvh; 
-        min-height: -webkit-fill-available; 
-        position: relative !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        width: 100% !important;
-    }
+  .cd-section {
+    height: auto !important;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: 100% !important;
+  }
 
-    .cd-section > div {
-        height: auto !important;
-        min-height: 100dvh;
-        min-height: -webkit-fill-available;
-        position: relative !important; 
+  .cd-section > div {
+    height: auto !important;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+  }
 
-        top: auto !important;
-        left: auto !important;
-        transform: none !important; 
-        width: 100% !important;
-    }
-
-    .proyectos-section {
-        min-height: 100dvh;
-        background-attachment: scroll !important; 
-    }
-
- 
-    .cd-vertical-nav {
-        display: block !important; 
-        z-index: 9999; 
-        right: 20px;
-        top: auto;
-        bottom: 30px; 
-        transform: none;
-    }
-
-
-    .cd-vertical-nav li a.cd-prev,
-    .cd-vertical-nav li a.cd-next {
-        display: none !important;
-    }
-
-    .cd-vertical-nav a.cd-home {
-        opacity: 1 !important;
-        visibility: visible !important;
-        background-color: rgba(0,0,0,0.6); 
-        border-radius: 50%; 
-        width: 48px; 
-        height: 48px;
-        background-position: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-}
-
-@media only screen and (max-width: 1049px) {
-    
-    aside {
-        z-index: 99999 !important;
-        position: fixed;
-    }
-
-    .cd-vertical-nav a.cd-home {
-        text-indent: 0 !important; 
-        font-size: 0 !important;   
-        overflow: hidden;
-        
-        display: block !important;
-        width: 50px !important;    
-        height: 50px !important;
-        
-        cursor: pointer !important;
-        pointer-events: auto !important; 
-    }
+  .proyectos-section {
+    min-height: 100dvh;
+    background-attachment: scroll !important;
+  }
 }
 
 

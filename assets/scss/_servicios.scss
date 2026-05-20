@@ -178,7 +178,7 @@
     .cd-section.visible, 
     .cd-section > div {
         height: auto !important; 
-        min-height: 100vh !important;
+        min-height: 0 !important;
         overflow: visible !important;
     }
     

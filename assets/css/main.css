@@ -284,16 +284,254 @@ nav {
   box-shadow: none;
 }
 
+
+/* =========================================
+   NAVBAR STICKY + SIDE DRAWER — SOLO MOBILE
+========================================= */
+
+/* Header sticky en mobile */
 @media (max-width: 991px) {
+  .header > nav.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: linear-gradient(180deg, rgba(10, 10, 9, 0.95) 0%, rgba(10, 10, 9, 0.80) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(210, 165, 252, 0.12);
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  /* Nav más compacta */
+  .header > nav.menu .container-fluid {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Ocultar logo en mobile */
+  .header > nav.menu .navbar-brand {
+    display: none !important;
+  }
+
+  /* Empujar el contenido hero para que no quede bajo el header fijo */
+  .header {
+    padding-top: 52px;
+  }
+
+  /* Ocultar el collapse de Bootstrap — usamos drawer propio */
   .navbar-collapse {
-    background: #0A0A09;
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 15px;
-    z-index: 101;
-    text-align: center;
-    width: 100%;
+    display: none !important;
+  }
+
+  /* Switch de idioma dentro de la navbar mobile */
+  .navbar-lang-mobile {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-lang-mobile .lang-toggle-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    user-select: none;
+  }
+
+  .navbar-lang-mobile .lang-toggle-mobile:hover,
+  .navbar-lang-mobile .lang-toggle-mobile.active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .navbar-lang-mobile .lang-toggle-mobile span {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: white;
+    line-height: 1;
+    pointer-events: none;
+  }
+}
+
+/* Overlay oscuro detrás del drawer */
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.drawer-overlay.open {
+  display: block;
+  opacity: 1;
+}
+
+/* Panel drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10002;
+  width: min(80vw, 300px);
+  background: linear-gradient(160deg, rgba(18, 10, 28, 0.97) 0%, rgba(12, 8, 20, 0.99) 100%);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-left: 1px solid rgba(210, 165, 252, 0.15);
+  box-shadow: -12px 0 48px rgba(0, 0, 0, 0.6);
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* Cabecera del drawer */
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.drawer-header .drawer-logo {
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(250, 239, 239, 0.5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.drawer-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s ease, background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drawer-close:hover {
+  color: #eab1ff;
+  background: rgba(210, 165, 252, 0.1);
+}
+.drawer-close svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+}
+
+/* Links del drawer */
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px;
+  gap: 4px;
+  flex: 1;
+}
+.drawer-nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: rgba(250, 239, 239, 0.75);
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.22s ease, color 0.22s ease, transform 0.18s ease;
+  position: relative;
+}
+.drawer-nav a svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.22s ease;
+}
+.drawer-nav a:hover,
+.drawer-nav a.active {
+  background: rgba(210, 165, 252, 0.1);
+  color: #eab1ff;
+  transform: translateX(4px);
+}
+.drawer-nav a:hover svg,
+.drawer-nav a.active svg {
+  opacity: 1;
+}
+/* Línea naranja a la izquierda en active */
+.drawer-nav a.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 3px;
+  background: linear-gradient(180deg, #eab1ff, #e7704a);
+  border-radius: 0 3px 3px 0;
+}
+
+/* Footer del drawer con redes */
+.drawer-footer {
+  padding: 18px 24px 28px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.drawer-footer a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.drawer-footer a:hover {
+  background: rgba(210, 165, 252, 0.15);
+  border-color: rgba(210, 165, 252, 0.4);
+}
+.drawer-footer a img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+/* En desktop: ocultar drawer y overlay completamente */
+@media (min-width: 992px) {
+  .mobile-drawer,
+  .drawer-overlay {
+    display: none !important;
   }
 }
 
@@ -692,8 +930,8 @@ nav {
 @media (max-width: 991px) {
   .proyectos-section {
     height: auto !important;
-    min-height: 100vh;
-    padding: 4rem 0 3rem 0;
+    min-height: 0;
+    padding: 2.5rem 0 2rem 0;
     align-items: flex-start;
     overflow: visible !important;
     background-color: #0a0a0a;
@@ -718,7 +956,7 @@ nav {
     text-align: center;
   }
   .carrousel.wrapper {
-    height: 320px !important;
+    height: 310px !important;
     overflow: visible !important;
     padding: 0 !important;
   }
@@ -1118,7 +1356,7 @@ nav {
   .cd-section.visible,
   .cd-section > div {
     height: auto !important;
-    min-height: 100vh !important;
+    min-height: 0 !important;
     overflow: visible !important;
   }
   .servicios-section {
@@ -1357,6 +1595,58 @@ nav {
     text-align: center;
     font-size: 16px;
     margin-bottom: 1rem;
+  }
+}
+/* ============================================================
+   4. BOTÓN LEER MÁS — solo mobile
+============================================================ */
+@media (max-width: 991px) {
+  .inner-text-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease;
+  }
+  .inner-text-collapsible.expandido {
+    max-height: 800px;
+  }
+  .btn-leer-mas {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.2rem;
+    padding: 0.55rem 1.3rem;
+    background: linear-gradient(135deg, rgba(210, 165, 252, 0.15), rgba(210, 165, 252, 0.05));
+    border: 1px solid rgba(210, 165, 252, 0.4);
+    border-radius: 50px;
+    color: #eab1ff;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn-leer-mas:hover {
+    background: linear-gradient(135deg, rgba(210, 165, 252, 0.25), rgba(210, 165, 252, 0.1));
+    border-color: rgba(210, 165, 252, 0.7);
+    transform: translateY(-1px);
+  }
+  .btn-leer-mas .icono-chevron {
+    transition: transform 0.35s ease;
+  }
+  .btn-leer-mas[aria-expanded=true] .icono-chevron {
+    transform: rotate(180deg);
+  }
+}
+@media (min-width: 992px) {
+  .btn-leer-mas {
+    display: none;
+  }
+  .inner-text-collapsible {
+    max-height: none !important;
+    overflow: visible;
   }
 }
 .contacto-section {
@@ -1665,6 +1955,99 @@ nav {
   .input-group select:valid ~ label {
     background: #111;
   }
+}
+
+
+/* =============================================
+   LANGUAGE SWITCH — aside (desktop only)
+============================================= */
+
+/* El li que contiene el switch */
+.lang-switch-item {
+  list-style: none;
+  margin-bottom: 10px;
+}
+.lang-switch-item::marker { content: ""; }
+
+/* Contenedor — solo centra el toggle */
+.lang-switch-aside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Botón cuadrado igual que cd-prev/cd-next,
+   con el texto "ES"/"EN" dentro */
+.lang-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Texto dentro del cuadrado */
+.lang-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: white;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Indicador activo: fondo blanco sutil */
+.lang-toggle.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Ocultar el knob — ya no se usa */
+.lang-knob {
+  display: none;
+}
+
+/* Mobile drawer lang toggle */
+.drawer-lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 22px 0 6px;
+  margin-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lang-toggle--drawer {
+  width: 46px;
+  height: 23px;
+}
+
+.lang-toggle--drawer .lang-knob {
+  width: 15px;
+  height: 15px;
+}
+
+.lang-toggle--drawer.active .lang-knob {
+  transform: translateX(21px);
 }
 
 /*# sourceMappingURL=main.css.map */

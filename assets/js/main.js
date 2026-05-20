@@ -760,7 +760,10 @@ const proyectosData = {
     'menu': {
         titleMain: "Menú a medida",
         subtitle: "E-commerce",
+        titleMain_en: "Custom Menu",
+        subtitle_en: "E-commerce",
 descripcion: "<p><strong>Menú a tu medida</strong> es una aplicación web pensada para resolver el estrés de la planificación de comidas semanales. La plataforma permite a los usuarios personalizar sus dietas eligiendo planes que se adaptan a sus rutinas y gustos, ofreciendo desde viandas principales hasta desayunos y meriendas.</p><p><strong>Diseño UX/UI:</strong> <br> El desafío principal fue crear un flujo intuitivo para recolectar las preferencias del usuario sin generar fricción. Me apoyé en la empatía para diseñar en Figma una interfaz limpia, accesible y visualmente apetitosa, donde la jerarquía visual guía la navegación de forma natural.</p><p><strong>Desarrollo Frontend:</strong> <br> Mi foco estuvo en ser el puente entre la creatividad y la lógica. Utilicé HTML5 para la estructura semántica y SASS para mantener estilos modulares y lograr un diseño responsive. La interactividad la trabajé con JavaScript, asegurando que la experiencia final fuera 100% fiel al prototipo.</p>",
+        descripcion_en: "<p><strong>Custom Menu</strong> is a web app designed to take the stress out of weekly meal planning. The platform lets users personalise their diets by choosing plans that fit their routines and tastes, covering everything from main dishes to breakfasts and snacks.</p><p><strong>UX/UI Design:</strong><br>The main challenge was building an intuitive flow to gather user preferences without creating friction. I leaned on empathy to design a clean, accessible, and visually appetising interface in Figma, where visual hierarchy guides navigation naturally.</p><p><strong>Frontend Development:</strong><br>My focus was on being the bridge between creativity and logic. I used HTML5 for semantic structure and SASS for modular styles to achieve a responsive design. I handled interactivity with JavaScript, ensuring the final experience was 100% faithful to the prototype.</p>",
         tags: ["HTML5", "CSS3", "JavaScript", "SASS"],
         gallery: [ 
             "./assets/img/proyectos/galeria/matm-web1.png", 
@@ -774,18 +777,25 @@ descripcion: "<p><strong>Menú a tu medida</strong> es una aplicación web pensa
             "./assets/img/proyectos/galeria/matm-mobile4.png"
         ],
         links: [
-            { label: "Ver código", url: "https://github.com/julianarocha-web/shop.menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
-            { label: "Ver diseño", url: "https://www.figma.com/design/E18z6oe4RBHzbWjCBoCWkk/Prototipado-Men%C3%BA-E-Commerce?node-id=0-1&t=ZcCmgqZ5VGJ1GOpF-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
-            { label: "Ver demo", url: "https://julianarocha-web.github.io/shop.menuatumedida/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+            { label: "Ver código", label_en: "View code", url: "https://github.com/julianarocha-web/shop.menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver diseño", label_en: "View design", url: "https://www.figma.com/design/E18z6oe4RBHzbWjCBoCWkk/Prototipado-Men%C3%BA-E-Commerce?node-id=0-1&t=ZcCmgqZ5VGJ1GOpF-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", label_en: "View demo", url: "https://julianarocha-web.github.io/shop.menuatumedida/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
         ]
     },
         'goJapon': {
         titleMain: "Go Japón",
         subtitle: "Guía de tu viaje",
+        titleMain_en: "Go Japan",
+        subtitle_en: "Your travel guide",
         descripcion: `
         <p><strong>Go Japón</strong> es una plataforma informativa diseñada para viajeros que buscan una experiencia auténtica y organizada en el país nipón. El objetivo principal fue jerarquizar una gran cantidad de información práctica (transporte, gastronomía y destinos) en una interfaz limpia y visualmente atractiva.</p>
         <p><strong>Diseño y Desarrollo:</strong> Se aplicó una estética minimalista inspirada en el diseño japonés, utilizando <strong>Bootstrap</strong> para una estructura de rejilla (grid) robusta y <strong>SASS</strong> para gestionar una paleta de colores coherente y componentes reutilizables. La arquitectura permite una navegación fluida entre guías de transporte y experiencias culturales.</p>
         <p><strong>Aprendizajes clave:</strong> Reforcé el uso de utilidades avanzadas de Bootstrap y la modularización de estilos con SASS para mantener un código escalable y fácil de mantener.</p>
+    `,
+        descripcion_en: `
+        <p><strong>Go Japan</strong> is an informative platform designed for travellers seeking an authentic and organised experience in the Land of the Rising Sun. The main goal was to structure a large amount of practical information — transport, food, and destinations — into a clean and visually compelling interface.</p>
+        <p><strong>Design and Development:</strong> A minimalist aesthetic inspired by Japanese design was applied, using <strong>Bootstrap</strong> for a robust grid structure and <strong>SASS</strong> to manage a consistent colour palette and reusable components. The architecture enables smooth navigation between transport guides and cultural experiences.</p>
+        <p><strong>Key learnings:</strong> I reinforced the use of advanced Bootstrap utilities and SASS style modularisation to maintain scalable, easy-to-maintain code.</p>
     `,
         tags: ["HTML5", "CSS3", "BootStrap", "SASS"],
         gallery: [ 
@@ -797,14 +807,21 @@ descripcion: "<p><strong>Menú a tu medida</strong> es una aplicación web pensa
             "./assets/img/proyectos/galeria-japon/web-japon6.png"            
         ],
         links: [
-            { label: "Ver código", url: "https://github.com/julianarocha-web/gojapon-2", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
-            { label: "Ver diseño", url: "https://www.figma.com/design/rpLtJ3ukYLhUrpjJ9cYjMU/Portfolio?node-id=341-511&t=RoDFMHOhre67bZJh-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
-            { label: "Ver demo", url: "https://julianarocha-web.github.io/gojapon-2/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+            { label: "Ver código", label_en: "View code", url: "https://github.com/julianarocha-web/gojapon-2", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver diseño", label_en: "View design", url: "https://www.figma.com/design/rpLtJ3ukYLhUrpjJ9cYjMU/Portfolio?node-id=341-511&t=RoDFMHOhre67bZJh-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", label_en: "View demo", url: "https://julianarocha-web.github.io/gojapon-2/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
         ]
     },
             'menuLanding': {
         titleMain: "Menú a medida",
         subtitle: "Landing Page",
+        titleMain_en: "Custom Menu",
+        subtitle_en: "Landing Page",
+        descripcion_en: `
+        <p><strong>Custom Menu</strong> was my first real layout challenge. The goal was to create an attractive and functional landing page for a personalised meal service, focused on solving users' daily food organisation needs.</p>
+        <p><strong>Design and Layout:</strong> As my first project, I focused on mastering the semantic structure of <strong>HTML5</strong> and the power of <strong>CSS3</strong> for visual design. I implemented a card system for the plans and dish preview sections with asymmetric compositions to make the content more dynamic.</p>
+        <p><strong>Key learnings:</strong> This project was fundamental for understanding the Mobile First design flow, using Flexbox for complex alignments, and appreciating the importance of UX in subscription forms and FAQ sections.</p>
+    `,
 descripcion: `
         <p><strong>Menú a tu medida</strong> fue mi primer desafío de maquetación real. El objetivo fue crear una landing page atractiva y funcional para un servicio de viandas personalizadas, enfocada en resolver la organización alimentaria diaria de los usuarios.</p>
         <p><strong>Diseño y Maquetación:</strong> Al ser mi proyecto inicial, me enfocqué en dominar la estructura semántica de <strong>HTML5</strong> y la potencia de <strong>CSS3</strong> para el diseño visual. Implementé un sistema de tarjetas para los planes y secciones de muestra de platos con composiciones asimétricas que dinamizan la lectura.</p>
@@ -820,14 +837,21 @@ descripcion: `
             "./assets/img/proyectos/galeria-menulanding/menulanding-6.png"            
         ],
         links: [
-            { label: "Ver código", url: "https://github.com/julianarocha-web/menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
-            { label: "Ver diseño", url: "https://www.figma.com/design/rpLtJ3ukYLhUrpjJ9cYjMU/Portfolio?node-id=341-511&t=RoDFMHOhre67bZJh-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
-            { label: "Ver demo", url: "https://julianarocha-web.github.io/menuatumedida/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+            { label: "Ver código", label_en: "View code", url: "https://github.com/julianarocha-web/menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+            { label: "Ver diseño", label_en: "View design", url: "https://www.figma.com/design/rpLtJ3ukYLhUrpjJ9cYjMU/Portfolio?node-id=341-511&t=RoDFMHOhre67bZJh-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", label_en: "View demo", url: "https://julianarocha-web.github.io/menuatumedida/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
         ]
     },
                 'piezasGraficas': {
         titleMain: "Redes sociales",
         subtitle: "Comunicación visual",
+        titleMain_en: "Social Media Design",
+        subtitle_en: "Visual Communication",
+        descripcion_en: `
+        <p>In this project I explore the intersection between <strong>graphic design</strong> and <strong>digital marketing</strong>. The goal was to create a strong and eye-catching visual identity for social media, capable of grabbing the user's attention within seconds.</p>
+        <p><strong>Visual Strategy:</strong> I used <strong>Adobe Illustrator</strong> for high-precision vector artwork and <strong>Figma</strong> for dynamic layout prototyping. I focused on composition, colour theory, and typography to communicate brand values clearly and professionally.</p>
+        <p><strong>Digital Marketing:</strong> Each piece was designed with conversion in mind, optimising space for calls-to-action (CTA) and adapting formats to maximise engagement on platforms like Instagram and Facebook.</p>
+    `,
 descripcion: `
         <p>En este proyecto exploro la intersección entre el <strong>diseño gráfico publicitario</strong> y el <strong>marketing digital</strong>. El objetivo fue crear una identidad visual sólida y atractiva para redes sociales, capaz de captar la atención del usuario en segundos.</p>
         <p><strong>Estrategia Visual:</strong> Utilicé <strong>Adobe Illustrator</strong> para la creación de piezas vectoriales de alta precisión y <strong>Figma</strong> para el prototipado de layouts dinámicos. Me enfocqué en la composición, el manejo de la teoría del color y la tipografía para transmitir los valores de la marca de forma clara y profesional.</p>
@@ -846,12 +870,19 @@ descripcion: `
             "./assets/img/proyectos/galeria-piezas/chipa.jpg",        
         ],
         links: [
-            { label: "Ver diseño", url: "https://www.figma.com/design/VFpH0ptcTAkCFlK4tDum7F/Comunicaci%C3%B3n-Visual?node-id=168-64&t=E89nwHKTR51cQXDG-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver diseño", label_en: "View design", url: "https://www.figma.com/design/VFpH0ptcTAkCFlK4tDum7F/Comunicaci%C3%B3n-Visual?node-id=168-64&t=E89nwHKTR51cQXDG-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
         ]
     },
     'moodiemap': { // Por ejemplo, para tu app Moodie Map
     titleMain: "Moodie Map",
     subtitle: "UX Research & App",
+    titleMain_en: "Moodie Map",
+    subtitle_en: "UX Research & App",
+    descripcion_en: `
+    <p><strong>Moodie Map</strong> is a personal wellness app designed for daily emotional tracking. The development of the application is currently <strong>in progress</strong>, focused on turning a conceptual idea into a functional and empathetic tool.</p>
+    <p><strong>Design Process:</strong> I started this project in early 2025, beginning from scratch with low-fidelity wireframes to define the information architecture. Through an iterative process, I evolved these basic layouts into the <strong>high-fidelity prototype</strong> shown in the video, prioritising smooth navigation and a relaxing aesthetic.</p>
+    <p><strong>Figma Prototyping:</strong> I used Figma to bring the interaction to life, implementing dynamic components and advanced transitions that allow users to visualise the real experience. My goal was to ensure that logging mood states is an intuitive task, eliminating any cognitive friction in the app's flow.</p>
+`,
     descripcion: `
     <p><strong>Moodie Map</strong> es una aplicación de bienestar personal diseñada para el seguimiento emocional diario. Actualmente, el desarrollo de la aplicación se encuentra <strong>en proceso</strong>, enfocándose en convertir una idea conceptual en una herramienta funcional y empática.</p>
     <p><strong>Proceso de Diseño:</strong> Inicié este proyecto a principios de 2025, comenzando desde cero con la creación de wireframes de baja fidelidad para definir la arquitectura de la información. A través de un proceso iterativo, evolucioné estos esquemas básicos hasta alcanzar el <strong>prototipo de alta fidelidad</strong> que se muestra en el video, priorizando una navegación fluida y una estética relajante.</p>
@@ -861,12 +892,19 @@ descripcion: `
     gallery: [], // Puedes dejarla vacía si solo quieres video
     video: "./assets/img/proyectos/galeria-moodiemap/moodiemap.mp4", // Path a tu video
             links: [
-            { label: "Ver prototipo", url: "https://www.figma.com/proto/jnUVU1ZnLWHFOkFEITqUq8/Manual-de-Marca?node-id=234-512&p=f&t=6xi6vTDCzgLBcJKb-1&scaling=min-zoom&content-scaling=fixed&page-id=234%3A511&starting-point-node-id=725%3A1127&show-proto-sidebar=1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver prototipo", label_en: "View prototype", url: "https://www.figma.com/proto/jnUVU1ZnLWHFOkFEITqUq8/Manual-de-Marca?node-id=234-512&p=f&t=6xi6vTDCzgLBcJKb-1&scaling=min-zoom&content-scaling=fixed&page-id=234%3A511&starting-point-node-id=725%3A1127&show-proto-sidebar=1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
         ]
 },
         'cherryDew': { 
     titleMain: "Cherry Dew",
     subtitle: "E-Commerce",
+    titleMain_en: "Cherry Dew",
+    subtitle_en: "E-Commerce",
+    descripcion_en: `
+        <p><strong>Cherry Dew</strong> is a comprehensive e-commerce project designed for a cosmetics and décor brand. The main goal was to transform a minimalist visual identity into a functional, aesthetic, and optimised sales platform for today's digital market.</p>
+        <p><strong>Development and Customisation:</strong> The platform was built using <strong>WordPress</strong> as the management base, on top of which I integrated <strong>custom code</strong> to personalise the user experience and break through the limitations of standard templates. I focused on creating a clean and direct purchase flow, ensuring that every product stands out visually.</p>
+        <p><strong>SEO and Performance:</strong> Beyond design, I worked extensively on <strong>SEO positioning</strong>. I implemented a strategic information architecture, metadata optimisation, and a technical structure aimed at improving search engine visibility, while ensuring fast load times to reduce bounce rate.</p>
+    `,
     descripcion: `
         <p><strong>Cherry Dew</strong> es un proyecto de e-commerce integral diseñado para una marca de cosmética y decoración. El objetivo principal fue transformar una identidad visual minimalista en una plataforma de ventas funcional, estética y optimizada para el mercado digital actual.</p>
         
@@ -888,15 +926,22 @@ descripcion: `
             "./assets/img/proyectos/cherry-dew/galeria/mobile4.png",
         ],
         links: [
-            { label: "Ver código", url: "https://github.com/julianarocha-web/menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
-                        { label: "Ver diseño", url: "https://www.figma.com", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
-            { label: "Ver demo", url: "https://dev-cherrydew.pantheonsite.io/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+            { label: "Ver código", label_en: "View code", url: "https://github.com/julianarocha-web/menuatumedida", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+                        { label: "Ver diseño", label_en: "View design", url: "https://www.figma.com", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver demo", label_en: "View demo", url: "https://dev-cherrydew.pantheonsite.io/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
         ]
         
 },
 'aurea': { 
     titleMain: "Áurea",
     subtitle: "Evento - Landing Page",
+    titleMain_en: "Áurea",
+    subtitle_en: "Event - Landing Page",
+    descripcion_en: `
+    <p><strong>Áurea</strong> is a landing page designed and developed end-to-end for a nightlife events brand. The project began with concept and prototyping in <strong>Figma</strong>, with the goal of capturing the brand's aspirational visual identity and centralising the user experience around community and event attendance.</p>
+    <p><strong>Development and Dynamism:</strong> The platform was built with a robust frontend architecture using <strong>HTML, CSS and JavaScript</strong>, integrated with <strong>Node.js</strong> to manage dynamic components such as live countdown timers, location updates, and ticketing links. To achieve an immersive, high-impact visual experience, I implemented advanced animations using the <strong>GSAP</strong> library.</p>
+    <p><strong>Infrastructure and Deployment:</strong> I handled the entire product lifecycle, including professional deployment. I used <strong>Hostinger</strong> for hosting and <strong>Cloudflare</strong> for advanced DNS management and domain security, ensuring optimised photo gallery loading and a secure browsing experience for users purchasing their tickets.</p>
+`,
 descripcion: `
     <p><strong>Áurea</strong> es una landing page diseñada y desarrollada integralmente para una marca de eventos nocturnos. El proyecto nació desde la conceptualización y prototipado en <strong>Figma</strong>, con el objetivo de capturar la identidad visual aspiracional de la marca y centralizar la experiencia del usuario en torno a la comunidad y la asistencia a eventos.</p>
     
@@ -918,9 +963,9 @@ tags: ["Frontend Dev", "Node.js", "GSAP Animations", "UI/UX Design"],
             "./assets/img/proyectos/aurea/mobile-5.png",
         ],
         links: [
-            { label: "Ver código", url: "https://github.com/julianarocha-web/aurea", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
-                        { label: "Ver diseño", url: "https://www.figma.com/design/66YLQ1ZJYKefTblIvNzRaH/Bocetos-%C3%81ura?node-id=0-1&t=eqHzRL4w6Al4VVX0-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
-            { label: "Ver sitio", url: "https://aureaft.com/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
+            { label: "Ver código", label_en: "View code", url: "https://github.com/julianarocha-web/aurea", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>' },
+                        { label: "Ver diseño", label_en: "View design", url: "https://www.figma.com/design/66YLQ1ZJYKefTblIvNzRaH/Bocetos-%C3%81ura?node-id=0-1&t=eqHzRL4w6Al4VVX0-1", icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">' },
+            { label: "Ver sitio", label_en: "Visit site", url: "https://aureaft.com/", icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' }
         ]
         
 },
@@ -953,9 +998,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Limpiar clases previas para evitar conflictos
                     modalElement.classList.remove('modal-especial-grafico');
 
-                    document.getElementById('modal-title-main').innerText = data.titleMain;
-                    document.getElementById('modal-subtitle').innerText = data.subtitle;
-                    document.getElementById('modal-descripcion').innerHTML = data.descripcion;
+                    document.getElementById('modal-title-main').innerText = (window._i18nCurrent === 'en' && data.titleMain_en) ? data.titleMain_en : data.titleMain;
+                    document.getElementById('modal-subtitle').innerText = (window._i18nCurrent === 'en' && data.subtitle_en) ? data.subtitle_en : data.subtitle;
+                    document.getElementById('modal-descripcion').innerHTML = (window._i18nCurrent === 'en' && data.descripcion_en) ? data.descripcion_en : data.descripcion;
 
                     // Llenar tags
                     const tagsContainer = document.getElementById('modal-tags');
@@ -1018,9 +1063,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     data.links.forEach(link => {
                         if (link.url && link.url !== "") {
+                            var linkLabel = (window._i18nCurrent === 'en' && link.label_en) ? link.label_en : link.label;
                             linksContainer.innerHTML += `
                                 <a href="${link.url}" target="_blank" class="action-btn">
-                                    ${link.icon} ${link.label} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    ${link.icon} ${linkLabel} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                                 </a>
                             `;
                         }
